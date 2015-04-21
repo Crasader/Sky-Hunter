@@ -1,5 +1,7 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
+#define DESING_WIDTH 320
+#define DESING_HEIGHT 480 
 
 #include "cocos2d.h"
 

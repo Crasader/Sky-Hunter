@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -34,20 +34,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Sky Hunter");
         director->setOpenGLView(glview);
     }
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	glview->setFrameSize(480, 854);//sony xeria u
+	//glview->setFrameSize(DESING_WIDTH,DESING_HEIGHT);
+#endif
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	glview->setDesignResolutionSize(DESING_WIDTH, DESING_HEIGHT, ResolutionPolicy::EXACT_FIT);
 
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+	auto scene = GameLayer::createScene();
 
     // run
     director->runWithScene(scene);
