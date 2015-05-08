@@ -1,5 +1,6 @@
 #include "GameLayer.h"
 
+
 USING_NS_CC;
 
 Scene* GameLayer::createScene()
@@ -29,7 +30,18 @@ bool GameLayer::init()
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    
+	_bg = Background::create();
+	addChild(_bg);
+
+	//start game loop
+	this->schedule(schedule_selector(GameLayer::update));
     return true;
+}
+
+
+void GameLayer::update(float dt){
+
+	_bg->update(dt);
+
 }
 
