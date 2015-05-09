@@ -1,5 +1,6 @@
 #ifndef __BACKGROUND_H__
 #define __BACKGROUND_H__
+
 #include "cocos2d.h"
 
 
@@ -8,7 +9,6 @@
 {
 
 private:
-	CC_SYNTHESIZE(float, _speed, Speed);
 	cocos2d::Size _screen;
 	cocos2d::Sprite* _bgPart1;
 	cocos2d::Sprite* _bgPart2;
@@ -17,6 +17,7 @@ private:
 public:
 	void update(float dt);
 	~Background();
+	CC_SYNTHESIZE(float, _speed, Speed);
 	CREATE_FUNC(Background);
 };
 

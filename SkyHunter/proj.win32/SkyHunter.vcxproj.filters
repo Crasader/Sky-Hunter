@@ -24,6 +24,12 @@
     <ClCompile Include="..\Classes\Background.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BasicEnemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -36,6 +42,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Background.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BasicEnemy.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

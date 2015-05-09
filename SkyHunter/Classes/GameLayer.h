@@ -3,12 +3,15 @@
 
 #include "cocos2d.h"
 #include "Background.h"
+#include "BasicEnemy.h"
+#include "Player.h"
 
 class GameLayer : public cocos2d::Layer
 {
 
 private:
 	Background* _bg;
+	Player* _player;
 
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
