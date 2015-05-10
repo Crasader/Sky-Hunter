@@ -2,11 +2,14 @@
 #define __PLAYER_H__
 
 #include "cocos2d.h"
+#include "TouchController.h"
 
 class Player : public cocos2d::Sprite
 {
 private:
 	Player();
+
+	TouchController* _controller;
 	cocos2d::Action* _idleAnimation;
 	cocos2d::Action* _explosionAnimation;
 

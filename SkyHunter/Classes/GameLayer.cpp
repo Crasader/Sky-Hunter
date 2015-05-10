@@ -51,5 +51,6 @@ bool GameLayer::init()
 
 void GameLayer::update(float dt){
 	_bg->update(dt);
+	_player->update(dt);
 }
 

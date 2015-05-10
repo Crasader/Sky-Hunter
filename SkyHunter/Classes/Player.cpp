@@ -17,6 +17,10 @@ bool Player::init(){
 	}
 
 	_currentAnimation = IDLE;
+
+	_controller = TouchController::create();
+	addChild(_controller);
+
 	createIdleAnimation();
 
 	createExplosionAnimation();
@@ -74,11 +78,37 @@ void Player::createExplosionAnimation(){
 
 Player::~Player()
 {
+
 }
 
 
 void Player::update(float dt){
-
+	float speed = _speed*dt;
+	auto controller = _controller->getController();
+	if (controller.upRight){
+		setPosition(getPositionX() + speed, getPositionY() + speed);
+	}
+	else if (controller.upLeft){
+		setPosition(getPositionX() - speed, getPositionY() + speed);
+	}
+	else if (controller.downRight){
+		setPosition(getPositionX() + speed, getPositionY() - speed);
+	}
+	else if (controller.downLeft){
+		setPosition(getPositionX() - speed, getPositionY() - speed);
+	}
+	else if (controller.left){
+		setPositionX(getPositionX() - speed);
+	}
+	else if (controller.right){
+		setPositionX(getPositionX() + speed);
+	}
+	else if (controller.down){
+		setPositionY(getPositionY() - speed);
+	}
+	else if (controller.up){
+		setPositionY(getPositionY() + speed);
+	}
 }
 
 
