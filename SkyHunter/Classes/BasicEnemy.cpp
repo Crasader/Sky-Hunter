@@ -3,7 +3,7 @@
 
 USING_NS_CC;
 
-BasicEnemy::BasicEnemy() :_speed(150)
+BasicEnemy::BasicEnemy() :_speed(150), _numBullets(10), _bulletIndex(0), _initialiced(false)
 {
 }
 
@@ -15,6 +15,11 @@ bool BasicEnemy::init(){
 		return false;
 	}
 
+	for (int i = 0; i < _numBullets; i++){
+		//add bullets
+		_bulletPool.pushBack(Bullet::createEnemyBullet());
+	}
+
 	_currentAnimation = IDLE;
 	createIdleAnimation();
 
@@ -22,6 +27,46 @@ bool BasicEnemy::init(){
 
 	//start the initial animation
 	runAction(_idleAnimation);
+	scheduleShoot();
+	return true;
+}
+
+void BasicEnemy::scheduleShoot(){
+
+	// set up the time delay
+	DelayTime *delayAction = DelayTime::create(1.5f);
+
+	// perform the selector call
+	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(BasicEnemy::shoot, this));
+	auto shootSequence = Sequence::create(delayAction, callSelectorAction, NULL);
+
+	// run the action all the time
+	runAction(RepeatForever::create(shootSequence));
+}
+
+void BasicEnemy::shoot(){
+	_bulletIndex = _bulletIndex % _numBullets;
+	auto bullet = _bulletPool.at(_bulletIndex);
+	bullet->setAnchorPoint(Point(0.5, 1));
+	if (!bullet->isVisible()){
+		bullet->setPosition(getPositionX(), getPositionY() - getBoundingBox().size.height*0.5);
+		bullet->setVisible(true);
+	}
+	_bulletIndex++;
+}
+
+void BasicEnemy::setParent(Node* parent){
+	Sprite::setParent(parent);
+
+	//prevent the bullet to been added more than once to the scene
+	if (!_initialiced){
+		for (int i = 0; i < _numBullets; i++){
+			//add bullets to parent, in this case is GameLayer.
+			getParent()->addChild(_bulletPool.at(i));
+		}
+		_initialiced = true;
+	}
+
 }
 
 void BasicEnemy::createIdleAnimation(){

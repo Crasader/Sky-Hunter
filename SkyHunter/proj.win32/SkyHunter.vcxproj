@@ -142,6 +142,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Background.cpp" />
     <ClCompile Include="..\Classes\BasicEnemy.cpp" />
+    <ClCompile Include="..\Classes\Bullet.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\TouchController.cpp" />
@@ -151,6 +152,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Background.h" />
     <ClInclude Include="..\Classes\BasicEnemy.h" />
+    <ClInclude Include="..\Classes\Bullet.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\TouchController.h" />

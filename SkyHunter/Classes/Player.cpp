@@ -4,7 +4,7 @@
 USING_NS_CC;
 
 
-Player::Player() :_speed(150)
+Player::Player() :_speed(150), _numBullets(30), _bulletIndex(0), _initialiced(false)
 {
 }
 
@@ -14,6 +14,11 @@ bool Player::init(){
 	if (!Sprite::init())
 	{
 		return false;
+	}
+	
+	for (int i = 0; i < _numBullets; i++){
+		//add bullets
+		_bulletPool.pushBack(Bullet::createPlayerBullet());
 	}
 
 	_currentAnimation = IDLE;
@@ -27,6 +32,37 @@ bool Player::init(){
 
 	//start the initial animation
 	runAction(_idleAnimation);
+
+	scheduleShoot();
+	return true;
+
+}
+
+void Player::setParent(Node* parent){
+	Sprite::setParent(parent);
+
+	//prevent the bullet to been added more than once to the scene
+	if (!_initialiced){
+		for (int i = 0; i < _numBullets; i++){
+			//add bullets to parent, in this case is GameLayer.
+			getParent()->addChild(_bulletPool.at(i));
+		}
+		_initialiced = true;
+	}
+
+}
+
+void Player::scheduleShoot(){
+	
+	// set up the time delay
+	DelayTime *delayAction = DelayTime::create(0.5f);
+
+	// perform the selector call
+	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Player::shoot, this));
+	auto shootSequence = Sequence::create(delayAction, callSelectorAction, NULL);
+
+	// run the action all the time
+	runAction(RepeatForever::create(shootSequence));
 }
 
 void Player::createIdleAnimation(){
@@ -78,6 +114,7 @@ void Player::createExplosionAnimation(){
 
 Player::~Player()
 {
+	
 
 }
 
@@ -111,6 +148,16 @@ void Player::update(float dt){
 	}
 }
 
+void Player::shoot(){
+	_bulletIndex = _bulletIndex % _numBullets;
+	auto bullet = _bulletPool.at(_bulletIndex);
+	bullet->setAnchorPoint(Point(0.5, 0));
+	if (!bullet->isVisible()){
+		bullet->setPosition(getPositionX(),getPositionY()+getBoundingBox().size.height*0.5);
+		bullet->setVisible(true);		
+	}
+	_bulletIndex++;
+}
 
 
 
