@@ -5,20 +5,21 @@
 
 
 
- class Background : public cocos2d::Node
+class Background 
 {
 
 private:
+	bool _initialiced;
 	cocos2d::Size _screen;
 	cocos2d::Sprite* _bgPart1;
 	cocos2d::Sprite* _bgPart2;
-	Background();
 
 public:
+	virtual void setParent(cocos2d::Node* parent);
 	void update(float dt);
 	~Background();
 	CC_SYNTHESIZE(float, _speed, Speed);
-	CREATE_FUNC(Background);
+	Background();
 };
 
 #endif //__BACKGROUND_H__

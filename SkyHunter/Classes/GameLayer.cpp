@@ -3,6 +3,10 @@
 
 USING_NS_CC;
 
+GameLayer::~GameLayer(){
+	delete _bg;
+}
+
 Scene* GameLayer::createScene()
 {
 	// 'scene' is an autorelease object
@@ -33,14 +37,21 @@ bool GameLayer::init()
 
 	_visibleSize = Director::getInstance()->getVisibleSize();
 
-	//create bg
-	_bg = Background::create();
-	addChild(_bg);
+	//create node with texture info & init TextureCache
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist");
+	SpriteBatchNode* gameBatchNode = SpriteBatchNode::create("Hunter.png");
+	addChild(gameBatchNode);
 
+	//create bg
+	_bg = new Background();
+	_bg->setParent(gameBatchNode);
+	
+	
 	//create player
 	_player = Player::create();
 	_player->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.3);
-	addChild(_player);
+	gameBatchNode->addChild(_player);
+
 
 	for (int i = 0; i < _numEnemies; i++){
 		auto enemy = BasicEnemy::create();
@@ -48,7 +59,7 @@ bool GameLayer::init()
 		enemy->setTarget(_player);
 		enemy->setVisible(false);
 		_enemyPool.pushBack(enemy);
-		addChild(enemy);
+		gameBatchNode->addChild(enemy);
 	}
 
 	//tell the player about the enemies

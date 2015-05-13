@@ -26,7 +26,7 @@ public:
 	static Bullet* createEnemyBullet();
 	static Bullet *createPlayerBullet();
 
-	virtual bool initWithFile(const std::string& filename);
+	virtual bool init();
 };
 
 #endif //__BULLET_H__

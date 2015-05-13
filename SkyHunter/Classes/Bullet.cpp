@@ -4,10 +4,17 @@
 
 USING_NS_CC;
 
-bool Bullet::initWithFile(const std::string& filename){
+bool Bullet::init(){
 
-	if (!Sprite::initWithFile(filename)){
+	if (!Sprite::init()){
 		return false;
+	}
+	if (_type == ENEMY_BULLET){
+		setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("disparo_enemigo"));
+	}
+	else
+	{
+		setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("disparo_nave"));
 	}
 	_enemyTarget = nullptr;
 	_speed = 160;
@@ -20,9 +27,10 @@ bool Bullet::initWithFile(const std::string& filename){
 
 Bullet* Bullet::createPlayerBullet(){
 	Bullet *sprite = new (std::nothrow) Bullet();
-	if (sprite && sprite->initWithFile("disparo_nave.png"))
+	sprite->_type = PLAYER_BULLET;
+	if (sprite && sprite->init())
 	{
-		sprite->_type = PLAYER_BULLET;
+		
 		sprite->autorelease();
 		return sprite;
 	}
@@ -32,9 +40,10 @@ Bullet* Bullet::createPlayerBullet(){
 
 Bullet* Bullet::createEnemyBullet(){
 	Bullet *sprite = new (std::nothrow) Bullet();
-	if (sprite && sprite->initWithFile("disparo_enemigo.png"))
+	sprite->_type = ENEMY_BULLET;
+	if (sprite && sprite->init())
 	{
-		sprite->_type = ENEMY_BULLET;
+		
 		sprite->autorelease();
 		return sprite;
 	}

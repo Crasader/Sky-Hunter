@@ -98,18 +98,19 @@ void Player::scheduleShoot(){
 
 void Player::createIdleAnimation(){
 	//create animation pool
-	Vector<SpriteFrame*> animFrames;
-	auto acc = 0;
+	Animation* animation = animation = Animation::create();
+	std::string name = "";
 	for (int i = 0; i < 4; i++){
-		auto frame = SpriteFrame::create("animacion_nave.png", Rect(acc, 0, 50, 63));
-		acc += 50;
-		animFrames.pushBack(frame);
+		name.append("player");
+		name.append(std::to_string(i));
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
+		animation->addSpriteFrame(frame);
+		name = "";
 	}
 	//set base sprite before run anything
-	this->setSpriteFrame(animFrames.at(0));
-
+	this->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("player0"));
 	//create the animation with a deley of 0.25 ms between images
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.25f);
+	animation->setDelayPerUnit(0.25f);
 
 	//create the action of animate with the previous animation
 	auto animate = Animate::create(animation);
@@ -126,16 +127,18 @@ void Player::createIdleAnimation(){
 
 void Player::createExplosionAnimation(){
 	//create animation pool
-	Vector<SpriteFrame*> animFrames;
-	auto acc = 0;
+	Animation* animation = animation = Animation::create();
+	std::string name = "";
 	for (int i = 0; i < 4; i++){
-		auto frame = SpriteFrame::create("player_explosion.png", Rect(acc, 0, 50, 63));
-		acc += 50;
-		animFrames.pushBack(frame);
+		name.append("player_explosion");
+		name.append(std::to_string(i));
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
+		animation->addSpriteFrame(frame);
+		name = "";
 	}
 
-	//create the animation with a deley of 0.15 s between images
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.15f);
+	//create the animation with a deley of 0.15 ms between images
+	animation->setDelayPerUnit(0.15f);
 
 	//create the action of animate with the previous animation,
 	//the default perodicity for an animate object is 1
@@ -144,7 +147,6 @@ void Player::createExplosionAnimation(){
 	//put a tag on the animation in oreder to identify and stop it in the future
 	_explosionAnimation->setTag(Player::Animations::EXPLOSION);
 	_explosionAnimation->retain();
-
 }
 
 void Player::setCurrentAnimation(Animations anim){

@@ -102,18 +102,19 @@ void BasicEnemy::setParent(Node* parent){
 
 void BasicEnemy::createIdleAnimation(){
 	//create animation pool
-	Vector<SpriteFrame*> animFrames;
-	auto acc = 0;
+	Animation* animation = animation = Animation::create();
+	std::string name = "";
 	for (int i = 0; i < 4; i++){
-		auto frame = SpriteFrame::create("animacion_enemigo.png", Rect(acc, 0, 50, 50));
-		acc += 50;
-		animFrames.pushBack(frame);
+		name.append("enemy");
+		name.append(std::to_string(i));
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
+		animation->addSpriteFrame(frame);
+		name = "";
 	}
 	//set base sprite before run anything
-	this->setSpriteFrame(animFrames.at(0));
-
+	this->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("enemy0"));
 	//create the animation with a deley of 0.25 ms between images
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.25f);
+	animation->setDelayPerUnit(0.25f);
 
 	//create the action of animate with the previous animation
 	auto animate = Animate::create(animation);
@@ -121,32 +122,34 @@ void BasicEnemy::createIdleAnimation(){
 	//set the periodicity of reproduction
 	_idleAnimation = RepeatForever::create(animate);
 
-	//put a tag on the animation in oreder to identify and stop it in the future
-	_idleAnimation->setTag(BasicEnemy::Animations::IDLE);
+	//put a tag on the animation in order to identify and stop it in the future
+	_idleAnimation->setTag(Player::Animations::IDLE);
 
+	//preserve for future uses
 	_idleAnimation->retain();
 }
 
 void BasicEnemy::createExplosionAnimation(){
 	//create animation pool
-	Vector<SpriteFrame*> animFrames;
-	auto acc = 0;
-	for (int i = 0; i < 4; i++){
-		auto frame = SpriteFrame::create("animacion_enemigo_explotar.png", Rect(acc, 0, 50, 50));
-		acc += 50;
-		animFrames.pushBack(frame);
+	Animation* animation = animation = Animation::create();
+	std::string name = "";
+	for (int i = 0; i < 6; i++){
+		name.append("enemy_explosion");
+		name.append(std::to_string(i));
+		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
+		animation->addSpriteFrame(frame);
+		name = "";
 	}
 
 	//create the animation with a deley of 0.15 ms between images
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.10f);
+	animation->setDelayPerUnit(0.1f);
 
 	//create the action of animate with the previous animation,
 	//the default perodicity for an animate object is 1
-	_explosionAnimation = Animate::create(animation);;
+	_explosionAnimation = Animate::create(animation);
 
 	//put a tag on the animation in oreder to identify and stop it in the future
-	_explosionAnimation->setTag(BasicEnemy::Animations::EXPLOSION);
-
+	_explosionAnimation->setTag(Player::Animations::EXPLOSION);
 	_explosionAnimation->retain();
 }
 

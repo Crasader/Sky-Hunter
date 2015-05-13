@@ -5,7 +5,7 @@
 
 
 
-class TouchController : public cocos2d::Node
+class TouchController : public cocos2d::Sprite
 {
 private:
 	typedef struct  Controller {
