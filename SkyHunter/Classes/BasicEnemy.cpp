@@ -1,6 +1,10 @@
 #include "BasicEnemy.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "SimpleAudioEngine.h"
+
+
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -82,6 +86,7 @@ void BasicEnemy::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
+		SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
 		runAction(_explosionAnimation);
 	}
 }

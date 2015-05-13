@@ -1,5 +1,7 @@
 #include "GameLayer.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 USING_NS_CC;
 
@@ -79,6 +81,10 @@ bool GameLayer::init()
 
 	//start game loop
 	this->schedule(schedule_selector(GameLayer::update));
+
+	//start sound loop
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("game_loop.mp3", true);
+	
 	return true;
 }
 
@@ -87,7 +93,7 @@ void GameLayer::update(float dt){
 	if (_player->isVisible()){
 		_bg->update(dt);
 	}
-	
+
 	_player->update(dt);
 	//check for collision between enemies & player
 	checkCollisions();

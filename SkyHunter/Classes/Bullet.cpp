@@ -2,6 +2,10 @@
 #include "Player.h"
 #include "BasicEnemy.h"
 
+
+
+
+
 USING_NS_CC;
 
 bool Bullet::init(){
@@ -55,6 +59,8 @@ void Bullet::update(float dt){
 	if (!this->isVisible()) return;
 
 	if (_type == PLAYER_BULLET){
+		
+		
 		//go up 
 		setAnchorPoint(Point(0.5, 0));
 		setPosition(getPositionX(), getPositionY() + _speed*dt);
