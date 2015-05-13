@@ -1,4 +1,6 @@
 #include "Bullet.h"
+#include "Player.h"
+#include "BasicEnemy.h"
 
 USING_NS_CC;
 
@@ -7,8 +9,8 @@ bool Bullet::initWithFile(const std::string& filename){
 	if (!Sprite::initWithFile(filename)){
 		return false;
 	}
-
-	_speed = 100;
+	_enemyTarget = nullptr;
+	_speed = 160;
 	//invisible by default
 	setVisible(false);
 	schedule(schedule_selector(Bullet::update));
@@ -50,6 +52,15 @@ void Bullet::update(float dt){
 		if (getPositionY() > Director::getInstance()->getVisibleSize().height){
 			setVisible(false);
 		}
+		for (int i = 0; i < _playerTargets.size(); i++){
+			BasicEnemy* enemy = _playerTargets.at(i);
+			if (getBoundingBox().intersectsRect(enemy->getBoundingBox()) && enemy->isVisible() 
+				&& enemy->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
+				//colision
+				enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
+				setVisible(false);
+			}
+		}
 	}
 	else if (_type == ENEMY_BULLET){
 		//go down 
@@ -58,5 +69,13 @@ void Bullet::update(float dt){
 		if (getPositionY() < 0){
 			setVisible(false);
 		}
+
+		if (getBoundingBox().intersectsRect(_enemyTarget->getBoundingBox()) && 
+			_enemyTarget->isVisible() && _enemyTarget->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
+			//colision
+			_enemyTarget->setCurrentAnimation(Player::Animations::EXPLOSION);
+			setVisible(false);
+		}
+
 	}
 }

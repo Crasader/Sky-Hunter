@@ -19,7 +19,7 @@ private:
 		bool downRight;
 	};
 
-	cocos2d::Point* _tap;
+	cocos2d::Point _tap;
 	Controller _controller;
 	void resetTouchController();
 

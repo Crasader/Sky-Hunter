@@ -10,8 +10,17 @@ class GameLayer : public cocos2d::Layer
 {
 
 private:
+	int _numEnemies;
+	int _enemyIndex;
+	cocos2d::Size _visibleSize;
+
 	Background* _bg;
 	Player* _player;
+	cocos2d::Vector<BasicEnemy*> _enemyPool;
+
+	void awakeEnemy();
+
+	void checkCollisions();
 
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer

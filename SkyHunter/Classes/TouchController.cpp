@@ -10,7 +10,7 @@ bool TouchController::init(){
 	}
 
 	//inicializamos el input del usuario
-	_tap = nullptr;
+	_tap = Point(-1,-1);
 
 	//inicializamos el controlodor
 	resetTouchController();
@@ -30,18 +30,16 @@ bool TouchController::init(){
 
 void TouchController::update(float dt){
 	resetTouchController();
-	if (_tap == nullptr) return;
+	if (_tap.x<0||_tap.y<0) return;
 
-	Point  tap = *_tap;
+	Point  tap = _tap;
 	
 	//donde esta posicionado el objeto al que se vincula el controlador
-	//en este caso el objeto player, le restamos a la poicion la mita de su alto y la mitad de su ancho
+	//en este caso a la poicion del objeto player le restamos la mita de su alto y la mitad de su ancho
 	//para obtener la esquina inferior izquierda
 	auto originX = getParent()->getPositionX() - getParent()->getBoundingBox().size.width*0.5;
 	auto originY = getParent()->getPositionY() - getParent()->getBoundingBox().size.height*0.5;
 
-	//el total sera desde el origen hasta la mitad de su ancho u alto
-	//pues el origin esta en el centro
 	auto playerX = originX + getParent()->getBoundingBox().size.width;
 	auto playerY = originY + getParent()->getBoundingBox().size.height;
 
@@ -89,17 +87,17 @@ void TouchController::resetTouchController(){
 
 bool TouchController::onTouchBegan(Touch *touch, Event *unused_event){
 	if (touch){
-		_tap = &(touch->getLocation());
+		_tap = touch->getLocation();
 	}
 	return true;
 }
 void TouchController::onTouchMoved(Touch *touch, Event *unused_event){
 	if (touch){
-		_tap = &(touch->getLocation());
+		_tap = touch->getLocation();
 	}
 }
 void TouchController::onTouchEnded(Touch *touch, Event *unused_event){
 	if (touch){
-		_tap = nullptr;
+		_tap = Point(-1, -1);
 	}
 }

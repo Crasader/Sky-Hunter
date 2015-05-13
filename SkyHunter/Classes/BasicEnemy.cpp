@@ -1,12 +1,20 @@
 #include "BasicEnemy.h"
-
+#include "Bullet.h"
+#include "Player.h"
 
 USING_NS_CC;
 
-BasicEnemy::BasicEnemy() :_speed(150), _numBullets(10), _bulletIndex(0), _initialiced(false)
+BasicEnemy::BasicEnemy() :_speed(100), _numBullets(10), _bulletIndex(0), _initialiced(false)
 {
 }
 
+
+BasicEnemy::~BasicEnemy()
+{
+	CC_SAFE_RELEASE(_idleAnimation);
+	CC_SAFE_RELEASE(_explosionAnimation);
+	CC_SAFE_RELEASE(_shoot);
+}
 
 bool BasicEnemy::init(){
 	//superclass first
@@ -16,7 +24,6 @@ bool BasicEnemy::init(){
 	}
 
 	for (int i = 0; i < _numBullets; i++){
-		//add bullets
 		_bulletPool.pushBack(Bullet::createEnemyBullet());
 	}
 
@@ -28,6 +35,7 @@ bool BasicEnemy::init(){
 	//start the initial animation
 	runAction(_idleAnimation);
 	scheduleShoot();
+	scheduleUpdate();
 	return true;
 }
 
@@ -39,9 +47,19 @@ void BasicEnemy::scheduleShoot(){
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(BasicEnemy::shoot, this));
 	auto shootSequence = Sequence::create(delayAction, callSelectorAction, NULL);
+	_shoot = RepeatForever::create(shootSequence);
+	_shoot->setTag(SHOOT_TAG);
+	_shoot->retain();
 
 	// run the action all the time
-	runAction(RepeatForever::create(shootSequence));
+	runAction(_shoot);
+}
+
+void BasicEnemy::setTarget(Player* target) {
+	_target = target;
+	for (int i = 0; i < _numBullets; i++){
+		_bulletPool.at(i)->setEnemyTarget(_target);
+	}
 }
 
 void BasicEnemy::shoot(){
@@ -53,6 +71,19 @@ void BasicEnemy::shoot(){
 		bullet->setVisible(true);
 	}
 	_bulletIndex++;
+}
+
+void BasicEnemy::setCurrentAnimation(Animations anim){
+	if (_currentAnimation == anim) return;
+	_currentAnimation = anim;
+	if (_currentAnimation == IDLE){
+		stopActionByTag(EXPLOSION);
+		runAction(_idleAnimation);
+	}
+	if (_currentAnimation == EXPLOSION){
+		stopActionByTag(IDLE);
+		runAction(_explosionAnimation);
+	}
 }
 
 void BasicEnemy::setParent(Node* parent){
@@ -92,6 +123,8 @@ void BasicEnemy::createIdleAnimation(){
 
 	//put a tag on the animation in oreder to identify and stop it in the future
 	_idleAnimation->setTag(BasicEnemy::Animations::IDLE);
+
+	_idleAnimation->retain();
 }
 
 void BasicEnemy::createExplosionAnimation(){
@@ -105,7 +138,7 @@ void BasicEnemy::createExplosionAnimation(){
 	}
 
 	//create the animation with a deley of 0.15 ms between images
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.15f);
+	auto animation = Animation::createWithSpriteFrames(animFrames, 0.10f);
 
 	//create the action of animate with the previous animation,
 	//the default perodicity for an animate object is 1
@@ -113,15 +146,41 @@ void BasicEnemy::createExplosionAnimation(){
 
 	//put a tag on the animation in oreder to identify and stop it in the future
 	_explosionAnimation->setTag(BasicEnemy::Animations::EXPLOSION);
+
+	_explosionAnimation->retain();
 }
 
-
-BasicEnemy::~BasicEnemy()
-{
+void BasicEnemy::setVisible(bool visible){
+	Sprite::setVisible(visible);
+	if (visible){
+		runAction(_shoot);
+	}
+	else{
+		stopActionByTag(SHOOT_TAG);
+	}
 }
+
 
 
 void BasicEnemy::update(float dt){
+	if (!isVisible()) return;
+
+	if (_currentAnimation == EXPLOSION){
+		stopActionByTag(SHOOT_TAG);
+		if (_explosionAnimation->isDone() && isVisible()){
+			setVisible(false);
+		}
+		return;
+	}
+
+	//go down 
+	setAnchorPoint(Point(0.5, 1));
+	setPosition(getPositionX(), getPositionY() - _speed*dt);
+	if (getPositionY() < 0){
+		setVisible(false);
+	}
+
+
 
 }
 
