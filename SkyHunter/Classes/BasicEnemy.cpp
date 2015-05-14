@@ -86,7 +86,7 @@ void BasicEnemy::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
+		SimpleAudioEngine::getInstance()->playEffect("music/explosion.wav");
 		runAction(_explosionAnimation);
 	}
 }

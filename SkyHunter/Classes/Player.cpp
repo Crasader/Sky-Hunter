@@ -162,7 +162,7 @@ void Player::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
+		SimpleAudioEngine::getInstance()->playEffect("music/explosion.wav");
 		runAction(_explosionAnimation);
 	}
 }
@@ -212,7 +212,7 @@ void Player::shoot(){
 	bullet->setAnchorPoint(Point(0.5, 0));
 	if (!bullet->isVisible()){
 		bullet->setPosition(getPositionX(), getPositionY() + getBoundingBox().size.height*0.5);
-		SimpleAudioEngine::getInstance()->playEffect("Laser_Shoot6.wav");
+		SimpleAudioEngine::getInstance()->playEffect("music/Laser_Shoot6.wav");
 		bullet->setVisible(true);
 	}
 	_bulletIndex++;

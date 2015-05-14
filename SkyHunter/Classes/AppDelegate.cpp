@@ -50,13 +50,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	//load sounds
-	SimpleAudioEngine::getInstance()->
-		preloadEffect(FileUtils::getInstance()->fullPathForFilename("music/explosion.wav").c_str());
+	SimpleAudioEngine::getInstance()->preloadEffect("music/explosion.wav");
 
-	SimpleAudioEngine::getInstance()->
-		preloadBackgroundMusic(FileUtils::getInstance()->fullPathForFilename("music/game_loop.mp3").c_str());
-	SimpleAudioEngine::getInstance()->
-		preloadEffect(FileUtils::getInstance()->fullPathForFilename("music/Laser_Shoot6.wav").c_str());
+	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/game_loop.mp3");
+	SimpleAudioEngine::getInstance()->preloadEffect("music/Laser_Shoot6.wav");
 
 	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.4f);
 	SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
