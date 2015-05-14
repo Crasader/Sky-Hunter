@@ -1,6 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
+#define MAX_HEALTH 3
 #include "cocos2d.h"
 #include "TouchController.h"
 
@@ -26,6 +27,8 @@ public:
 	Animations getCurrentAnimation(){ return  _currentAnimation; }
 
 	virtual void setVisible(bool bVisible);
+	int getHealth(){ return _health; };
+	void setHealth(int health);
 	CC_SYNTHESIZE(float, _speed, Speed);
 	CREATE_FUNC(Player);
 	virtual bool init();
@@ -34,6 +37,7 @@ public:
 	void update(float dt);
 
 private:
+	int _health;
 	int SHOOT_TAG = 3;
 	bool _initialiced;
 	cocos2d::Vector<Bullet*> _bulletPool;

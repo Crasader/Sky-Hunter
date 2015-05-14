@@ -1,7 +1,10 @@
 #include "Bullet.h"
 #include "Player.h"
 #include "BasicEnemy.h"
+#include "SimpleAudioEngine.h"
 
+
+using namespace CocosDenshion;
 
 
 
@@ -88,7 +91,8 @@ void Bullet::update(float dt){
 		if (getBoundingBox().intersectsRect(_enemyTarget->getBoundingBox()) && 
 			_enemyTarget->isVisible() && _enemyTarget->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
 			//colision
-			_enemyTarget->setCurrentAnimation(Player::Animations::EXPLOSION);
+			SimpleAudioEngine::getInstance()->playEffect("music/hit.wav");
+			_enemyTarget->setHealth(_enemyTarget->getHealth() - 1);
 			setVisible(false);
 		}
 

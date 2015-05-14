@@ -77,13 +77,13 @@ bool GameLayer::init()
 
 	// run the action all the time
 	runAction(RepeatForever::create(awakeEnemySequence));
-
+	createUI();
 
 	//start game loop
 	this->schedule(schedule_selector(GameLayer::update));
 
 	//start sound loop
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("game_loop.mp3", true);
+	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/game_loop.mp3", true);
 	
 	return true;
 }
@@ -93,6 +93,7 @@ void GameLayer::update(float dt){
 	if (_player->isVisible()){
 		_bg->update(dt);
 	}
+	_healthBar->setScaleX(static_cast<float>(_player->getHealth()) / static_cast<float>(MAX_HEALTH));
 
 	_player->update(dt);
 	//check for collision between enemies & player
@@ -115,13 +116,34 @@ void GameLayer::awakeEnemy(){
 	_enemyIndex++;
 }
 
+void GameLayer::createUI(){
+	auto healthContainerIndicator = Sprite::create("health_container_indicartor.png");
+	healthContainerIndicator->setAnchorPoint(Point(0, 0.5));
+	healthContainerIndicator->setPosition(Point(20, _visibleSize.height - 20));
+	addChild(healthContainerIndicator);
+	auto nextPosition = Point(healthContainerIndicator->getPositionX() + healthContainerIndicator->getBoundingBox().size.width+5, healthContainerIndicator->getPositionY());
+
+	auto healthContainer = Sprite::create("health_container.png");
+	healthContainer->setScaleY(0.80f);
+	healthContainer->setAnchorPoint(Point(0, 0.5));
+	healthContainer->setPosition(nextPosition);
+	addChild(healthContainer);
+
+	_healthBar = Sprite::create("health_bar.png");
+	_healthBar->setAnchorPoint(Point(0, 0.5));
+	_healthBar->setPosition(nextPosition);
+	_healthBar->setScaleY(0.78f);
+	_healthBar->setScaleX(1);
+	addChild(_healthBar);
+}
+
 void GameLayer::checkCollisions(){
 	for (int i = 0; i < _numEnemies; i++){
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())
 			&& enemy->isVisible() && _player->isVisible()){
 			enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
-			_player->setCurrentAnimation(Player::Animations::EXPLOSION);
+			_player->setHealth(0);
 		}
 	}
 }

@@ -12,6 +12,7 @@ USING_NS_CC;
 Player::Player() :_speed(150),
 _numBullets(30),
 _bulletIndex(0),
+_health(MAX_HEALTH),
 _initialiced(false)
 {
 }
@@ -51,6 +52,17 @@ bool Player::init(){
 	scheduleShoot();
 	return true;
 
+}
+
+
+void Player::setHealth(int health){
+	_health = health;
+	if (_health <= 0){
+		_health = 0;
+	}
+	if (_health >= MAX_HEALTH){
+		_health = MAX_HEALTH;
+	}
 }
 
 void Player::setVisible(bool visible){
@@ -162,7 +174,7 @@ void Player::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		SimpleAudioEngine::getInstance()->playEffect("music/explosion.wav");
+		SimpleAudioEngine::getInstance()->playEffect("music/explosion.mp3");
 		runAction(_explosionAnimation);
 	}
 }
@@ -175,6 +187,10 @@ void Player::update(float dt){
 			setVisible(false);
 		}
 		return;
+	}
+
+	if (_health <= 0){
+		setCurrentAnimation(EXPLOSION);
 	}
 
 	//mover la nave a donde el controlador indique
@@ -212,7 +228,7 @@ void Player::shoot(){
 	bullet->setAnchorPoint(Point(0.5, 0));
 	if (!bullet->isVisible()){
 		bullet->setPosition(getPositionX(), getPositionY() + getBoundingBox().size.height*0.5);
-		SimpleAudioEngine::getInstance()->playEffect("music/Laser_Shoot6.wav");
+		SimpleAudioEngine::getInstance()->playEffect("music/laser_shoot.wav");
 		bullet->setVisible(true);
 	}
 	_bulletIndex++;

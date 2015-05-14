@@ -12,6 +12,7 @@ class GameLayer : public cocos2d::Layer
 private:
 	int _numEnemies;
 	int _enemyIndex;
+	cocos2d::Sprite* _healthBar;
 	cocos2d::Size _visibleSize;
 
 	Background* _bg;
@@ -22,6 +23,8 @@ private:
 
 	void checkCollisions();
 
+	void createUI();
+
 public:
 	~GameLayer();
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
@@ -31,6 +34,7 @@ public:
     virtual bool init();
 
 	void update(float dt);
+
     
     
     // implement the "static create()" method manually

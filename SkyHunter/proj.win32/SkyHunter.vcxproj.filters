@@ -10,6 +10,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\headers">
+      <UniqueIdentifier>{e9cafb54-ca5f-4ce5-8c02-0fa9878b5715}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,31 +39,37 @@
     <ClCompile Include="..\Classes\Bullet.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLayer.h">
-      <Filter>src</Filter>
+      <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Background.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src</Filter>
+      <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BasicEnemy.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TouchController.h">
-      <Filter>src</Filter>
+      <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bullet.h">
-      <Filter>src</Filter>
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchController.h">
+      <Filter>src\headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

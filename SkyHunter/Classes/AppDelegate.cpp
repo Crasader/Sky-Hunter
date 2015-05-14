@@ -50,12 +50,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	//load sounds
-	SimpleAudioEngine::getInstance()->preloadEffect("music/explosion.wav");
+
 
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/game_loop.mp3");
-	SimpleAudioEngine::getInstance()->preloadEffect("music/Laser_Shoot6.wav");
+	
+	SimpleAudioEngine::getInstance()->preloadEffect("music/explosion.mp3");
 
-	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.4f);
+	SimpleAudioEngine::getInstance()->preloadEffect("music/laser_shoot.wav");
+
+	SimpleAudioEngine::getInstance()->preloadEffect("music/hit.wav");
+
+	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
 	SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
 
     // create a scene. it's an autorelease object
