@@ -5,7 +5,7 @@ USING_NS_CC;
 
 GameManager* GameManager::_instance = nullptr;
 
-GameManager::GameManager()
+GameManager::GameManager() :_playerScore(0)
 {
 	_nextLevel = -1;
 }

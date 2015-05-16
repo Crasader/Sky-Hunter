@@ -46,7 +46,7 @@ bool BasicEnemy::init(){
 void BasicEnemy::scheduleShoot(){
 
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.5f);
+	DelayTime *delayAction = DelayTime::create(1.0f);
 
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(BasicEnemy::shoot, this));
@@ -109,9 +109,12 @@ void BasicEnemy::createIdleAnimation(){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
+	std::ostringstream ostr;
 	for (int i = 0; i < 4; i++){
 		name.append("enemy");
-		name.append(std::to_string(i));
+		ostr << i;
+		name.append(ostr.str());
+		ostr.str("");
 		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
 		animation->addSpriteFrame(frame);
 		name = "";
@@ -138,9 +141,12 @@ void BasicEnemy::createExplosionAnimation(){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
+	std::ostringstream ostr;
 	for (int i = 0; i < 6; i++){
 		name.append("enemy_explosion");
-		name.append(std::to_string(i));
+		ostr << i;
+		name.append(ostr.str());
+		ostr.str("");
 		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
 		animation->addSpriteFrame(frame);
 		name = "";

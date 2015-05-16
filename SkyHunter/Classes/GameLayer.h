@@ -10,10 +10,14 @@ class GameLayer : public cocos2d::Layer
 {
 
 private:
+
+	std::ostringstream _ostr;
 	int _numEnemies;
 	int _enemyIndex;
 	cocos2d::Sprite* _healthBar;
 	cocos2d::Size _visibleSize;
+	cocos2d::Label* _scoreDisplay;
+	cocos2d::Label* _scoreLabel;
 
 	Background* _bg;
 	Player* _player;
@@ -35,7 +39,6 @@ public:
 
 	void update(float dt);
 
-    
     
     // implement the "static create()" method manually
 	CREATE_FUNC(GameLayer);

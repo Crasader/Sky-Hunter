@@ -21,4 +21,4 @@ public:
 	~GameManager();
 };
 
-#endif __GAMEMANAGER_H__;
+#endif //__GAMEMANAGER_H__;

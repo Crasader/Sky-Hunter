@@ -1,5 +1,6 @@
 #include "GameLayer.h"
 #include "SimpleAudioEngine.h"
+#include "GameManager.h"
 
 using namespace CocosDenshion;
 
@@ -40,13 +41,18 @@ bool GameLayer::init()
 	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	//create node with texture info & init TextureCache
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist", "Hunter.png");
 	SpriteBatchNode* gameBatchNode = SpriteBatchNode::create("Hunter.png");
 	addChild(gameBatchNode);
 
 	//create bg
 	_bg = new Background();
 	_bg->setParent(gameBatchNode);
+
+	auto h = ParticleSystemQuad::create("impact.plist");
+	h->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.5);
+	h->setScale(0.1);
+	addChild(h);
 	
 	
 	//create player
@@ -82,6 +88,7 @@ bool GameLayer::init()
 	//start game loop
 	this->schedule(schedule_selector(GameLayer::update));
 
+
 	//start sound loop
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/game_loop.mp3", true);
 	
@@ -93,9 +100,20 @@ void GameLayer::update(float dt){
 	if (_player->isVisible()){
 		_bg->update(dt);
 	}
+	//update ui
 	_healthBar->setScaleX(static_cast<float>(_player->getHealth()) / static_cast<float>(MAX_HEALTH));
 
+	_ostr << GameManager::getInstance()->getPlayerScore();
+
+	_scoreDisplay->setString(_ostr.str());
+	_ostr.str("");
+
+	if (_scoreDisplay->getBoundingBox().intersectsRect(_scoreLabel->getBoundingBox())){
+		_scoreLabel->setPositionX(_scoreDisplay->getPositionX() - _scoreDisplay->getBoundingBox().size.width);
+	}
+
 	_player->update(dt);
+
 	//check for collision between enemies & player
 	checkCollisions();
 }
@@ -135,6 +153,21 @@ void GameLayer::createUI(){
 	_healthBar->setScaleY(0.78f);
 	_healthBar->setScaleX(1);
 	addChild(_healthBar);
+
+	//score dsiplay 
+	_scoreDisplay = Label::createWithTTF("0", "fonts/arial.ttf", 15);
+	_scoreDisplay->setAnchorPoint(Point(1, 0.5));
+	_scoreDisplay->setPosition(Point(_visibleSize.width - 20, _visibleSize.height - 20));
+	_scoreDisplay->setTextColor(Color4B::BLACK);
+	addChild(_scoreDisplay);
+
+	//score label
+	_scoreLabel = Label::createWithTTF("Score: ", "fonts/arial.ttf", 15);
+	_scoreLabel->setAnchorPoint(Point(1, 0.5));
+	_scoreLabel->setPosition(_scoreDisplay->getPosition());
+	_scoreLabel->setPositionX(_scoreDisplay->getPositionX() - _scoreDisplay->getBoundingBox().size.width);
+	_scoreLabel->setTextColor(Color4B::BLACK);
+	addChild(_scoreLabel);
 }
 
 void GameLayer::checkCollisions(){

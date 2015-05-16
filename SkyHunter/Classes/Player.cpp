@@ -49,6 +49,11 @@ bool Player::init(){
 	//start the initial animation
 	runAction(_idleAnimation);
 
+	Player::_hitEffect = ParticleSystemQuad::create("impact.plist");
+	_hitEffect->stopSystem();
+	_hitEffect -> setScale(0.1 );
+	_hitEffect->setVisible(false);
+	
 	scheduleShoot();
 	return true;
 
@@ -92,6 +97,7 @@ void Player::setParent(Node* parent){
 			//add bullets to parent, in this case is GameLayer.
 			getParent()->addChild(_bulletPool.at(i));
 		}
+		getParent()->getParent()->addChild(_hitEffect);
 		_initialiced = true;
 	}
 
@@ -116,9 +122,12 @@ void Player::createIdleAnimation(){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
+	std::ostringstream ostr;
 	for (int i = 0; i < 4; i++){
 		name.append("player");
-		name.append(std::to_string(i));
+		ostr << i;
+		name.append(ostr.str());
+		ostr.str("");
 		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
 		animation->addSpriteFrame(frame);
 		name = "";
@@ -145,9 +154,12 @@ void Player::createExplosionAnimation(){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
+	std::ostringstream ostr;
 	for (int i = 0; i < 4; i++){
 		name.append("player_explosion");
-		name.append(std::to_string(i));
+		ostr << i;
+		name.append(ostr.str());
+		ostr.str("");
 		auto frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(name);
 		animation->addSpriteFrame(frame);
 		name = "";

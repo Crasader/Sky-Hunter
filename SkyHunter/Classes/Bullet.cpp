@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BasicEnemy.h"
 #include "SimpleAudioEngine.h"
+#include "GameManager.h"
 
 
 using namespace CocosDenshion;
@@ -62,8 +63,6 @@ void Bullet::update(float dt){
 	if (!this->isVisible()) return;
 
 	if (_type == PLAYER_BULLET){
-		
-		
 		//go up 
 		setAnchorPoint(Point(0.5, 0));
 		setPosition(getPositionX(), getPositionY() + _speed*dt);
@@ -76,6 +75,7 @@ void Bullet::update(float dt){
 				&& enemy->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
 				//colision
 				enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
+				GameManager::getInstance()->setPlayerScore(GameManager::getInstance()->getPlayerScore()+10);
 				setVisible(false);
 			}
 		}
@@ -93,6 +93,7 @@ void Bullet::update(float dt){
 			//colision
 			SimpleAudioEngine::getInstance()->playEffect("music/hit.wav");
 			_enemyTarget->setHealth(_enemyTarget->getHealth() - 1);
+			_enemyTarget->runHitEffect();
 			setVisible(false);
 		}
 

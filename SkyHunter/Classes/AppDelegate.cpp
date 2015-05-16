@@ -1,12 +1,13 @@
 #include "AppDelegate.h"
 #include "GameLayer.h"
 #include "SimpleAudioEngine.h"
+#include "MainMenuLayer.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
 
-AppDelegate::AppDelegate() {
-
+AppDelegate::AppDelegate() 
+{
 }
 
 AppDelegate::~AppDelegate() 
@@ -50,24 +51,19 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	//load sounds
-
-
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/game_loop.mp3");
-	
 	SimpleAudioEngine::getInstance()->preloadEffect("music/explosion.mp3");
-
 	SimpleAudioEngine::getInstance()->preloadEffect("music/laser_shoot.wav");
-
 	SimpleAudioEngine::getInstance()->preloadEffect("music/hit.wav");
 
 	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
-	SimpleAudioEngine::getInstance()->setEffectsVolume(1.0f);
+	SimpleAudioEngine::getInstance()->setEffectsVolume(4.0f);
 
     // create a scene. it's an autorelease object
-	auto scene = GameLayer::createScene();
-
+	//auto scene = GameLayer::createScene();
+	auto mainScene = MainMenuLayer::createScene();
     // run
-    director->runWithScene(scene);
+	director->runWithScene(mainScene);
 
     return true;
 }
