@@ -2,13 +2,10 @@
 #define __TOUCHCONTROLLER_H__
 #include "cocos2d.h"
 
-
-
-
 class TouchController : public cocos2d::Sprite
 {
 private:
-	typedef struct  Controller {
+	struct  Controller {
 		bool left;
 		bool right;
 		bool up;

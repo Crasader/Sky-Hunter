@@ -10,12 +10,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\headers">
-      <UniqueIdentifier>{a87488f8-b750-4953-b08d-5223980cb632}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\layers">
-      <UniqueIdentifier>{b04987c1-f058-4cdb-976c-5736c2e289c8}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,38 +24,35 @@
     <ClCompile Include="..\Classes\BackGround3Parts.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\BasicEnemy.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Bullet.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GameManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\TouchController.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\OptionsLayer.cpp">
-      <Filter>src\layers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,43 +60,43 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src\headers</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Background.h">
-      <Filter>src\headers</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BackGround3Parts.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BasicEnemy.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Bullet.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameLayer.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameManager.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainMenuLayer.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TouchController.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SelectMenuLayer.h">
-      <Filter>src\headers</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BaseMenuLayer.h">
-      <Filter>src\headers</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BasicEnemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuLayer.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OptionsLayer.h">
-      <Filter>src\headers</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SelectMenuLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchController.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

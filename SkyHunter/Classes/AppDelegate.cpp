@@ -1,10 +1,10 @@
 #include "AppDelegate.h"
 #include "GameLayer.h"
-#include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 #include "MainMenuLayer.h"
 
 USING_NS_CC;
-using namespace CocosDenshion;
+
 
 AppDelegate::AppDelegate() 
 {
@@ -50,14 +50,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-	//load sounds
-	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("music/game_loop.mp3");
-	SimpleAudioEngine::getInstance()->preloadEffect("music/explosion.mp3");
-	SimpleAudioEngine::getInstance()->preloadEffect("music/laser_shoot.wav");
-	SimpleAudioEngine::getInstance()->preloadEffect("music/hit.wav");
-
-
-
     // create a scene. it's an autorelease object
 	//auto scene = GameLayer::createScene();
 	auto mainScene = MainMenuLayer::createScene();
@@ -72,7 +64,8 @@ void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+	experimental::AudioEngine::pauseAll();
 }
 
 // this function will be called when the app is active again
@@ -80,5 +73,6 @@ void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    //SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+	experimental::AudioEngine::resumeAll();
 }

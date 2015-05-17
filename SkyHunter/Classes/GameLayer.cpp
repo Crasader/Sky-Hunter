@@ -1,8 +1,8 @@
 #include "GameLayer.h"
-#include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 #include "GameManager.h"
 
-using namespace CocosDenshion;
+
 
 USING_NS_CC;
 
@@ -37,12 +37,6 @@ bool GameLayer::init()
 	_numEnemies = 20;
 	_enemyIndex = 0;
 
-	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GameManager::getInstance()->getBgVolume()*0.01);
-	float supose_vol = GameManager::getInstance()->getBgVolume()*0.01;
-	float vol = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
-	SimpleAudioEngine::getInstance()->setEffectsVolume(GameManager::getInstance()->getEffectsVolume()*0.01);
-
-
 	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	//create node with texture info & init TextureCache
@@ -54,10 +48,10 @@ bool GameLayer::init()
 	_bg = new Background();
 	_bg->setParent(gameBatchNode);
 
-	auto h = ParticleSystemQuad::create("impact.plist");
-	h->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.5);
-	h->setScale(0.1);
-	addChild(h);
+	auto impactEffect = ParticleSystemQuad::create("impact.plist");
+	impactEffect->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.5);
+	impactEffect->setScale(0.1f);
+	addChild(impactEffect);
 	
 	
 	//create player
@@ -95,8 +89,7 @@ bool GameLayer::init()
 
 
 	//start sound loop
-	SimpleAudioEngine::getInstance()->playBackgroundMusic("music/game_loop.mp3", true);
-	
+	experimental::AudioEngine::play2d("music/game_loop.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);	
 	return true;
 }
 
