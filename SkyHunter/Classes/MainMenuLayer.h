@@ -1,18 +1,16 @@
 #ifndef __MAINMENULAYER_H__
 #define __MAINMENULAYER_H__
 
-#include "cocos2d.h"
-#include "BackGround3Parts.h"
+#include "BaseMenuLayer.h"
 
-class MainMenuLayer :public cocos2d::Layer
+class MainMenuLayer :public BaseMenuLayer
 {
 private:
 	void startButtonAction();
-	BackGround3Parts* _bg;
+	void selectMenuButton();
+	void optionsButton();
+	void arcadeButton();
 public:
-	MainMenuLayer();
-	~MainMenuLayer();
-	void update(float dt);
 	virtual bool init();
 	static cocos2d::Scene* createScene();
 	// implement the "static create()" method manually

@@ -51,6 +51,18 @@
     <ClCompile Include="..\Classes\MainMenuLayer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsLayer.cpp">
+      <Filter>src\layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +96,15 @@
       <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TouchController.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SelectMenuLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BaseMenuLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionsLayer.h">
       <Filter>src\headers</Filter>
     </ClInclude>
   </ItemGroup>

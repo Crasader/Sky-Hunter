@@ -2,6 +2,8 @@
 #define __GAMEMANAGER_H__
 #include "cocos2d.h"
 #define LEVELKEY "level"
+#define BGVOLUMEKEY "bgvolume"
+#define EFFECTSVOLUMEKEY "effectvolume"
 
 class GameManager
 {
@@ -12,7 +14,11 @@ private:
 	void operator=(GameManager const&) = delete;// assignment operator is private
 	int _nextLevel;
 
+
 public:
+	CC_SYNTHESIZE(int, _bgVolume, BgVolume);
+	CC_SYNTHESIZE(int, _effectsVolume, EffectsVolume);
+	void saveSetting();
 	enum DrawOrder {};
 	CC_SYNTHESIZE(int, _playerScore, PlayerScore);
 	static GameManager* getInstance();

@@ -10,7 +10,7 @@ AppDelegate::AppDelegate()
 {
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()  
 {
 }
 
@@ -56,8 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	SimpleAudioEngine::getInstance()->preloadEffect("music/laser_shoot.wav");
 	SimpleAudioEngine::getInstance()->preloadEffect("music/hit.wav");
 
-	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
-	SimpleAudioEngine::getInstance()->setEffectsVolume(4.0f);
+
 
     // create a scene. it's an autorelease object
 	//auto scene = GameLayer::createScene();
@@ -68,7 +67,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     return true;
 }
 
-// This function will be called when the app is inactive. When comes a phone call,it's be invoked too
+// This function will be called when the app is inactive. When comes a phone call, it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 

@@ -37,6 +37,11 @@ bool GameLayer::init()
 	_numEnemies = 20;
 	_enemyIndex = 0;
 
+	SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(GameManager::getInstance()->getBgVolume()*0.01);
+	float supose_vol = GameManager::getInstance()->getBgVolume()*0.01;
+	float vol = SimpleAudioEngine::getInstance()->getBackgroundMusicVolume();
+	SimpleAudioEngine::getInstance()->setEffectsVolume(GameManager::getInstance()->getEffectsVolume()*0.01);
+
 
 	_visibleSize = Director::getInstance()->getVisibleSize();
 

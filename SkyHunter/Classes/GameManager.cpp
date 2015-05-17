@@ -7,12 +7,19 @@ GameManager* GameManager::_instance = nullptr;
 
 GameManager::GameManager() :_playerScore(0)
 {
-	_nextLevel = -1;
+	_nextLevel = UserDefault::getInstance()->getIntegerForKey(LEVELKEY, 0);
+	_bgVolume = UserDefault::getInstance()->getIntegerForKey(BGVOLUMEKEY, 30);
+	_effectsVolume = UserDefault::getInstance()->getIntegerForKey(EFFECTSVOLUMEKEY, 40);
 }
 
 
 GameManager::~GameManager()
 {
+}
+
+void GameManager::saveSetting(){
+	UserDefault::getInstance()->setIntegerForKey(BGVOLUMEKEY, _bgVolume);
+	UserDefault::getInstance()->setIntegerForKey(EFFECTSVOLUMEKEY, _effectsVolume);
 }
 
 GameManager*  GameManager::getInstance(){
@@ -32,11 +39,5 @@ void GameManager::saveGame(){
 }
 
 int GameManager::getNextLevel(){
-	if (_nextLevel != -1){
-		//obtengo el ultimo nivel completado
-		_nextLevel = UserDefault::getInstance()->getIntegerForKey(LEVELKEY, 0);
-		//calculo el siguiente nivel
-		_nextLevel++;
-	}
 	return _nextLevel;
 }
