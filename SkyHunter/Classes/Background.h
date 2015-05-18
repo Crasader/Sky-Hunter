@@ -17,7 +17,7 @@ private:
 	std::string  _sptitePart2;
 
 public:
-	virtual void setParent(cocos2d::Node* parent);
+	virtual void setParent(cocos2d::Node* parent,int pos);
 	void update(float dt);
 	~Background();
 	void setSptitePart1(std::string part1);

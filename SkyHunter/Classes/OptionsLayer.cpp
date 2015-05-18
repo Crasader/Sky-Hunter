@@ -34,6 +34,7 @@ bool OptionsLayer::init(){
 
 	_backGroundVolumeLabel = Label::createWithTTF("0", "fonts/arial.ttf", 16);
 	_backGroundVolumeLabel->setAnchorPoint(Point(0, 1));
+	_backGroundVolumeLabel->setTextColor(Color4B::BLACK);
 	_ostr << GameManager::getInstance()->getBgVolume();
 	_backGroundVolumeLabel->setString("Background volume: " + _ostr.str());
 	_ostr.str("");
@@ -57,6 +58,7 @@ bool OptionsLayer::init(){
 	_ostr << GameManager::getInstance()->getEffectsVolume();
 	_effectsVolumeLabel->setString("Effects volume: " + _ostr.str());
 	_ostr.str("");
+	_effectsVolumeLabel->setTextColor(Color4B::BLACK);
 	_effectsVolumeLabel->setAnchorPoint(Point(0, 1));
 	marginY -= 50 * getScaleY() + _backGroundVolume->getBoundingBox().size.height;
 	_effectsVolumeLabel->setPosition(Point(marginX, marginY));

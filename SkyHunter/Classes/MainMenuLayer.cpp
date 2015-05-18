@@ -1,5 +1,5 @@
 #include "MainMenuLayer.h"
-#include "GameLayer.h"
+#include "Level1.h"
 #include "SelectMenuLayer.h"
 #include "OptionsLayer.h"
 #include "ui/CocosGUI.h"
@@ -64,7 +64,7 @@ bool MainMenuLayer::init(){
 }
 
 void MainMenuLayer::startButtonAction(){
-	Director::getInstance()->replaceScene(TransitionSplitCols::create(1, GameLayer::createScene()));
+	Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene()));
 }
 
 void MainMenuLayer::selectMenuButton(){
@@ -76,6 +76,6 @@ void MainMenuLayer::optionsButton(){
 }
 
 void MainMenuLayer::arcadeButton(){
-	Director::getInstance()->replaceScene(TransitionSplitCols::create(1, GameLayer::createScene()));
+	Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene()));
 }
 

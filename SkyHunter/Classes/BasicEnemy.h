@@ -10,30 +10,11 @@ class Player;
 class BasicEnemy : public cocos2d::Sprite
 {
 
-
 public:
 	enum Animations
 	{
 		IDLE = 0, EXPLOSION = 1
 	};
-
-	virtual void setParent(Node* parent);
-
-	void setTarget(Player* target);
-
-
-	void setCurrentAnimation(Animations anim);
-	Animations getCurrentAnimation(){ return  _currentAnimation; }
-
-
-	CC_SYNTHESIZE(float, _speed, Speed);
-	CREATE_FUNC(BasicEnemy);
-	virtual bool init();
-	virtual ~BasicEnemy();
-	BasicEnemy();
-	void update(float dt);
-	virtual void setVisible(bool bVisible);
-
 
 private:
 	int SHOOT_TAG = 3;
@@ -55,6 +36,30 @@ private:
 	void createIdleAnimation();
 	void createExplosionAnimation();
 
+
+
+
+public:
+	void reset();
+
+	virtual void setParent(Node* parent);
+
+	void setTarget(Player* target);
+
+
+	void setCurrentAnimation(Animations anim);
+	Animations getCurrentAnimation(){ return  _currentAnimation; }
+
+
+	CC_SYNTHESIZE(float, _speed, Speed);
+	CREATE_FUNC(BasicEnemy);
+	virtual bool init();
+	virtual ~BasicEnemy();
+	BasicEnemy();
+	void update(float dt);
+	virtual void pause();
+	virtual void resume();
+	virtual void setVisible(bool bVisible);
 };
 
 #endif //__BASICENEMY_H__

@@ -1,14 +1,13 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#define MAX_HEALTH 3
+
 #include "cocos2d.h"
 #include "TouchController.h"
+#define MAX_HEALTH 3
 
 class Bullet;
-
 class BasicEnemy;
-
 
 class Player : public cocos2d::Sprite
 {
@@ -25,43 +24,47 @@ private:
 	bool _initialiced;
 	cocos2d::Vector<Bullet*> _bulletPool;
 	cocos2d::Vector<BasicEnemy*>  _targets;
+
 	int _numBullets;
 	int _bulletIndex;
 	void shoot();
-	void scheduleShoot();
+	
 
 
 	TouchController* _controller;
 	Animations _currentAnimation;
+
 	cocos2d::Action* _idleAnimation;
 	cocos2d::Action* _explosionAnimation;
 	cocos2d::Action* _shoot;
 
 	void createIdleAnimation();
 	void createExplosionAnimation();
+	void scheduleShoot();
 public:
-
-
-	virtual void setParent(Node* parent);
-	void setTargets(cocos2d::Vector<BasicEnemy*>& targets);
-	void setCurrentAnimation(Animations anim);
-	Animations getCurrentAnimation(){ return  _currentAnimation; }
-
-	virtual void setVisible(bool bVisible);
-	int getHealth(){ return _health; };
-	void setHealth(int health);
 	CC_SYNTHESIZE(float, _speed, Speed);
 	CREATE_FUNC(Player);
+
+	void reset();
+	virtual void setParent(Node* parent);
+	void setTargets(const cocos2d::Vector<BasicEnemy*>& targets);
+	void setCurrentAnimation(Animations anim);
+	const Animations getCurrentAnimation(){ return  _currentAnimation; }
+
+	virtual void setVisible(bool bVisible);
+	virtual void pause();
+	virtual void resume();
+
+	const int getHealth(){ return _health; };
+	void setHealth(int health);
+
+
+
 	virtual bool init();
 	virtual ~Player();
 	Player();
 	void update(float dt);
-	void runHitEffect(){
-		_hitEffect->setPositionX(getPositionX());
-		_hitEffect->setPositionY(getPositionY() + getBoundingBox().size.height*0.5);
-		_hitEffect->setVisible(true);
-		_hitEffect->resetSystem(); 
-	}
+	void runHitEffect();
 
 
 };

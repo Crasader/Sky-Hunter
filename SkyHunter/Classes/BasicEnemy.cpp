@@ -15,9 +15,6 @@ BasicEnemy::BasicEnemy() :_speed(100), _numBullets(10), _bulletIndex(0), _initia
 
 BasicEnemy::~BasicEnemy()
 {
-	CC_SAFE_RELEASE(_idleAnimation);
-	CC_SAFE_RELEASE(_explosionAnimation);
-	CC_SAFE_RELEASE(_shoot);
 }
 
 bool BasicEnemy::init(){
@@ -33,14 +30,24 @@ bool BasicEnemy::init(){
 
 	_currentAnimation = IDLE;
 	createIdleAnimation();
-
+	
 	createExplosionAnimation();
 
 	//start the initial animation
 	runAction(_idleAnimation);
 	scheduleShoot();
 	scheduleUpdate();
+	setVisible(false);
 	return true;
+}
+
+void BasicEnemy::reset(){
+	setVisible(false);
+	setCurrentAnimation(IDLE);
+	for (Sprite* bullet : _bulletPool){
+		bullet->setVisible(false);
+	}
+
 }
 
 void BasicEnemy::scheduleShoot(){
@@ -57,6 +64,20 @@ void BasicEnemy::scheduleShoot(){
 
 	// run the action all the time
 	runAction(_shoot);
+}
+
+void BasicEnemy::pause(){
+	Sprite::pause();
+	for (Node* node : _bulletPool){
+		node->pause();
+	}
+}
+
+void BasicEnemy::resume(){
+	Sprite::resume();
+	for (Node* node : _bulletPool){
+		node->resume();
+	}
 }
 
 void BasicEnemy::setTarget(Player* target) {
@@ -92,17 +113,15 @@ void BasicEnemy::setCurrentAnimation(Animations anim){
 }
 
 void BasicEnemy::setParent(Node* parent){
-	Sprite::setParent(parent);
-
 	//prevent the bullet to been added more than once to the scene
 	if (!_initialiced){
 		for (int i = 0; i < _numBullets; i++){
 			//add bullets to parent, in this case is GameLayer.
-			getParent()->addChild(_bulletPool.at(i));
+			parent->addChild(_bulletPool.at(i));
 		}
 		_initialiced = true;
 	}
-
+	Sprite::setParent(parent);
 }
 
 void BasicEnemy::createIdleAnimation(){

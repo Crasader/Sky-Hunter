@@ -19,7 +19,7 @@ public:
 	CC_SYNTHESIZE(float, _speed, Speed);
 	CC_SYNTHESIZE(Player*, _enemyTarget, EnemyTarget);
 
-	void setPlayerTargets(cocos2d::Vector<BasicEnemy*>& targets){ _playerTargets = targets; };
+	void setPlayerTargets(const cocos2d::Vector<BasicEnemy*>& targets){ _playerTargets = targets; };
 	virtual void update(float dt);
 
 

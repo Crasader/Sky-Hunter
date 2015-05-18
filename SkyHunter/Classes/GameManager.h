@@ -5,6 +5,7 @@
 #define BGVOLUMEKEY "bgvolume"
 #define EFFECTSVOLUMEKEY "effectvolume"
 
+
 class GameManager
 {
 private:

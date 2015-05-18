@@ -1,6 +1,6 @@
 #include "SelectMenuLayer.h"
 #include "GameManager.h"
-#include "GameLayer.h"
+#include "Level1.h"
 #include "MainMenuLayer.h"
 
 #define func SelectMenuLayer::actionButton
@@ -99,7 +99,7 @@ void SelectMenuLayer::initfunctions(std::vector<std::function<void(Ref*)>>& func
 	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton9, this));
 }
 
-void SelectMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, GameLayer::createScene())); }
+void SelectMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene())); }
 void SelectMenuLayer::actionButton2(){/*TODO*/}
 void SelectMenuLayer::actionButton3(){/*TODO*/ }
 void SelectMenuLayer::actionButton4(){/*TODO*/ }

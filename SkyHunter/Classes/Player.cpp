@@ -1,14 +1,10 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "BasicEnemy.h"
-//#include "AudioEngine.h"
+#include "AudioEngine.h"
 #include "GameManager.h"
 
-
-
-
 USING_NS_CC;
-
 
 Player::Player() :_speed(150),
 _numBullets(30),
@@ -20,9 +16,7 @@ _initialiced(false)
 
 Player::~Player()
 {
-	CC_SAFE_RELEASE(_idleAnimation);
-	CC_SAFE_RELEASE(_explosionAnimation);
-	CC_SAFE_RELEASE(_shoot);
+
 }
 
 
@@ -50,14 +44,21 @@ bool Player::init(){
 	//start the initial animation
 	runAction(_idleAnimation);
 
-	Player::_hitEffect = ParticleSystemQuad::create("impact.plist");
+	_hitEffect = ParticleSystemQuad::create("impact.plist");
 	_hitEffect->stopSystem();
-	_hitEffect -> setScale(0.1f);
+	_hitEffect->setScale(0.1f);
 	_hitEffect->setVisible(false);
-	
+
 	scheduleShoot();
 	return true;
 
+}
+
+void Player::runHitEffect(){
+	_hitEffect->setPositionX(getPositionX());
+	_hitEffect->setPositionY(getPositionY() + getBoundingBox().size.height*0.5);
+	_hitEffect->setVisible(true);
+	_hitEffect->resetSystem();
 }
 
 
@@ -81,7 +82,22 @@ void Player::setVisible(bool visible){
 	}
 }
 
-void Player::setTargets(cocos2d::Vector<BasicEnemy*>& targets){
+void Player::pause(){
+	Sprite::pause();
+	for (Node* node : _bulletPool){
+		node->pause();
+	}
+}
+
+void Player::resume(){
+	Sprite::resume();
+	for (Node* node : _bulletPool){
+		node->resume();
+	}
+}
+
+
+void Player::setTargets(const  cocos2d::Vector<BasicEnemy*>& targets){
 	_targets = targets;
 	for (int i = 0; i < _numBullets; i++){
 		_bulletPool.at(i)->setPlayerTargets(_targets);
@@ -90,19 +106,18 @@ void Player::setTargets(cocos2d::Vector<BasicEnemy*>& targets){
 
 
 void Player::setParent(Node* parent){
-	Sprite::setParent(parent);
-
 	//prevent the bullet to been added more than once to the scene
 	if (!_initialiced){
 		for (int i = 0; i < _numBullets; i++){
 			//add bullets to parent, in this case is GameLayer.
-			getParent()->addChild(_bulletPool.at(i));
+			parent->addChild(_bulletPool.at(i));
 		}
-		getParent()->getParent()->addChild(_hitEffect);
+		parent->getParent()->addChild(_hitEffect);
 		_initialiced = true;
 	}
-
+	Sprite::setParent(parent);
 }
+
 
 void Player::scheduleShoot(){
 
@@ -115,8 +130,22 @@ void Player::scheduleShoot(){
 
 	_shoot = RepeatForever::create(shootSequence);
 	_shoot->setTag(SHOOT_TAG);
+	_shoot->retain();
 	// run the action all the time
 	runAction(_shoot);
+}
+
+void Player::reset(){
+	if (!isVisible())
+	{
+		setVisible(true);
+	}
+	setHealth(MAX_HEALTH);
+	setCurrentAnimation(Player::Animations::IDLE);
+	for (Sprite* bullet : _bulletPool){
+		bullet->setVisible(false);
+	}
+
 }
 
 void Player::createIdleAnimation(){
@@ -187,7 +216,7 @@ void Player::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		//experimental::AudioEngine::play2d("music/explosion.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+		experimental::AudioEngine::play2d("music/explosion.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
 		runAction(_explosionAnimation);
 	}
 }
@@ -241,7 +270,7 @@ void Player::shoot(){
 	bullet->setAnchorPoint(Point(0.5, 0));
 	if (!bullet->isVisible()){
 		bullet->setPosition(getPositionX(), getPositionY() + getBoundingBox().size.height*0.5);
-		//experimental::AudioEngine::play2d("music/laser_shoot.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+		experimental::AudioEngine::play2d("music/laser_shoot.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
 		bullet->setVisible(true);
 	}
 	_bulletIndex++;

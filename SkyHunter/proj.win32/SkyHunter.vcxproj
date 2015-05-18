@@ -142,10 +142,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Background.cpp" />
     <ClCompile Include="..\Classes\BackGround3Parts.cpp" />
+    <ClCompile Include="..\Classes\BaseGameLayer.cpp" />
     <ClCompile Include="..\Classes\BaseMenuLayer.cpp" />
     <ClCompile Include="..\Classes\BasicEnemy.cpp" />
     <ClCompile Include="..\Classes\Bullet.cpp" />
-    <ClCompile Include="..\Classes\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\Level1.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\MainMenuLayer.cpp" />
     <ClCompile Include="..\Classes\OptionsLayer.cpp" />
@@ -158,10 +159,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Background.h" />
     <ClInclude Include="..\Classes\BackGround3Parts.h" />
+    <ClInclude Include="..\Classes\BaseGameLayer.h" />
     <ClInclude Include="..\Classes\BaseMenuLayer.h" />
     <ClInclude Include="..\Classes\BasicEnemy.h" />
     <ClInclude Include="..\Classes\Bullet.h" />
-    <ClInclude Include="..\Classes\GameLayer.h" />
+    <ClInclude Include="..\Classes\Level1.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\MainMenuLayer.h" />
     <ClInclude Include="..\Classes\OptionsLayer.h" />

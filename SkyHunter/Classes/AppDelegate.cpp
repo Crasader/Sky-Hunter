@@ -1,5 +1,4 @@
 #include "AppDelegate.h"
-#include "GameLayer.h"
 #include "AudioEngine.h"
 #include "MainMenuLayer.h"
 
