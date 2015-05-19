@@ -9,6 +9,8 @@
 class BaseGameLayer : public cocos2d::Layer
 {
 private:
+	int _completionPercentage;
+	bool isLevelComplete;
 	std::ostringstream _ostr;
 	cocos2d::ui::Button* _pauseButton;
 	cocos2d::ui::Button* _respawnButton;
@@ -17,17 +19,19 @@ private:
 	cocos2d::ui::Button* _backButton;
 	cocos2d::Sprite* _healthBar;
 	cocos2d::Label* _scoreLabel;
+	cocos2d::Label* _completionPercentageLabel;
 	void createHealthIndicator();
-	void createScoreLabel();
+	void createScoreAndPercentageLabels();
 	void createPauseAndResumeButtons();
 	void createRespawnButton();
-	
-	
+	void levelCompleteActions();
+	void levelCompleteActionsHelper();
 
 protected:
-	enum Order { BackgroundPos, ForegroundPos, UIPos };
+	enum RenderOrder { BackgroundPos, ForegroundPos, UIPos };
 	Player* _player;
 	Background* _bg;
+	int _scoreToCompleTheLevel;
 	cocos2d::Size _visibleSize;
 	cocos2d::SpriteBatchNode* _gameBatchNode;
 
@@ -38,7 +42,6 @@ protected:
 	virtual void actionButtonBack();
 	
 public:
-	cocos2d::SpriteBatchNode* getSpriteBatchNode(){ return _gameBatchNode; }
 	virtual ~BaseGameLayer();
 	virtual void update(float dt);
 	virtual bool init();
@@ -48,5 +51,5 @@ public:
 	CREATE_FUNC(BaseGameLayer);
 };
 
-#endif
+#endif //__BASEGAMELAYER_H__
 

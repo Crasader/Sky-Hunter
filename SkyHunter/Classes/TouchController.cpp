@@ -21,6 +21,7 @@ bool TouchController::init(){
 	touchListener->onTouchMoved = CC_CALLBACK_2(TouchController::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(TouchController::onTouchEnded, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
 	//mediante el schedule obtenemos el mismo efecto que llamando 
 	//al metodo update desde player. Aqui usaremos schedule solo para ver que
 	//puede usarse en diversas situaciones, no solo en el GameLayer.

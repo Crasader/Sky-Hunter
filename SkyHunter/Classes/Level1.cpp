@@ -9,13 +9,10 @@ Scene* Level1::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-
 	// 'layer' is an autorelease object
 	auto layer = Level1::create();
-
 	// add layer as a child to scene
 	scene->addChild(layer);
-
 	// return the scene
 	return scene;
 }
@@ -29,67 +26,57 @@ bool Level1::init()
 	}
 	_numEnemies = 20;
 	_enemyIndex = 0;
-	
-	for (int i = 0; i < _numEnemies; i++){
-		auto enemy = BasicEnemy::create();
-		//tell the enemies about the player.
-		enemy->setTarget(_player);
-		_enemyPool.pushBack(enemy);
-		_gameBatchNode->addChild(enemy,ForegroundPos);
-	}
+	setTag(1);//level1
+	_scoreToCompleTheLevel = 1000;
 
-	//tell the player about the enemies
-	_player->setTargets(_enemyPool);
-
-	//enemy ratio
-	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.0f);
-
-	// perform the selector call
-	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level1::awakeEnemy, this));
-	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
-
-	// run the action all the time
-	runAction(RepeatForever::create(awakeEnemySequence));
-
+	initActors();
+	awakeEnemyScheduler();
 
 	//start game loop
 	this->schedule(schedule_selector(Level1::update));
 
-
 	//start sound loop
-	experimental::AudioEngine::play2d("music/game_loop.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);	
-	
+	experimental::AudioEngine::play2d("music/Cetus.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);
+
 	//scheduleUpdate();
 	schedule(schedule_selector(Level1::update));
 	return true;
 }
 
-void Level1::actionButtonBack(){
-	experimental::AudioEngine::stopAll();
-	BaseGameLayer::actionButtonBack();
+void Level1::initActors()
+{
+	for (int i = 0; i < _numEnemies; i++){
+		auto enemy = BasicEnemy::create();
+		//tell the enemies about the player.
+		enemy->setTarget(_player);
+		_enemyPool.pushBack(enemy);
+		_gameBatchNode->addChild(enemy, ForegroundPos);
+	}
+	//tell the player about the enemies
+	_player->setTargets(_enemyPool);
 }
 
 
-void Level1::update(float dt){
+
+
+void Level1::update(float dt)
+{
 	BaseGameLayer::update(dt);
-
-
 	_player->update(dt);
-
 	//check for collision between enemies & player
 	checkCollisions();
 }
 
-void Level1::respawnButtonAction(){
+void Level1::respawnButtonAction()
+{
 	BaseGameLayer::respawnButtonAction();
-	resetPlayer();
 	for (int i = 0; i < _numEnemies; i++){
 		_enemyPool.at(i)->reset();
 	}
 }
 
-void Level1::pauseButtonAction(){
+void Level1::pauseButtonAction()
+{
 	BaseGameLayer::pauseButtonAction();
 	experimental::AudioEngine::pauseAll();
 	_player->pause();
@@ -97,7 +84,9 @@ void Level1::pauseButtonAction(){
 		enemy->pause();
 	}
 }
-void Level1::playButtonAction(){
+
+void Level1::playButtonAction()
+{
 	BaseGameLayer::playButtonAction();
 	experimental::AudioEngine::resumeAll();
 	_player->resume();
@@ -106,7 +95,8 @@ void Level1::playButtonAction(){
 	}
 }
 
-void Level1::awakeEnemy(){
+void Level1::awakeEnemy()
+{
 	_enemyIndex = _enemyIndex % _numEnemies;
 	//select enemy
 	auto enemy = _enemyPool.at(_enemyIndex);
@@ -124,7 +114,21 @@ void Level1::awakeEnemy(){
 }
 
 
-void Level1::checkCollisions(){
+void Level1::awakeEnemyScheduler()
+{
+	//enemy ratio
+	// set up the time delay
+	DelayTime *delayAction = DelayTime::create(1.0f);
+	// perform the selector call
+	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level1::awakeEnemy, this));
+	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
+	// run the action all the time
+	runAction(RepeatForever::create(awakeEnemySequence));
+}
+
+
+void Level1::checkCollisions()
+{
 	for (int i = 0; i < _numEnemies; i++){
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())

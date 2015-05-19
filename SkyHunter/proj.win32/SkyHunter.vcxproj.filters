@@ -16,6 +16,15 @@
     <Filter Include="src\layers">
       <UniqueIdentifier>{006cf925-4dd4-4d4d-83a6-9a128c5fec39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\layers\levels">
+      <UniqueIdentifier>{5f368af0-60c8-458e-a0ea-953e5ff315df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components">
+      <UniqueIdentifier>{d58f120c-759e-4266-ad03-2b8e20688b1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\layers\menus">
+      <UniqueIdentifier>{49eb8522-17a0-42ea-9257-b44e1e64b464}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,32 +33,8 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Background.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BackGround3Parts.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BasicEnemy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Bullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TouchController.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\OptionsLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
-      <Filter>src\layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BaseGameLayer.cpp">
       <Filter>src\layers</Filter>
@@ -57,11 +42,35 @@
     <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Background.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BackGround3Parts.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BasicEnemy.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GameManager.cpp">
-      <Filter>src\layers</Filter>
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Level1.cpp">
-      <Filter>src\layers</Filter>
+      <Filter>src\layers\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
+      <Filter>src\layers\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsLayer.cpp">
+      <Filter>src\layers\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
+      <Filter>src\layers\menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

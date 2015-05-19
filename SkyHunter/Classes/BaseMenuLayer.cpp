@@ -1,4 +1,5 @@
 #include "BaseMenuLayer.h"
+#include "Level1.h"
 
 USING_NS_CC;
 
@@ -24,7 +25,7 @@ BaseMenuLayer::BaseMenuLayer()
 
 BaseMenuLayer::~BaseMenuLayer()
 {
-	delete _bg;
+	CC_SAFE_DELETE(_bg);
 }
 bool BaseMenuLayer::init(){
 	if (!Layer::init()){
@@ -36,13 +37,14 @@ bool BaseMenuLayer::init(){
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("mainMenu.plist", "mainMenu.png");
 	_gameBatchNode = SpriteBatchNode::create("mainMenu.png");
 	addChild(_gameBatchNode);
-
 	_visibleSize = Director::getInstance()->getVisibleSize();
 
 	//bg
 	_bg = new BackGround3Parts();
 	_bg->setSpeed(30);
 	_bg->setParent(_gameBatchNode);
+
+
 
 	scheduleUpdate();
 	return true;
@@ -52,3 +54,6 @@ bool BaseMenuLayer::init(){
 void BaseMenuLayer::update(float dt){
 	_bg->update(dt);
 }
+
+
+

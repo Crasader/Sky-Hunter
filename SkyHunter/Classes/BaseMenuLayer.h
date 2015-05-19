@@ -10,6 +10,7 @@ protected:
 	BackGround3Parts* _bg;
 	cocos2d::Size _visibleSize;
 	cocos2d::SpriteBatchNode* _gameBatchNode;
+
 public:
 	BaseMenuLayer();
 	virtual ~BaseMenuLayer();

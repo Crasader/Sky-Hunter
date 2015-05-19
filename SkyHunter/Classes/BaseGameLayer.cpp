@@ -1,6 +1,8 @@
 #include "BaseGameLayer.h"
 #include "GameManager.h"
 #include "MainMenuLayer.h"
+#include "SelectMenuLayer.h"
+#include "AudioEngine.h"
 
 USING_NS_CC;
 
@@ -21,14 +23,16 @@ Scene* BaseGameLayer::createScene()
 }
 
 
-
-
-
 bool BaseGameLayer::init(){
 	if (!Layer::init()){
 		return false;
 	}
 	_visibleSize = Director::getInstance()->getVisibleSize();
+	_completionPercentage = 0;
+	_scoreToCompleTheLevel = 1000;
+	isLevelComplete = false;
+	setTag(0);
+	GameManager::getInstance()->setPlayerScore(0);
 
 	//todas las pantallass de nuestro juego usaran este sprite sheet
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist", "Hunter.png");
@@ -38,13 +42,13 @@ bool BaseGameLayer::init(){
 	_bg = new Background();
 	_bg->setParent(_gameBatchNode, BackgroundPos);
 
-	
+
 	_player = Player::create();
 	_player->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.3);
-	_gameBatchNode->addChild(_player,ForegroundPos);
+	_gameBatchNode->addChild(_player, ForegroundPos);
 
 	createHealthIndicator();
-	createScoreLabel();
+	createScoreAndPercentageLabels();
 	createPauseAndResumeButtons();
 	createRespawnButton();
 
@@ -54,12 +58,40 @@ bool BaseGameLayer::init(){
 	_backButton->addClickEventListener(CC_CALLBACK_0(BaseGameLayer::actionButtonBack, this));
 	_backButton->setPosition(Point(42.5* getScaleX(), 50 * getScaleY()));
 	_backButton->setEnabled(false);
-	_backButton -> setVisible(false);
+	_backButton->setVisible(false);
 	addChild(_backButton);
 
-	
+	//win label
+
+
 	return true;
 }
+
+void BaseGameLayer::levelCompleteActions(){
+	if (!isLevelComplete){
+		float aniTime = 2.0f;
+		auto winnerLabel = Label::createWithTTF("Level complete", "fonts/arial.ttf", 40);
+		winnerLabel->setTextColor(Color4B::ORANGE);
+		winnerLabel->setPosition(Point(_visibleSize.width*0.5, _visibleSize.height - 100 * getScaleY()));
+		addChild(winnerLabel, UIPos);
+		GameManager::getInstance()->saveGame(getTag());
+		
+		auto moveTo = MoveTo::create(aniTime, Point(_visibleSize.width*0.5, _visibleSize.height *0.5));
+		winnerLabel->runAction(moveTo);
+
+		CallFunc *loadMenu = CallFunc::create(CC_CALLBACK_0(BaseGameLayer::levelCompleteActionsHelper, this));
+		DelayTime *delayAction = DelayTime::create(aniTime);
+		auto sequence = Sequence::create(delayAction, loadMenu, NULL);
+		runAction(sequence);
+	}
+	isLevelComplete = true;
+}
+
+void BaseGameLayer::levelCompleteActionsHelper(){
+	experimental::AudioEngine::stopAll();
+	Director::getInstance()->replaceScene(SelectMenuLayer::createScene());
+}
+
 
 void BaseGameLayer::resetPlayer(){
 	_player->reset();
@@ -89,12 +121,20 @@ void BaseGameLayer::createHealthIndicator(){
 	_gameBatchNode->addChild(_healthBar, UIPos);
 }
 
-void BaseGameLayer::createScoreLabel(){
+void BaseGameLayer::createScoreAndPercentageLabels(){
+	//score
 	_scoreLabel = Label::createWithTTF("Score: 0", "fonts/arial.ttf", 15);
 	_scoreLabel->setAnchorPoint(Point(0.5, 0.5));
 	_scoreLabel->setPosition(Point(_visibleSize.width*0.5, _visibleSize.height - 20 * getScaleY()));
 	_scoreLabel->setTextColor(Color4B::BLACK);
 	addChild(_scoreLabel, UIPos);
+
+	//percentage
+	_completionPercentageLabel = Label::createWithTTF("0 %", "fonts/arial.ttf", 30);
+	_completionPercentageLabel->setAnchorPoint(Point(1, 0));
+	_completionPercentageLabel->setTextColor(Color4B::ORANGE);
+	_completionPercentageLabel->setPosition(Point(_visibleSize.width - 5* getScaleX(), 5 * getScaleY()));
+	addChild(_completionPercentageLabel);
 }
 
 void BaseGameLayer::createPauseAndResumeButtons(){
@@ -127,13 +167,14 @@ void BaseGameLayer::createRespawnButton()
 	addChild(_respawnButton, UIPos);
 }
 
-void BaseGameLayer::actionButtonBack(){
+void BaseGameLayer::actionButtonBack()
+{
+	experimental::AudioEngine::stopAll();
 	Director::getInstance()->replaceScene(TransitionSplitRows::create(1, MainMenuLayer::createScene()));
 }
 
 void BaseGameLayer::update(float dt)
 {
-
 	if (_player->isVisible()){
 		_bg->update(dt);
 	}
@@ -143,11 +184,18 @@ void BaseGameLayer::update(float dt)
 		_backButton->setEnabled(true);
 		_backButton->setVisible(true);
 	}
+
 	//update ui
 	_healthBar->setScaleX(static_cast<float>(_player->getHealth()) / static_cast<float>(MAX_HEALTH));
 	_ostr << GameManager::getInstance()->getPlayerScore();
 	_scoreLabel->setString("Score: " + _ostr.str());
 	_ostr.str("");
+	_ostr << (GameManager::getInstance()->getPlayerScore() * 100) / _scoreToCompleTheLevel;
+	_completionPercentageLabel->setString( _ostr.str() + " %");
+	_ostr.str("");
+	if (GameManager::getInstance()->getPlayerScore() >= _scoreToCompleTheLevel){
+		levelCompleteActions();
+	}
 }
 
 void BaseGameLayer::pauseButtonAction()
@@ -176,14 +224,10 @@ void BaseGameLayer::playButtonAction()
 	_backButton->setVisible(false);
 }
 
-
-
 void BaseGameLayer::respawnButtonAction()
 {
-
-		playButtonAction();
-	
-
+	playButtonAction();
+	resetPlayer();
 	_respawnButton->setVisible(false);
 	_respawnButton->setEnabled(false);
 }

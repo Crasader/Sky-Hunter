@@ -3,8 +3,6 @@
 #include "Level1.h"
 #include "MainMenuLayer.h"
 
-#define func SelectMenuLayer::actionButton
-
 
 USING_NS_CC;
 using namespace ui;
@@ -33,11 +31,11 @@ bool SelectMenuLayer::init(){
 	std::vector<std::function<void(Ref*)>> functions;
 	cocos2d::Vector<Button*> buttons;
 
-	initfunctions(functions);
-	//buttons
+	initFunctions(functions);
+	//add buttons to scene
 	initButtons(buttons, functions);
 
-	//check avilabel levels
+	//check available levels
 	for (int i = 0; i < NUM_LEVELS; i++){
 		if (i>GameManager::getInstance()->getNextLevel()) break;
 		//enable button
@@ -87,27 +85,7 @@ void SelectMenuLayer::initButtons(cocos2d::Vector<Button*>& buttons, std::vector
 }
 
 
-void SelectMenuLayer::initfunctions(std::vector<std::function<void(Ref*)>>& functions){
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton1, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton2, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton3, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton4, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton5, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton6, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton7, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton8, this));
-	functions.push_back(CC_CALLBACK_0(SelectMenuLayer::actionButton9, this));
-}
 
-void SelectMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene())); }
-void SelectMenuLayer::actionButton2(){/*TODO*/}
-void SelectMenuLayer::actionButton3(){/*TODO*/ }
-void SelectMenuLayer::actionButton4(){/*TODO*/ }
-void SelectMenuLayer::actionButton5(){/*TODO*/ }
-void SelectMenuLayer::actionButton6(){/*TODO*/ }
-void SelectMenuLayer::actionButton7(){/*TODO*/ }
-void SelectMenuLayer::actionButton8(){/*TODO*/ }
-void SelectMenuLayer::actionButton9(){/*TODO*/ }
 
 void SelectMenuLayer::actionButtonBack()
 { 

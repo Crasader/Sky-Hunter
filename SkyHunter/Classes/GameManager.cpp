@@ -7,7 +7,7 @@ GameManager* GameManager::_instance = nullptr;
 
 GameManager::GameManager() :_playerScore(0)
 {
-	_nextLevel = UserDefault::getInstance()->getIntegerForKey(LEVELKEY, 0);
+	
 	_bgVolume = UserDefault::getInstance()->getIntegerForKey(BGVOLUMEKEY, 30);
 	_effectsVolume = UserDefault::getInstance()->getIntegerForKey(EFFECTSVOLUMEKEY, 40);
 }
@@ -30,14 +30,21 @@ GameManager*  GameManager::getInstance(){
 	return _instance;
 }
 
-void GameManager::saveGame(){
-	_nextLevel = UserDefault::getInstance()->getIntegerForKey(LEVELKEY, 0);
-	//gurardo nivel completado
-	UserDefault::getInstance()->setIntegerForKey(LEVELKEY, _nextLevel);
-	//calculo siguietne nivel
-	_nextLevel++;
+void GameManager::saveGame(int tag){
+	if (tag > getNextLevel())
+	{
+		UserDefault::getInstance()->setIntegerForKey(LEVELKEY, tag);
+	}
 }
 
 int GameManager::getNextLevel(){
-	return _nextLevel;
+	return UserDefault::getInstance()->getIntegerForKey(LEVELKEY, 0);
+}
+
+void GameManager::saveMaxScore(int score){
+	UserDefault::getInstance()->setIntegerForKey(MAXSCOREKEY, score);
+}
+
+int GameManager::getMaxScore(){
+	return UserDefault::getInstance()->getIntegerForKey(MAXSCOREKEY, 0);
 }

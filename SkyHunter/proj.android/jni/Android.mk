@@ -11,8 +11,20 @@ LOCAL_MODULE := cocos2dcpp_shared
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+					../../Classes/AppDelegate.cpp \
+					../../Classes/Background.cpp \
+					../../Classes/BackGround3Parts.cpp \
+					../../Classes/BaseGameLayer.cpp \
+					../../Classes/BaseMenuLayer.cpp \
+					../../Classes/BasicEnemy.cpp \
+					../../Classes/Bullet.cpp \
+					../../Classes/Level1.cpp \
+					../../Classes/GameManager.cpp \
+					../../Classes/MainMenuLayer.cpp \
+					../../Classes/OptionsLayer.cpp \
+					../../Classes/Player.cpp \
+					../../Classes/SelectMenuLayer.cpp \
+					../../Classes/TouchController.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

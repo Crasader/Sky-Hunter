@@ -4,29 +4,16 @@
 
 #define NUM_LEVELS 9
 
-#include "BaseMenuLayer.h"
+#include "MainMenuLayer.h"
 #include "ui/CocosGUI.h"
 
 
-class SelectMenuLayer : public BaseMenuLayer
+class SelectMenuLayer : public MainMenuLayer
 {
-private:
-	
+private:	
 	std::ostringstream _ostr;
-	void actionButton1();
-	void actionButton2();
-	void actionButton3();
-	void actionButton4();
-	void actionButton5();
-	void actionButton6();
-	void actionButton7();
-	void actionButton8();
-	void actionButton9();
 	void actionButtonBack();
-
-	void initfunctions(std::vector<std::function<void(Ref*)>>& functions);
 	void initButtons(cocos2d::Vector<cocos2d::ui::Button*>& vector, std::vector<std::function<void(Ref*)>>& functions);
-
 
 public:
 	virtual bool init();

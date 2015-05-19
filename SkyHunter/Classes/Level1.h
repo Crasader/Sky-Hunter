@@ -14,12 +14,13 @@ private:
 	cocos2d::Vector<BasicEnemy*> _enemyPool;
 	void awakeEnemy();
 	void checkCollisions();
+	void awakeEnemyScheduler();
+	void initActors();
 
 protected:
 	virtual void respawnButtonAction();
 	virtual void pauseButtonAction();
 	virtual void playButtonAction();
-	virtual void actionButtonBack();
 
 public:
     static cocos2d::Scene* createScene();

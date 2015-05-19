@@ -1,9 +1,6 @@
 #include "OptionsLayer.h"
-
 #include "GameManager.h"
 #include "MainMenuLayer.h"
-
-
 
 USING_NS_CC;
 using namespace ui;
@@ -32,6 +29,7 @@ bool OptionsLayer::init(){
 	int marginY = _visibleSize.height - 100 * getScaleY();
 
 
+	//Background volumen options Componentes
 	_backGroundVolumeLabel = Label::createWithTTF("0", "fonts/arial.ttf", 16);
 	_backGroundVolumeLabel->setAnchorPoint(Point(0, 1));
 	_backGroundVolumeLabel->setTextColor(Color4B::BLACK);
@@ -53,7 +51,7 @@ bool OptionsLayer::init(){
 	_backGroundVolume->addEventListener(CC_CALLBACK_0(OptionsLayer::actionBackGroundVolumeSlider, this));
 	addChild(_backGroundVolume);
 
-
+	//Effects volumen options Componentes
 	_effectsVolumeLabel = Label::createWithTTF("0", "fonts/arial.ttf", 16);
 	_ostr << GameManager::getInstance()->getEffectsVolume();
 	_effectsVolumeLabel->setString("Effects volume: " + _ostr.str());
@@ -89,7 +87,7 @@ bool OptionsLayer::init(){
 
 void OptionsLayer::actionBackGroundVolumeSlider(){
 	_ostr << _backGroundVolume->getPercent();
-	_backGroundVolumeLabel->setString("Background volume: "+_ostr.str());
+	_backGroundVolumeLabel->setString("Background volume: " + _ostr.str());
 	_ostr.str("");
 	GameManager::getInstance()->setBgVolume(_backGroundVolume->getPercent());
 }
@@ -104,6 +102,5 @@ void OptionsLayer::actionButtonBack()
 {
 	GameManager::getInstance()->saveSetting();
 	Director::getInstance()->replaceScene(TransitionFlipX::create(1, MainMenuLayer::createScene()));
-	
 }
 

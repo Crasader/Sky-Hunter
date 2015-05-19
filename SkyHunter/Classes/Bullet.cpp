@@ -56,6 +56,9 @@ Bullet* Bullet::createEnemyBullet(){
 	return nullptr;
 }
 
+
+
+
 void Bullet::update(float dt){
 	if (!this->isVisible()) return;
 
