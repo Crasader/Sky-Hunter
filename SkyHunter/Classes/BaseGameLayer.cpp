@@ -37,7 +37,7 @@ bool BaseGameLayer::init(){
 	//todas las pantallass de nuestro juego usaran este sprite sheet
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist", "Hunter.png");
 	_gameBatchNode = SpriteBatchNode::create("Hunter.png");
-	addChild(_gameBatchNode);
+	addChild(_gameBatchNode,ForegroundPos);
 
 
 
@@ -45,6 +45,7 @@ bool BaseGameLayer::init(){
 	_player->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.3);
 	_gameBatchNode->addChild(_player, ForegroundPos);
 
+	//UI
 	createHealthIndicator();
 	createScoreAndPercentageLabels();
 	createPauseAndResumeButtons();
@@ -57,9 +58,7 @@ bool BaseGameLayer::init(){
 	_backButton->setPosition(Point(42.5* getScaleX(), 50 * getScaleY()));
 	_backButton->setEnabled(false);
 	_backButton->setVisible(false);
-	addChild(_backButton);
-
-	//win label
+	addChild(_backButton,UIPos);
 
 
 	return true;
@@ -116,7 +115,7 @@ void BaseGameLayer::createHealthIndicator(){
 	_healthBar->setPosition(nextPosition);
 	_healthBar->setScaleY(0.78f);
 	_healthBar->setScaleX(1);
-	_gameBatchNode->addChild(_healthBar, UIPos);
+	_gameBatchNode->addChild(_healthBar, UIPos+1);//siempre arriba
 }
 
 void BaseGameLayer::createScoreAndPercentageLabels(){
@@ -132,7 +131,7 @@ void BaseGameLayer::createScoreAndPercentageLabels(){
 	_completionPercentageLabel->setAnchorPoint(Point(1, 0));
 	_completionPercentageLabel->setTextColor(Color4B::ORANGE);
 	_completionPercentageLabel->setPosition(Point(_visibleSize.width - 5* getScaleX(), 5 * getScaleY()));
-	addChild(_completionPercentageLabel);
+	addChild(_completionPercentageLabel, UIPos);
 }
 
 void BaseGameLayer::createPauseAndResumeButtons(){

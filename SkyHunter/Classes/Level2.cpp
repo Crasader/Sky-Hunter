@@ -3,7 +3,7 @@
 #include "GameManager.h"
 #include "MainMenuLayer.h"
 #include "HealthParticle.h"
-#include "PlayerUpgradeParticle.h"
+
 
 USING_NS_CC;
 
@@ -37,11 +37,7 @@ bool Level2::init()
 	_health = HealthParticle::create();
 	_health->setTarget(_player);
 
-	auto upgrade = PlayerUpgradeParticle::create();
-	upgrade->setPosition(_visibleSize.width*0.5, _visibleSize.height);
-	upgrade->setVisible(true);
-	upgrade->setTarget(_player);
-	addChild(upgrade);
+
 	
 	addChild(_health,ForegroundPos);
 

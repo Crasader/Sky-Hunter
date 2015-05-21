@@ -3,8 +3,8 @@
 #define ENEMY_HEALTH 1
 
 #include "cocos2d.h"
+#include "EnemyBullet.h"
 
-class EnemyBullet;
 class Player;
 
 class BasicEnemy : public cocos2d::Sprite

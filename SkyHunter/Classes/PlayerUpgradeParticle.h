@@ -3,8 +3,8 @@
 #define __PLAYERUPGRADEPARTICLE_H__
 
 #include "cocos2d.h"
-class Player;
-class PlayerBulletx2;
+#include "Player.h"
+#include "PlayerBulletx2.h"
 
 class PlayerUpgradeParticle : public cocos2d::Node
 {

@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "PlayerBullet.h"
 #include "BasicEnemy.h"
 #include "AudioEngine.h"
 #include "GameManager.h"
@@ -61,15 +60,15 @@ void Player::runHitEffect(){
 
 void Player::updateBullets(const std::function<PlayerBullet*()>& create)
 {
+	stopActionByTag(SHOOT_TAG);
 	for (int i = 0; i < _numBullets; i++){
 		_parent->removeChild(_bulletPool.at(i), true);
-	}
-	for (int i = 0; i < _numBullets; i++){
 		auto bullet = create();
 		bullet->setPlayerTargets(_targets);
 		_bulletPool.replace(i, bullet);
 		_parent->addChild(_bulletPool.at(i), getLocalZOrder());
 	}
+	runAction(_shoot);
 }
 
 
@@ -85,7 +84,7 @@ void Player::setHealth(int health){
 
 void Player::setVisible(bool visible){
 	Sprite::setVisible(visible);
-	if (visible){
+	if (!visible){
 		runAction(_shoot);
 	}
 	else{
@@ -147,15 +146,23 @@ void Player::scheduleShoot(){
 }
 
 void Player::reset(){
+
 	if (!isVisible())
 	{
 		setVisible(true);
 	}
+	stopActionByTag(SHOOT_TAG);
 	setHealth(MAX_HEALTH);
 	setCurrentAnimation(Player::Animations::IDLE);
-	for (Sprite* bullet : _bulletPool){
-		bullet->setVisible(false);
+	for (int i = 0; i < _numBullets; i++){
+		_parent->removeChild(_bulletPool.at(i), true);
+		auto bullet = PlayerBullet::create();
+		bullet->setPlayerTargets(_targets);
+		_bulletPool.replace(i, bullet);
+		_parent->addChild(_bulletPool.at(i), getLocalZOrder());
 	}
+	runAction(_shoot);
+
 
 }
 

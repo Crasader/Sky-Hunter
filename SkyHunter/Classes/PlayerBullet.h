@@ -2,7 +2,7 @@
 #define __PLAYERBULLET_H__
 #include "cocos2d.h"
 
-class BasicEnemy;
+#include "BasicEnemy.h"
 
 class PlayerBullet :public cocos2d::Sprite
 {

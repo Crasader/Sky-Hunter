@@ -4,10 +4,12 @@
 
 #include "cocos2d.h"
 #include "TouchController.h"
+#include "PlayerBullet.h"
+
 #define MAX_HEALTH 3
 
-class PlayerBullet;
 class BasicEnemy;
+
 
 class Player : public cocos2d::Sprite
 {

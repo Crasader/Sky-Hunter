@@ -1,5 +1,4 @@
 #include "BasicEnemy.h"
-#include "EnemyBullet.h"
 #include "Player.h"
 #include "AudioEngine.h"
 #include "GameManager.h"
@@ -59,7 +58,7 @@ void BasicEnemy::scheduleShoot(){
 
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(BasicEnemy::shoot, this));
-	auto shootSequence = Sequence::create(delayAction, callSelectorAction, NULL);
+	auto shootSequence = Sequence::create(delayAction,callSelectorAction, NULL);
 	_shoot = RepeatForever::create(shootSequence);
 	_shoot->setTag(SHOOT_TAG);
 	_shoot->retain();
@@ -119,7 +118,7 @@ void BasicEnemy::setParent(Node* parent){
 	if (!_initialiced){
 		for (int i = 0; i < _numBullets; i++){
 			//add bullets to parent, in this case is GameLayer.
-			parent->addChild(_bulletPool.at(i));
+			parent->addChild(_bulletPool.at(i),getLocalZOrder());
 		}
 		_initialiced = true;
 	}

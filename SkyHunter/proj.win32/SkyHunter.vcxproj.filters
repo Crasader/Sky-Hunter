@@ -75,16 +75,16 @@
     <ClCompile Include="..\Classes\EnemyBullet.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HealthParticle.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Level2.cpp">
       <Filter>src\layers\levels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
+    <ClCompile Include="..\Classes\HealthParticle.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PlayerBulletx2.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,10 +140,10 @@
     <ClInclude Include="..\Classes\Level2.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\PlayerUpgradeParticle.h">
+    <ClInclude Include="..\Classes\HealthParticle.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HealthParticle.h">
+    <ClInclude Include="..\Classes\PlayerUpgradeParticle.h">
       <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PlayerBulletx2.h">

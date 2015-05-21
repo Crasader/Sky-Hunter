@@ -1,7 +1,6 @@
 #include "PlayerUpgradeParticle.h"
-#include "Player.h"
-#include "BasicEnemy.h"
-#include "PlayerBulletx2.h"
+
+
 
 USING_NS_CC;
 

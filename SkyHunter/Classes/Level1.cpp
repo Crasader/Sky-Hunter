@@ -2,7 +2,7 @@
 #include "AudioEngine.h"
 #include "GameManager.h"
 #include "MainMenuLayer.h"
-
+#include "PlayerUpgradeParticle.h"
 USING_NS_CC;
 
 Scene* Level1::createScene()
@@ -35,7 +35,11 @@ bool Level1::init()
 
 	initActors();
 	awakeEnemyScheduler();
-
+	auto upgrade = PlayerUpgradeParticle::create();
+	upgrade->setPosition(_visibleSize.width*0.5, _visibleSize.height);
+	upgrade->setVisible(true);
+	upgrade->setTarget(_player);
+	addChild(upgrade,ForegroundPos);
 	//start game loop
 	this->schedule(schedule_selector(Level1::update));
 
