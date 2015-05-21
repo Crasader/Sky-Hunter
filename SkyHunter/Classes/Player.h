@@ -6,7 +6,7 @@
 #include "TouchController.h"
 #define MAX_HEALTH 3
 
-class Bullet;
+class PlayerBullet;
 class BasicEnemy;
 
 class Player : public cocos2d::Sprite
@@ -18,11 +18,12 @@ public:
 	};
 
 private:
+	Node* _parent;
 	cocos2d::ParticleSystemQuad* _hitEffect;
 	int _health;
 	int SHOOT_TAG = 3;
 	bool _initialiced;
-	cocos2d::Vector<Bullet*> _bulletPool;
+	cocos2d::Vector<PlayerBullet*> _bulletPool;
 	cocos2d::Vector<BasicEnemy*>  _targets;
 
 	int _numBullets;
@@ -44,26 +45,25 @@ private:
 public:
 	CC_SYNTHESIZE(float, _speed, Speed);
 	CREATE_FUNC(Player);
-
+	void updateBullets(const std::function<PlayerBullet*()>& create);
 	void reset();
 	virtual void setParent(Node* parent);
 	void setTargets(const cocos2d::Vector<BasicEnemy*>& targets);
 	void setCurrentAnimation(Animations anim);
 	const Animations getCurrentAnimation(){ return  _currentAnimation; }
 
-	virtual void setVisible(bool bVisible);
+	virtual void setVisible(bool visible);
 	virtual void pause();
 	virtual void resume();
+	virtual bool init();
+	virtual void update(float dt);
 
 	const int getHealth(){ return _health; };
 	void setHealth(int health);
 
-
-
-	virtual bool init();
-	virtual ~Player();
+	
 	Player();
-	void update(float dt);
+	
 	void runHitEffect();
 
 

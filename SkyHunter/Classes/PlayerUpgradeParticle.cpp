@@ -1,0 +1,60 @@
+#include "PlayerUpgradeParticle.h"
+#include "Player.h"
+#include "BasicEnemy.h"
+#include "PlayerBulletx2.h"
+
+USING_NS_CC;
+
+bool PlayerUpgradeParticle::init()
+{
+	if (!Node::init()){
+		return false;
+	}
+	_target = nullptr;
+	_initialized = false;
+	_speed = 100;
+	_particle = ParticleSystemQuad::create("shootx2.plist");
+	_particle->setLife(0.2f);
+	_particle->setScale(getScale()*0.2f);
+	setVisible(false);
+	_particle->setPosition(Point(0, 0));
+	addChild(_particle);
+	scheduleUpdate();
+	return true;
+}
+
+void PlayerUpgradeParticle::update(float dt)
+{
+	if (!isVisible()) return;
+	//go down 
+	setAnchorPoint(Point(0.5, 1));
+	setPosition(getPositionX(), getPositionY() - _speed*dt);
+	if (getPositionY() < 0){
+		setVisible(false);
+	}
+	if (_target != nullptr && _target->getBoundingBox().intersectsRect(getBoundingBox())
+		&& isVisible() && _target->isVisible() && _target->getCurrentAnimation() != Player::Animations::EXPLOSION)
+	{
+		_target->updateBullets(CC_CALLBACK_0(PlayerUpgradeParticle::createBullet, this));
+		setVisible(false);
+	}
+}
+
+
+PlayerBulletx2* PlayerUpgradeParticle::createBullet(){
+	auto bullet = PlayerBulletx2::create();
+	bullet->setSpeed(180);
+	return bullet;
+}
+
+void PlayerUpgradeParticle::setVisible(bool visible){
+	Node::setVisible(visible);
+	_particle->setVisible(visible);
+	if (visible){
+		_particle->resetSystem();
+	}
+	else
+	{
+		_particle->stopSystem();
+	}
+}

@@ -9,6 +9,8 @@ class Background
 {
 
 private:
+	cocos2d::Node* _parent;
+	int _pos;
 	bool _initialiced;
 	cocos2d::Size _screen;
 	cocos2d::Sprite* _bgPart1;
@@ -20,11 +22,10 @@ public:
 	virtual void setParent(cocos2d::Node* parent,int pos);
 	void update(float dt);
 	~Background();
-	void setSptitePart1(std::string part1);
-	void setSptitePart2(std::string part2);
+	void setSptite(std::string part1);
 
 	CC_SYNTHESIZE(float, _speed, Speed);
-	Background();
+	Background(std::string spritename);
 };
 
 #endif //__BACKGROUND_H__

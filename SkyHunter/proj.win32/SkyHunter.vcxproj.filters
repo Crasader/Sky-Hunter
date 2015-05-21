@@ -48,9 +48,6 @@
     <ClCompile Include="..\Classes\BackGround3Parts.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Bullet.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
@@ -71,6 +68,24 @@
     </ClCompile>
     <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
       <Filter>src\layers\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerBullet.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBullet.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HealthParticle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level2.cpp">
+      <Filter>src\layers\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerBulletx2.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +110,6 @@
     <ClInclude Include="..\Classes\BasicEnemy.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Bullet.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GameManager.h">
       <Filter>src\headers</Filter>
     </ClInclude>
@@ -117,6 +129,24 @@
       <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Level1.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBullet.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBullet.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level2.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerUpgradeParticle.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HealthParticle.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBulletx2.h">
       <Filter>src\headers</Filter>
     </ClInclude>
   </ItemGroup>

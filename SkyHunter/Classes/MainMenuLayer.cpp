@@ -1,5 +1,6 @@
 #include "MainMenuLayer.h"
 #include "Level1.h"
+#include "Level2.h"
 #include "SelectMenuLayer.h"
 #include "OptionsLayer.h"
 #include "ui/CocosGUI.h"
@@ -91,7 +92,7 @@ void MainMenuLayer::initFunctions(std::vector<std::function<void(Ref*)>>& functi
 
 void MainMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene()));  }
 
-void MainMenuLayer::actionButton2(){ /*TODO*/ }
+void MainMenuLayer::actionButton2(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level2::createScene())); }
 void MainMenuLayer::actionButton3(){ /*TODO*/ }
 void MainMenuLayer::actionButton4(){ /*TODO*/ }
 void MainMenuLayer::actionButton5(){ /*TODO*/ }

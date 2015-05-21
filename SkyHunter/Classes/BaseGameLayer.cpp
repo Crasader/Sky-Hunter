@@ -39,8 +39,6 @@ bool BaseGameLayer::init(){
 	_gameBatchNode = SpriteBatchNode::create("Hunter.png");
 	addChild(_gameBatchNode);
 
-	_bg = new Background();
-	_bg->setParent(_gameBatchNode, BackgroundPos);
 
 
 	_player = Player::create();
@@ -175,7 +173,7 @@ void BaseGameLayer::actionButtonBack()
 
 void BaseGameLayer::update(float dt)
 {
-	if (_player->isVisible()){
+	if (_player->isVisible() && _bg){
 		_bg->update(dt);
 	}
 	else{

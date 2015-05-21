@@ -1,21 +1,22 @@
 #include "BasicEnemy.h"
-#include "Bullet.h"
+#include "EnemyBullet.h"
 #include "Player.h"
 #include "AudioEngine.h"
 #include "GameManager.h"
 
-
-
 USING_NS_CC;
 
-BasicEnemy::BasicEnemy() :_speed(100), _numBullets(10), _bulletIndex(0), _initialiced(false)
+BasicEnemy::BasicEnemy() :
+_speed(100),
+_numBullets(10),
+_bulletIndex(0),
+_initialiced(false)
 {
+	_currentAnimation = IDLE;
+	_value = 10;
+	_shootFrequencySeconds = 1.0f;
 }
 
-
-BasicEnemy::~BasicEnemy()
-{
-}
 
 bool BasicEnemy::init(){
 	//superclass first
@@ -24,13 +25,8 @@ bool BasicEnemy::init(){
 		return false;
 	}
 
-	for (int i = 0; i < _numBullets; i++){
-		_bulletPool.pushBack(Bullet::createEnemyBullet());
-	}
-
-	_currentAnimation = IDLE;
+	createBullets();
 	createIdleAnimation();
-	
 	createExplosionAnimation();
 
 	//start the initial animation
@@ -41,10 +37,16 @@ bool BasicEnemy::init(){
 	return true;
 }
 
+void BasicEnemy::createBullets(){
+	for (int i = 0; i < _numBullets; i++){
+		_bulletPool.pushBack(EnemyBullet::create());
+	}
+}
+
 void BasicEnemy::reset(){
 	setVisible(false);
 	setCurrentAnimation(IDLE);
-	for (Sprite* bullet : _bulletPool){
+	for (EnemyBullet* bullet : _bulletPool){
 		bullet->setVisible(false);
 	}
 
@@ -53,7 +55,7 @@ void BasicEnemy::reset(){
 void BasicEnemy::scheduleShoot(){
 
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.0f);
+	DelayTime *delayAction = DelayTime::create(_shootFrequencySeconds);
 
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(BasicEnemy::shoot, this));
@@ -68,14 +70,14 @@ void BasicEnemy::scheduleShoot(){
 
 void BasicEnemy::pause(){
 	Sprite::pause();
-	for (Node* node : _bulletPool){
+	for (EnemyBullet* node : _bulletPool){
 		node->pause();
 	}
 }
 
 void BasicEnemy::resume(){
 	Sprite::resume();
-	for (Node* node : _bulletPool){
+	for (EnemyBullet* node : _bulletPool){
 		node->resume();
 	}
 }
@@ -186,13 +188,13 @@ void BasicEnemy::createExplosionAnimation(){
 void BasicEnemy::setVisible(bool visible){
 	Sprite::setVisible(visible);
 	if (visible){
+		setHealth(ENEMY_HEALTH);
 		runAction(_shoot);
 	}
 	else{
 		stopActionByTag(SHOOT_TAG);
 	}
 }
-
 
 
 void BasicEnemy::update(float dt){
@@ -206,15 +208,20 @@ void BasicEnemy::update(float dt){
 		return;
 	}
 
+	if (_health <= 0){
+		setCurrentAnimation(EXPLOSION);
+	}
+
+	behaviour(dt);
+}
+
+void BasicEnemy::behaviour(float dt){
 	//go down 
 	setAnchorPoint(Point(0.5, 1));
 	setPosition(getPositionX(), getPositionY() - _speed*dt);
 	if (getPositionY() < 0){
 		setVisible(false);
 	}
-
-
-
 }
 
 
