@@ -1,7 +1,5 @@
 #include "PlayerUpgradeParticle.h"
 
-
-
 USING_NS_CC;
 
 bool PlayerUpgradeParticle::init()
@@ -40,7 +38,7 @@ void PlayerUpgradeParticle::update(float dt)
 }
 
 
-PlayerBulletx2* PlayerUpgradeParticle::createBullet(){
+PlayerBullet* PlayerUpgradeParticle::createBullet(){
 	auto bullet = PlayerBulletx2::create();
 	bullet->setSpeed(180);
 	return bullet;

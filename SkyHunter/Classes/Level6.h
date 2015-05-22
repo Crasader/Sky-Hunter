@@ -1,11 +1,11 @@
-#ifndef __LEVEL2_SCENE_H__
-#define __LEVEL2_SCENE_H__
+#ifndef __LEVEL6_SCENE_H__
+#define __LEVEL6_SCENE_H__
 #include "BaseGameLayer.h"
 #include "BasicEnemy.h"
 
 class HealthParticle;
 
-class Level2 : public BaseGameLayer
+class Level6 : public BaseGameLayer
 {
 
 private:
@@ -28,7 +28,7 @@ public:
 	virtual bool init();
 	void update(float dt);
 
-	CREATE_FUNC(Level2);
+	CREATE_FUNC(Level6);
 };
 
-#endif // __LEVEL2_SCENE_H__
+#endif // __LEVEL6_SCENE_H__

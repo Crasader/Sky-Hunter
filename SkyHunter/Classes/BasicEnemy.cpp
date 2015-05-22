@@ -5,12 +5,16 @@
 
 USING_NS_CC;
 
+
+
 BasicEnemy::BasicEnemy() :
 _speed(100),
 _numBullets(10),
 _bulletIndex(0),
 _initialiced(false)
 {
+	ENEMY_HEALTH = 1;
+	_health = ENEMY_HEALTH;
 	_currentAnimation = IDLE;
 	_value = 10;
 	_shootFrequencySeconds = 1.0f;
@@ -25,8 +29,8 @@ bool BasicEnemy::init(){
 	}
 
 	createBullets();
-	createIdleAnimation();
-	createExplosionAnimation();
+	createIdleAnimation("enemy",4);
+	createExplosionAnimation("enemy_explosion",6);
 
 	//start the initial animation
 	runAction(_idleAnimation);
@@ -48,7 +52,6 @@ void BasicEnemy::reset(){
 	for (EnemyBullet* bullet : _bulletPool){
 		bullet->setVisible(false);
 	}
-
 }
 
 void BasicEnemy::scheduleShoot(){
@@ -125,13 +128,13 @@ void BasicEnemy::setParent(Node* parent){
 	Sprite::setParent(parent);
 }
 
-void BasicEnemy::createIdleAnimation(){
+void BasicEnemy::createIdleAnimation(std::string spriteName, int numberOfFrames){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
 	std::ostringstream ostr;
-	for (int i = 0; i < 4; i++){
-		name.append("enemy");
+	for (int i = 0; i < numberOfFrames; i++){
+		name.append(spriteName);
 		ostr << i;
 		name.append(ostr.str());
 		ostr.str("");
@@ -157,13 +160,13 @@ void BasicEnemy::createIdleAnimation(){
 	_idleAnimation->retain();
 }
 
-void BasicEnemy::createExplosionAnimation(){
+void BasicEnemy::createExplosionAnimation(std::string spriteName, int numberOfFrames){
 	//create animation pool
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
 	std::ostringstream ostr;
-	for (int i = 0; i < 6; i++){
-		name.append("enemy_explosion");
+	for (int i = 0; i < numberOfFrames; i++){
+		name.append(spriteName);
 		ostr << i;
 		name.append(ostr.str());
 		ostr.str("");

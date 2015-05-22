@@ -33,8 +33,10 @@ void PlayerBullet::update(float dt){
 			&& enemy->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
 			//colision
 			enemy->setHealth(enemy->getHealth() - _damage);
-			GameManager::getInstance()->setPlayerScore(GameManager::getInstance()->getPlayerScore()+
-				enemy->getValue());
+			if (enemy->getHealth()<=0){
+				GameManager::getInstance()->setPlayerScore(GameManager::getInstance()->getPlayerScore() +
+					enemy->getValue());
+			}
 			setVisible(false);
 		}
 	}

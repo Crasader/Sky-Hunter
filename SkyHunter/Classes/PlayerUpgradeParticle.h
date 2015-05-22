@@ -7,12 +7,12 @@
 #include "PlayerBulletx2.h"
 
 class PlayerUpgradeParticle : public cocos2d::Node
-{
-private:
+{	
+protected:
 	bool _initialized;
 	cocos2d::ParticleSystemQuad* _particle;
-protected:
-	virtual PlayerBulletx2* createBullet();
+	virtual PlayerBullet* createBullet();
+	
 
 public:
 	CC_SYNTHESIZE(float, _speed, Speed);

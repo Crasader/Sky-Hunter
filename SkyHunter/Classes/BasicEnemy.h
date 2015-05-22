@@ -1,6 +1,6 @@
 #ifndef __BASICENEMY_H__
 #define __BASICENEMY_H__
-#define ENEMY_HEALTH 1
+
 
 #include "cocos2d.h"
 #include "EnemyBullet.h"
@@ -11,22 +11,17 @@ class BasicEnemy : public cocos2d::Sprite
 {
 
 public:
+	int ENEMY_HEALTH;
 	enum Animations
 	{
 		IDLE = 0, EXPLOSION = 1
 	};
 
-private:
+protected:
 	int SHOOT_TAG = 3;
+	void shoot();
 	bool _initialiced;
 	int _bulletIndex;
-	void shoot();
-	void createBullets();
-	
-
-	
-
-protected:
 	float _shootFrequencySeconds;
 	int _numBullets;
 	void scheduleShoot();
@@ -36,17 +31,16 @@ protected:
 	cocos2d::Action* _shoot;
 	cocos2d::Vector<EnemyBullet*> _bulletPool;
 	Player* _target;
-	virtual void createIdleAnimation();
-	virtual void createExplosionAnimation();
+	void createIdleAnimation(std::string spriteName, int numberOfFrames);
+	void createExplosionAnimation(std::string spriteName, int numberOfFrames);
 	virtual void behaviour(float dt);
+	virtual void createBullets();
 
 
 public:
 	void reset();
 	virtual void setParent(Node* parent);
 	void setTarget(Player* target);
-
-
 	void setCurrentAnimation(Animations anim);
 	Animations getCurrentAnimation(){ return  _currentAnimation; }
 	CC_SYNTHESIZE(int, _health, Health);

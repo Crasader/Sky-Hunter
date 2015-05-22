@@ -1,8 +1,11 @@
 #include "Level2.h"
+#include "HeightEnemy.h"
 #include "AudioEngine.h"
 #include "GameManager.h"
 #include "MainMenuLayer.h"
 #include "HealthParticle.h"
+#include "PlayerUpgradeParticle2.h"
+#include "Cloud.h"
 
 
 USING_NS_CC;
@@ -37,7 +40,17 @@ bool Level2::init()
 	_health = HealthParticle::create();
 	_health->setTarget(_player);
 
+	auto upgrade = PlayerUpgradeParticle2::create();
+	upgrade->setPosition(_visibleSize.width*0.5, _visibleSize.height);
+	upgrade->setVisible(true);
+	upgrade->setTarget(_player);
+	addChild(upgrade, ForegroundPos);
 
+	auto cloud = Cloud::create();
+	cloud->setPosition(_visibleSize.width*0.5, _visibleSize.height *1.5);
+	cloud->setVisible(true);
+	cloud->setTarget(_player);
+	_gameBatchNode->addChild(cloud, ForegroundPos);
 	
 	addChild(_health,ForegroundPos);
 
@@ -55,7 +68,7 @@ bool Level2::init()
 void Level2::initActors()
 {
 	for (int i = 0; i < _numEnemies; i++){
-		auto enemy = BasicEnemy::create();
+		auto enemy = HeightEnemy::create();
 		//tell the enemies about the player.
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
@@ -127,7 +140,7 @@ void Level2::awakeEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.0f);
+	DelayTime *delayAction = DelayTime::create(1.5f);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);

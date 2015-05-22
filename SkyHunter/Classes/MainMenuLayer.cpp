@@ -1,6 +1,13 @@
 #include "MainMenuLayer.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "Level3.h"
+#include "Level4.h"
+#include "Level5.h"
+#include "Level6.h"
+#include "Level7.h"
+#include "Level8.h"
+#include "Level9.h"
 #include "SelectMenuLayer.h"
 #include "OptionsLayer.h"
 #include "ui/CocosGUI.h"
@@ -93,11 +100,11 @@ void MainMenuLayer::initFunctions(std::vector<std::function<void(Ref*)>>& functi
 void MainMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene()));  }
 
 void MainMenuLayer::actionButton2(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level2::createScene())); }
-void MainMenuLayer::actionButton3(){ /*TODO*/ }
-void MainMenuLayer::actionButton4(){ /*TODO*/ }
-void MainMenuLayer::actionButton5(){ /*TODO*/ }
-void MainMenuLayer::actionButton6(){ /*TODO*/ }
-void MainMenuLayer::actionButton7(){ /*TODO*/ }
-void MainMenuLayer::actionButton8(){ /*TODO*/ }
-void MainMenuLayer::actionButton9(){ /*TODO*/ }
+void MainMenuLayer::actionButton3(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level3::createScene())); }
+void MainMenuLayer::actionButton4(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level4::createScene())); }
+void MainMenuLayer::actionButton5(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level5::createScene())); }
+void MainMenuLayer::actionButton6(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level6::createScene())); }
+void MainMenuLayer::actionButton7(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level7::createScene())); }
+void MainMenuLayer::actionButton8(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level8::createScene())); }
+void MainMenuLayer::actionButton9(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level9::createScene())); }
 void MainMenuLayer::arcadeButton(){/*TODO*/}

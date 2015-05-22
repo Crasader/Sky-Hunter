@@ -25,6 +25,18 @@
     <Filter Include="src\layers\menus">
       <UniqueIdentifier>{49eb8522-17a0-42ea-9257-b44e1e64b464}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\components\bullets">
+      <UniqueIdentifier>{ee394ee0-8a62-4c12-af1d-b96505a6cc34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\upgrades">
+      <UniqueIdentifier>{ca8f756f-9b4d-4243-ba9d-2748ecb22e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\backgrounds">
+      <UniqueIdentifier>{79889e8b-f098-4633-9777-fd386dbd0e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\enemies">
+      <UniqueIdentifier>{388f67e9-7309-4d67-bb73-64f52e66645d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,16 +54,7 @@
     <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
       <Filter>src\layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Background.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BackGround3Parts.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BasicEnemy.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameManager.cpp">
@@ -69,23 +72,71 @@
     <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
       <Filter>src\layers\menus</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PlayerBullet.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EnemyBullet.cpp">
-      <Filter>src\components</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Level2.cpp">
       <Filter>src\layers\levels</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HealthParticle.cpp">
-      <Filter>src\components</Filter>
+    <ClCompile Include="..\Classes\PlayerBullet.cpp">
+      <Filter>src\components\bullets</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PlayerBulletx2.cpp">
-      <Filter>src\components</Filter>
+      <Filter>src\components\bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerBulletx3.cpp">
+      <Filter>src\components\bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBullet.cpp">
+      <Filter>src\components\bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBulletSmart.cpp">
+      <Filter>src\components\bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HealthParticle.cpp">
+      <Filter>src\components\upgrades</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
-      <Filter>src\components</Filter>
+      <Filter>src\components\upgrades</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerUpgradeParticle2.cpp">
+      <Filter>src\components\upgrades</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Background.cpp">
+      <Filter>src\components\backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BackGround3Parts.cpp">
+      <Filter>src\components\backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BasicEnemy.cpp">
+      <Filter>src\components\enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HeightEnemy.cpp">
+      <Filter>src\components\enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MediumEnemy.cpp">
+      <Filter>src\components\enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Cloud.cpp">
+      <Filter>src\components\enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level3.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level4.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level5.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level6.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level7.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level8.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level9.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +199,45 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PlayerBulletx2.h">
       <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBulletx3.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerUpgradeParticle2.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HeightEnemy.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MediumEnemy.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBulletSmart.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Cloud.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level3.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level4.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level5.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level6.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level7.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level8.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level9.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
