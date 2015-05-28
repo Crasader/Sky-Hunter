@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "BasicEnemy.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
 
 
@@ -55,7 +55,7 @@ void Player::runHitEffect(){
 	_hitEffect->setPositionY(getPositionY() + getBoundingBox().size.height*0.5);
 	_hitEffect->setVisible(true);
 	_hitEffect->resetSystem();
-	experimental::AudioEngine::play2d("music/hit.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+	CustomAudioManager::getInstance()->playEffect("music/hit.wav", false);
 }
 
 void Player::updateBullets(const std::function<PlayerBullet*()>& create)
@@ -234,7 +234,7 @@ void Player::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		experimental::AudioEngine::play2d("music/explosion.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+		CustomAudioManager::getInstance()->playEffect("music/explosion.wav", false);
 		runAction(_explosionAnimation);
 	}
 }

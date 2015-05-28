@@ -1,5 +1,5 @@
 #include "Level1.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
 #include "MainMenuLayer.h"
 
@@ -24,28 +24,32 @@ bool Level1::init()
 	{
 		return false;
 	}
-	_numEnemies = 20;
-	_enemyIndex = 0;
-	setTag(1);//level1
-	//debe ser 1000
-	_scoreToCompleTheLevel = 100;
 
+	initializeVariables();
+	initActors();
+	scheduleActions();
+	return true;
+}
+
+void Level1::initializeVariables(){
+	_numEnemies = 20;
+
+	setTag(1);//level1
+
+	_scoreToCompleTheLevel = 750;
 
 	_bg = new Background("fondo");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
+}
 
-	initActors();
+void Level1::scheduleActions(){
 	awakeEnemyScheduler();
-	
-	//start game loop
+
+	//comienza el bucle del juego
 	this->schedule(schedule_selector(Level1::update));
 
-	//start sound loop
-	experimental::AudioEngine::play2d("music/Cetus.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);
-
-	//scheduleUpdate();
-	schedule(schedule_selector(Level1::update));
-	return true;
+	//lanza el bucle de sonido
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
 }
 
 void Level1::initActors()
@@ -57,8 +61,8 @@ void Level1::initActors()
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
 	}
-	//tell the player about the enemies
 	_player->setTargets(_enemyPool);
+
 }
 
 
@@ -83,7 +87,6 @@ void Level1::respawnButtonAction()
 void Level1::pauseButtonAction()
 {
 	BaseGameLayer::pauseButtonAction();
-	experimental::AudioEngine::pauseAll();
 	_player->pause();
 	for (Sprite* enemy : _enemyPool){
 		enemy->pause();
@@ -93,7 +96,6 @@ void Level1::pauseButtonAction()
 void Level1::playButtonAction()
 {
 	BaseGameLayer::playButtonAction();
-	experimental::AudioEngine::resumeAll();
 	_player->resume();
 	for (Sprite* enemy : _enemyPool){
 		enemy->resume();

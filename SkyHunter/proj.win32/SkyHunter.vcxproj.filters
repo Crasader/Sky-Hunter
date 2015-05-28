@@ -117,9 +117,6 @@
     <ClCompile Include="..\Classes\Cloud.cpp">
       <Filter>src\components\enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level3.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Level4.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -137,6 +134,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Level9.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CustomAudioManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Blizzard.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level3.cpp">
+      <Filter>src\layers\levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,9 +224,6 @@
     <ClInclude Include="..\Classes\Cloud.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Level3.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Level4.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -238,6 +241,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Level9.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CustomAudioManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Blizzard.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level3.h">
+      <Filter>src\headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,5 @@ bool PlayerUpgradeParticle2::init()
 
 PlayerBullet* PlayerUpgradeParticle2::createBullet(){
 	auto bullet = PlayerBulletx3::create();
-	bullet->setSpeed(190);
 	return bullet;
 }

@@ -12,7 +12,7 @@ bool PlayerBulletx3::init(){
 
 	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("white_laser"));
 	_damage = 3;
-	_speed = 160;
+	_speed = 180;
 	//invisible by default
 	setVisible(false);
 	schedule(schedule_selector(PlayerBulletx3::update));

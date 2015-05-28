@@ -17,7 +17,39 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Background.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BackGround3Parts.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseGameLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseMenuLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\BasicEnemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Blizzard.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Cloud.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\CustomAudioManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\EnemyBullet.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\EnemyBulletSmart.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\GameManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\HealthParticle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\HeightEnemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level1.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level3.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level4.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level5.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level6.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level7.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level8.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Level9.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MainMenuLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\MediumEnemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\OptionsLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\Player.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBullet.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBulletx2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBulletx3.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerUpgradeParticle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerUpgradeParticle2.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\SelectMenuLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Classes\TouchController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)App.xaml.cpp">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
     </ClCompile>
@@ -27,8 +59,39 @@
       <DependentUpon>$(MSBuildThisFileDirectory)OpenGLESPage.xaml</DependentUpon>
     </ClCompile>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AppDelegate.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\AppMacros.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Background.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BackGround3Parts.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseGameLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BaseMenuLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\BasicEnemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Blizzard.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Cloud.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\CustomAudioManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\EnemyBullet.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\EnemyBulletSmart.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\GameManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\HealthParticle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\HeightEnemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level1.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level3.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level4.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level5.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level6.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level7.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level8.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Level9.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MainMenuLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\MediumEnemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\OptionsLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\Player.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBullet.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBulletx2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerBulletx3.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerUpgradeParticle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\PlayerUpgradeParticle2.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\SelectMenuLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\Classes\TouchController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)App.xaml.h">
       <DependentUpon>$(MSBuildThisFileDirectory)App.xaml</DependentUpon>
     </ClInclude>

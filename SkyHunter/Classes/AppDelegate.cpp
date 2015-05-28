@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
-#include "AudioEngine.h"
 #include "MainMenuLayer.h"
+#include "CustomAudioManager.h"
+
 
 USING_NS_CC;
 
@@ -49,6 +50,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
+	CustomAudioManager::getInstance()->preloadBackground("music/Cetus.wav");
+	CustomAudioManager::getInstance()->preloadBackground("music/Lensko.wav");
+	CustomAudioManager::getInstance()->preloadEffect("music/hit.wav");
+	CustomAudioManager::getInstance()->preloadEffect("music/laser_shoot.wav");
+	CustomAudioManager::getInstance()->preloadEffect("music/explosion.wav");
+
     // create a scene. it's an autorelease object
 	//auto scene = GameLayer::createScene();
 	auto mainScene = MainMenuLayer::createScene();
@@ -62,16 +69,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
-    // if you use SimpleAudioEngine, it must be pause
-    //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-	experimental::AudioEngine::pauseAll();
+    // pause music
+	CustomAudioManager::getInstance()->pauseAll();
+
+	
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
-    // if you use SimpleAudioEngine, it must resume here
-    //SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-	experimental::AudioEngine::resumeAll();
+	//resume music
+	CustomAudioManager::getInstance()->resumeAll();
 }

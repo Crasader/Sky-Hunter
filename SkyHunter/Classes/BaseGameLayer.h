@@ -29,7 +29,14 @@ private:
 
 protected:
 	enum RenderOrder { BackgroundPos, ForegroundPos, UIPos };
+	//enemigos totales
+	int _numEnemies;
+	int _enemyIndex;
+	//pool total de enemigos
+	cocos2d::Vector<BasicEnemy*> _enemyPool;
+
 	Player* _player;
+
 	Background* _bg;
 	int _scoreToCompleTheLevel;
 	cocos2d::Size _visibleSize;

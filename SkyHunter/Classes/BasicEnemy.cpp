@@ -1,6 +1,6 @@
 #include "BasicEnemy.h"
 #include "Player.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
 
 USING_NS_CC;
@@ -111,7 +111,7 @@ void BasicEnemy::setCurrentAnimation(Animations anim){
 	}
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(IDLE);
-		experimental::AudioEngine::play2d("music/explosion.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+		CustomAudioManager::getInstance()->playEffect("music/explosion.wav", false);
 		runAction(_explosionAnimation);
 	}
 }

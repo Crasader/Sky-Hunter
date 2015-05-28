@@ -17,7 +17,9 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 					../../Classes/BaseGameLayer.cpp \
 					../../Classes/BaseMenuLayer.cpp \
 					../../Classes/BasicEnemy.cpp \
+					../../Classes/Blizzard.cpp \
 					../../Classes/Cloud.cpp \
+					../../Classes/CustomAudioManager.cpp \
 					../../Classes/EnemyBullet.cpp \
 					../../Classes/EnemyBulletSmart.cpp \
 					../../Classes/GameManager.cpp \

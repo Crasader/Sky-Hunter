@@ -10,9 +10,8 @@ class Level4 : public BaseGameLayer
 
 private:
 	HealthParticle* _health;
-	int _numEnemies;
-	int _enemyIndex;
-	cocos2d::Vector<BasicEnemy*> _enemyPool;
+
+
 	void awakeEnemy();
 	void checkCollisions();
 	void awakeEnemyScheduler();

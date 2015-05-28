@@ -11,7 +11,7 @@ bool PlayerBulletx2::init(){
 
 	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("red_laser"));
 	_damage = 2;
-	_speed = 160;
+	_speed = 170;
 	//invisible by default
 	setVisible(false);
 	schedule(schedule_selector(PlayerBulletx2::update));

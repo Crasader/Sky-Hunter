@@ -1,11 +1,10 @@
 #include "Level2.h"
-#include "HeightEnemy.h"
-#include "AudioEngine.h"
+#include "MediumEnemy.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
-#include "MainMenuLayer.h"
 #include "HealthParticle.h"
-#include "PlayerUpgradeParticle2.h"
-#include "Cloud.h"
+#include "PlayerUpgradeParticle.h"
+
 
 
 USING_NS_CC;
@@ -29,53 +28,84 @@ bool Level2::init()
 	{
 		return false;
 	}
-	_numEnemies = 20;
-	_enemyIndex = 0;
-	setTag(2);//level2
-	_scoreToCompleTheLevel = 2000;
-	_bg = new Background("fondo2");
-	_bg->setParent(_gameBatchNode,BackgroundPos);
+
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+	initializeVariables();
 	initActors();
-	awakeEnemyScheduler();
-	_health = HealthParticle::create();
-	_health->setTarget(_player);
+	scheduleActions();
+	return true;
+}
 
-	auto upgrade = PlayerUpgradeParticle2::create();
-	upgrade->setPosition(_visibleSize.width*0.5, _visibleSize.height);
-	upgrade->setVisible(true);
-	upgrade->setTarget(_player);
-	addChild(upgrade, ForegroundPos);
 
-	auto cloud = Cloud::create();
-	cloud->setPosition(_visibleSize.width*0.5, _visibleSize.height *1.5);
-	cloud->setVisible(true);
-	cloud->setTarget(_player);
-	_gameBatchNode->addChild(cloud, ForegroundPos);
-	
-	addChild(_health,ForegroundPos);
+void Level2::scheduleActions(){
+	awakeBasicEnemyScheduler();
 
-	//start game loop
+	//comienza el bucle del juego
 	this->schedule(schedule_selector(Level2::update));
 
-	//start sound loop
-	experimental::AudioEngine::play2d("music/Lensko.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);
 
-	//scheduleUpdate();
-	schedule(schedule_selector(Level2::update));
-	return true;
+
+	schduleUpgrades();
+}
+
+void Level2::schduleUpgrades(){
+	//heath & upgrade launchers
+	DelayTime *delayOne = DelayTime::create(60);
+	DelayTime *delayTwo = DelayTime::create(80);
+	CallFunc *launhHealth = CallFunc::create(CC_CALLBACK_0(Level2::launchHealth, this));
+	CallFunc *launchUpgrade = CallFunc::create(CC_CALLBACK_0(Level2::launchUpgrade, this));
+	runAction(RepeatForever::create(Sequence::create(delayOne, launhHealth, NULL)));
+
+	runAction(RepeatForever::create(Sequence::create(delayTwo, launchUpgrade, NULL)));
 }
 
 void Level2::initActors()
 {
-	for (int i = 0; i < _numEnemies; i++){
-		auto enemy = HeightEnemy::create();
-		//tell the enemies about the player.
+	//40 enemigos en total
+	_numEnemies = 40;
+	//del 0 al 20 seran básicos
+	_enemyIndex = 0;
+	//20 enemigos medios
+	_numMediumEnemies = 20;
+	//del 20 al 40 medios
+	_mediumEnemyIndex = 20;
+
+	//añade los enemigos básicos al array de enemigos
+	for (int i = 0; i < _numEnemies - _numMediumEnemies; i++){
+		auto enemy = BasicEnemy::create();
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
 	}
-	//tell the player about the enemies
+	//añade los enemigos de nivel medio al array
+	for (int i = 0; i < _numMediumEnemies; i++){
+		auto enemy = MediumEnemy::create();
+		enemy->setTarget(_player);
+		_enemyPool.pushBack(enemy);
+		_gameBatchNode->addChild(enemy, ForegroundPos);
+	}
+	//hacer que el jugador sepa acerca de los enemigos
 	_player->setTargets(_enemyPool);
+}
+
+void Level2::initializeVariables(){
+
+	setTag(2);//level2
+	_scoreToCompleTheLevel = 1500;
+	_bg = new Background("fondo");
+	_bg->setParent(_gameBatchNode, BackgroundPos);
+
+	//flag para saber si estan los enemigos de nivel medio en escena
+	//y parar el scheduler de enemigos básicos
+	_mediumSchedulerRunning = false;
+
+	_health = HealthParticle::create();
+	_health->setTarget(_player);
+	addChild(_health, ForegroundPos);
+
+	_upgrade = PlayerUpgradeParticle::create();
+	_upgrade->setTarget(_player);
+	addChild(_upgrade, ForegroundPos);
 }
 
 
@@ -87,11 +117,20 @@ void Level2::update(float dt)
 	_player->update(dt);
 	//check for collision between enemies & player
 	checkCollisions();
+	launchMediumEnemies();
+
 }
 
 void Level2::respawnButtonAction()
 {
 	BaseGameLayer::respawnButtonAction();
+	_health->setVisible(false);
+	_upgrade->setVisible(false);
+	_mediumSchedulerRunning = false;
+
+	stopAllActions();
+	scheduleActions();
+
 	for (int i = 0; i < _numEnemies; i++){
 		_enemyPool.at(i)->reset();
 	}
@@ -100,8 +139,9 @@ void Level2::respawnButtonAction()
 void Level2::pauseButtonAction()
 {
 	BaseGameLayer::pauseButtonAction();
-	experimental::AudioEngine::pauseAll();
 	_player->pause();
+	_health->pause();
+	_upgrade->pause();
 	for (Sprite* enemy : _enemyPool){
 		enemy->pause();
 	}
@@ -110,16 +150,80 @@ void Level2::pauseButtonAction()
 void Level2::playButtonAction()
 {
 	BaseGameLayer::playButtonAction();
-	experimental::AudioEngine::resumeAll();
 	_player->resume();
+	_health->resume();
+	_upgrade->resume();
 	for (Sprite* enemy : _enemyPool){
 		enemy->resume();
 	}
 }
 
-void Level2::awakeEnemy()
+
+
+
+void Level2::awakeBasicEnemyScheduler()
 {
-	_enemyIndex = _enemyIndex % _numEnemies;
+	//enemy ratio
+	// set up the time delay
+	DelayTime *delayAction = DelayTime::create(1.0f);
+	// perform the selector call
+	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeBasicEnemy, this));
+	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
+	auto action = RepeatForever::create(awakeEnemySequence);
+	action->setTag(BasicScheduler);
+	// run the action all the time
+	runAction(action);
+}
+
+void Level2::awakeMediumEnemyScheduler()
+{
+	//enemy ratio
+	// set up the time delay
+	DelayTime *delayAction = DelayTime::create(1.5f);
+	// perform the selector call
+	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeMediumEnemy, this));
+	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
+	auto action = RepeatForever::create(awakeEnemySequence);
+	action->setTag(MediumScheduler);
+	// run the action all the time
+	runAction(action);
+}
+
+void Level2::awakeMediumEnemy()
+{
+	//despierta n enemigo básico que sigue a un enemigo medio.
+	_enemyIndex = _enemyIndex % (_numEnemies - _numMediumEnemies);
+
+	//basic enemy
+	auto basicEnemy = _enemyPool.at(_enemyIndex);
+	auto size = basicEnemy->getBoundingBox().size;
+	//Positioning
+	basicEnemy->setPositionX(RandomHelper::random_int(static_cast<int>(size.width * 0.5),
+		static_cast<int>(_visibleSize.width - size.width * 0.5)));
+	basicEnemy->setPositionY(_visibleSize.height + size.height * 1.5);
+	basicEnemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	//awake
+	if (!basicEnemy->isVisible()){
+		basicEnemy->setVisible(true);
+	}
+
+	//medium enemy
+	auto enemy = _enemyPool.at(_mediumEnemyIndex + _enemyIndex);
+	//Positioning
+	enemy->setPositionX(basicEnemy->getPositionX());
+	enemy->setPositionY(basicEnemy->getPositionY() - size.height);
+	enemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	//awake
+	if (!enemy->isVisible()){
+		enemy->setVisible(true);
+	}
+
+	_enemyIndex++;
+}
+
+void Level2::awakeBasicEnemy()
+{
+	_enemyIndex = _enemyIndex % (_numEnemies - _mediumEnemyIndex);
 	//select enemy
 	auto enemy = _enemyPool.at(_enemyIndex);
 	//Positioning
@@ -135,34 +239,8 @@ void Level2::awakeEnemy()
 	_enemyIndex++;
 }
 
-
-void Level2::awakeEnemyScheduler()
-{
-	//enemy ratio
-	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.5f);
-	// perform the selector call
-	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeEnemy, this));
-	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
-	// run the action all the time
-	runAction(RepeatForever::create(awakeEnemySequence));
-}
-
-
 void Level2::checkCollisions()
 {
-	if(GameManager::getInstance()->getPlayerScore()  == 700 || 
-		GameManager::getInstance()->getPlayerScore() == 1400)
-	{
-		auto width = _health->getBoundingBox().size.width;
-		auto height = _health->getBoundingBox().size.height;
-		_health->setAnchorPoint(Point(0.5f, 0.5f));
-		_health->setPositionX(RandomHelper::random_int(static_cast<int>(0 + width * 0.5),
-			static_cast<int>(_visibleSize.width - width * 0.5)));
-		_health->setPositionY(_visibleSize.height *1.3);
-		_health->setVisible(true);
-	}
-
 	for (int i = 0; i < _numEnemies; i++){
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())
@@ -170,5 +248,43 @@ void Level2::checkCollisions()
 			enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
 			_player->setHealth(0);
 		}
+	}
+}
+
+void Level2::launchHealth(){
+
+	auto width = _health->getBoundingBox().size.width;
+	auto height = _health->getBoundingBox().size.height;
+	_health->setAnchorPoint(Point(0.5f, 0.5f));
+	_health->setPositionX(RandomHelper::random_int(static_cast<int>(0 + width * 0.5),
+		static_cast<int>(_visibleSize.width - width * 0.5)));
+	_health->setPositionY(_visibleSize.height *1.3);
+	_health->setVisible(true);
+
+}
+
+void Level2::launchUpgrade(){
+	auto width = _upgrade->getBoundingBox().size.width;
+	auto height = _upgrade->getBoundingBox().size.height;
+	_upgrade->setAnchorPoint(Point(0.5f, 0.5f));
+	_upgrade->setPositionX(RandomHelper::random_int(static_cast<int>(0 + width * 0.5),
+		static_cast<int>(_visibleSize.width - width * 0.5)));
+	_upgrade->setPositionY(_visibleSize.height *1.3);
+	_upgrade->setVisible(true);
+}
+
+void Level2::launchMediumEnemies(){
+	if (!_mediumSchedulerRunning && GameManager::getInstance()->getPlayerScore() >= 100){
+		awakeMediumEnemyScheduler();
+		stopActionByTag(BasicScheduler);
+
+		//throw the upgrade
+		DelayTime *delayAction = DelayTime::create(4.0f);
+		// perform the selector call
+		CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::launchUpgrade, this));
+		auto launchUpgrade = Sequence::create(delayAction, callSelectorAction, NULL);
+		// run the action
+		runAction(launchUpgrade);
+		_mediumSchedulerRunning = true;
 	}
 }

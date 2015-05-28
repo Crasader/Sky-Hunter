@@ -1,5 +1,5 @@
 #include "PlayerBullet.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
 
 USING_NS_CC;
@@ -32,7 +32,8 @@ void PlayerBullet::update(float dt){
 		if (getBoundingBox().intersectsRect(enemy->getBoundingBox()) && enemy->isVisible()
 			&& enemy->getCurrentAnimation() != BasicEnemy::Animations::EXPLOSION){
 			//colision
-			enemy->setHealth(enemy->getHealth() - _damage);
+			auto heath = enemy->getHealth() - _damage;
+			enemy->setHealth(heath);
 			if (enemy->getHealth()<=0){
 				GameManager::getInstance()->setPlayerScore(GameManager::getInstance()->getPlayerScore() +
 					enemy->getValue());
@@ -43,5 +44,5 @@ void PlayerBullet::update(float dt){
 }
 
 void PlayerBullet::playShootSound(){
-	experimental::AudioEngine::play2d("music/laser_shoot.mp3", false, GameManager::getInstance()->getEffectsVolume()*0.01);
+	CustomAudioManager::getInstance()->playEffect("music/laser_shoot.wav", false);
 }

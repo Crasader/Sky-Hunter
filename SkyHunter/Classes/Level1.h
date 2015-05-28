@@ -2,20 +2,18 @@
 #define __LEVEL1_SCENE_H__
 
 #include "BaseGameLayer.h"
-#include "BasicEnemy.h"
 
 
 class Level1 : public BaseGameLayer
 {
 
 private:
-	int _numEnemies;
-	int _enemyIndex;
-	cocos2d::Vector<BasicEnemy*> _enemyPool;
 	void awakeEnemy();
 	void checkCollisions();
 	void awakeEnemyScheduler();
 	void initActors();
+	void scheduleActions();
+	void initializeVariables();
 
 protected:
 	virtual void respawnButtonAction();

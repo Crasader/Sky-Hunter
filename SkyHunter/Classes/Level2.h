@@ -1,22 +1,36 @@
 #ifndef __LEVEL2_SCENE_H__
 #define __LEVEL2_SCENE_H__
 #include "BaseGameLayer.h"
-#include "BasicEnemy.h"
+
 
 class HealthParticle;
+class PlayerUpgradeParticle;
 
 class Level2 : public BaseGameLayer
 {
 
 private:
+	enum ActionScheduler { BasicScheduler, MediumScheduler };
 	HealthParticle* _health;
-	int _numEnemies;
-	int _enemyIndex;
-	cocos2d::Vector<BasicEnemy*> _enemyPool;
-	void awakeEnemy();
+	PlayerUpgradeParticle * _upgrade;
+	bool _mediumSchedulerRunning;
+
+	//enemigos de nivel medio
+	int _numMediumEnemies;
+	int _mediumEnemyIndex;
+
+	void awakeBasicEnemy();
+	void awakeMediumEnemy();
 	void checkCollisions();
-	void awakeEnemyScheduler();
+	void awakeBasicEnemyScheduler();
+	void awakeMediumEnemyScheduler();
 	void initActors();
+	void scheduleActions();
+	void initializeVariables();
+	void launchHealth();
+	void launchUpgrade();
+	void launchMediumEnemies();
+	void schduleUpgrades();
 
 protected:
 	virtual void respawnButtonAction();

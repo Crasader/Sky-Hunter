@@ -1,6 +1,6 @@
 #include "Level6.h"
 #include "HeightEnemy.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 #include "GameManager.h"
 #include "MainMenuLayer.h"
 #include "HealthParticle.h"
@@ -58,7 +58,7 @@ bool Level6::init()
 	this->schedule(schedule_selector(Level6::update));
 
 	//start sound loop
-	experimental::AudioEngine::play2d("music/Lensko.mp3", true, GameManager::getInstance()->getBgVolume()*0.01);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Lensko.wav", true);
 
 	//scheduleUpdate();
 	schedule(schedule_selector(Level6::update));
@@ -100,7 +100,6 @@ void Level6::respawnButtonAction()
 void Level6::pauseButtonAction()
 {
 	BaseGameLayer::pauseButtonAction();
-	experimental::AudioEngine::pauseAll();
 	_player->pause();
 	for (Sprite* enemy : _enemyPool){
 		enemy->pause();
@@ -110,7 +109,6 @@ void Level6::pauseButtonAction()
 void Level6::playButtonAction()
 {
 	BaseGameLayer::playButtonAction();
-	experimental::AudioEngine::resumeAll();
 	_player->resume();
 	for (Sprite* enemy : _enemyPool){
 		enemy->resume();

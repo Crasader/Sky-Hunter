@@ -2,7 +2,7 @@
 #include "GameManager.h"
 #include "MainMenuLayer.h"
 #include "SelectMenuLayer.h"
-#include "AudioEngine.h"
+#include "CustomAudioManager.h"
 
 USING_NS_CC;
 
@@ -29,6 +29,7 @@ bool BaseGameLayer::init(){
 	}
 	_visibleSize = Director::getInstance()->getVisibleSize();
 	_completionPercentage = 0;
+	_enemyIndex = 0;
 	_scoreToCompleTheLevel = 1000;
 	isLevelComplete = false;
 	setTag(0);
@@ -40,10 +41,11 @@ bool BaseGameLayer::init(){
 	addChild(_gameBatchNode,ForegroundPos);
 
 
-
+	//player
 	_player = Player::create();
 	_player->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.3);
 	_gameBatchNode->addChild(_player, ForegroundPos);
+
 
 	//UI
 	createHealthIndicator();
@@ -85,7 +87,7 @@ void BaseGameLayer::levelCompleteActions(){
 }
 
 void BaseGameLayer::levelCompleteActionsHelper(){
-	experimental::AudioEngine::stopAll();
+	CustomAudioManager::getInstance()->stopAll();
 	Director::getInstance()->replaceScene(SelectMenuLayer::createScene());
 }
 
@@ -166,7 +168,7 @@ void BaseGameLayer::createRespawnButton()
 
 void BaseGameLayer::actionButtonBack()
 {
-	experimental::AudioEngine::stopAll();
+	CustomAudioManager::getInstance()->stopAll();
 	Director::getInstance()->replaceScene(TransitionSplitRows::create(1, MainMenuLayer::createScene()));
 }
 
@@ -198,6 +200,7 @@ void BaseGameLayer::update(float dt)
 void BaseGameLayer::pauseButtonAction()
 {
 	pause();
+	CustomAudioManager::getInstance()->pauseAll();
 	_pauseButton->setVisible(false);
 	_pauseButton->setEnabled(false);
 	_playButton->setVisible(true);
@@ -211,6 +214,7 @@ void BaseGameLayer::pauseButtonAction()
 void BaseGameLayer::playButtonAction()
 {
 	resume();
+	CustomAudioManager::getInstance()->resumeAll();
 	_pauseButton->setVisible(true);
 	_pauseButton->setEnabled(true);
 	_playButton->setVisible(false);

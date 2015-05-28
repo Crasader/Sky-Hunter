@@ -10,7 +10,7 @@ HeightEnemy::HeightEnemy()
 	_bulletIndex = 0;
 	_initialiced = false;
 	_numBullets = 10;
-	setSpeed(60);
+	setSpeed(50);
 	_shootFrequencySeconds = 1.5f;
 	_currentAnimation = IDLE;
 	_value = 30;

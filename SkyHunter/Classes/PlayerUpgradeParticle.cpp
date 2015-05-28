@@ -40,7 +40,6 @@ void PlayerUpgradeParticle::update(float dt)
 
 PlayerBullet* PlayerUpgradeParticle::createBullet(){
 	auto bullet = PlayerBulletx2::create();
-	bullet->setSpeed(180);
 	return bullet;
 }
 
