@@ -40,12 +40,19 @@ bool MainMenuLayer::init(){
 	initFunctions(_functions);
 
 	//lanza automaticamente el siguiente nivel a jugar
-	auto startButton = Button::create("start0", "start1","start1",Widget::TextureResType::PLIST);
+	auto startButton = Button::create("start0", "start1", "start1", Widget::TextureResType::PLIST);
 	startButton->setAnchorPoint(Point(0.5, 1));
-	startButton->setPosition(Vec2(_visibleSize.width*0.5, _visibleSize.height - (60 * getScaleY())));
-	startButton->addClickEventListener(_functions.at(GameManager::getInstance()->getNextLevel()));
+	startButton->setPosition(Vec2(_visibleSize.width*0.5, _visibleSize.height - (90 * getScaleY())));
+	if (GameManager::getInstance()->getNextLevel() == NUM_LEVELS)
+	{
+		startButton->addClickEventListener(_functions.at(NUM_LEVELS - 1));
+	}
+	else
+	{
+		startButton->addClickEventListener(_functions.at(GameManager::getInstance()->getNextLevel()));
+	}
 	addChild(startButton);
-	
+
 	//lanza el menu de lseleccion de nivel
 	auto nextHeight = startButton->getPositionY() - startButton->getBoundingBox().size.height - (30 * getScaleY());
 	auto selectButton = Button::create("select0", "select1", "select1", Widget::TextureResType::PLIST);
@@ -54,16 +61,8 @@ bool MainMenuLayer::init(){
 	selectButton->setPosition(Point(startButton->getPositionX(), nextHeight));
 	addChild(selectButton);
 
-	//lanza el modo de juego arcade
-	nextHeight = selectButton->getPositionY() - selectButton->getBoundingBox().size.height - (30 * getScaleY());
-	auto arcadeButton = Button::create("arcade0", "arcade1", "arcade1",Widget::TextureResType::PLIST);
-	arcadeButton->setAnchorPoint(Point(0.5, 1));
-	arcadeButton->addClickEventListener(CC_CALLBACK_0(MainMenuLayer::arcadeButton, this));
-	arcadeButton->setPosition(Point(startButton->getPositionX(), nextHeight));
-	addChild(arcadeButton);
-
 	//lanza las opciones para ajustar volumen y otras configuraciones
-	nextHeight = arcadeButton->getPositionY() - arcadeButton->getBoundingBox().size.height - (30 * getScaleY());
+	nextHeight = selectButton->getPositionY() - selectButton->getBoundingBox().size.height - (30 * getScaleY());
 	auto optionsButton = Button::create("options0", "options1", "options1", Widget::TextureResType::PLIST);
 	optionsButton->setAnchorPoint(Point(0.5, 1));
 	optionsButton->addClickEventListener(CC_CALLBACK_0(MainMenuLayer::optionsButton, this));
@@ -97,8 +96,7 @@ void MainMenuLayer::initFunctions(std::vector<std::function<void(Ref*)>>& functi
 	functions.push_back(CC_CALLBACK_0(MainMenuLayer::actionButton9, this));
 }
 
-void MainMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene()));  }
-
+void MainMenuLayer::actionButton1(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level1::createScene())); }
 void MainMenuLayer::actionButton2(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level2::createScene())); }
 void MainMenuLayer::actionButton3(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level3::createScene())); }
 void MainMenuLayer::actionButton4(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level4::createScene())); }
@@ -107,4 +105,3 @@ void MainMenuLayer::actionButton6(){ Director::getInstance()->replaceScene(Trans
 void MainMenuLayer::actionButton7(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level7::createScene())); }
 void MainMenuLayer::actionButton8(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level8::createScene())); }
 void MainMenuLayer::actionButton9(){ Director::getInstance()->replaceScene(TransitionSplitCols::create(1, Level9::createScene())); }
-void MainMenuLayer::arcadeButton(){/*TODO*/}

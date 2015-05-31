@@ -10,7 +10,6 @@ private:
 	std::vector<std::function<void(Ref*)>> _functions;
 	void selectMenuButton();
 	void optionsButton();
-	void arcadeButton();
 	void actionButton1();
 	void actionButton2();
 	void actionButton3();

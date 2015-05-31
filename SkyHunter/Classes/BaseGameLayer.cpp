@@ -102,7 +102,7 @@ void BaseGameLayer::resetPlayer(){
 void BaseGameLayer::createHealthIndicator(){
 	auto healthContainerIndicator = Sprite::createWithSpriteFrameName("health_container_indicartor");
 	healthContainerIndicator->setAnchorPoint(Point(0, 0.5));
-	healthContainerIndicator->setPosition(Point(20 * getScaleX(), _visibleSize.height - 20 + getScaleY()));
+	healthContainerIndicator->setPosition(Point(20 * getScaleX(), _visibleSize.height - 25 * getScaleY()));
 	_gameBatchNode->addChild(healthContainerIndicator, UIPos);
 	auto nextPosition = Point(healthContainerIndicator->getPositionX() + healthContainerIndicator->getBoundingBox().size.width + 5, healthContainerIndicator->getPositionY());
 
@@ -124,7 +124,7 @@ void BaseGameLayer::createScoreAndPercentageLabels(){
 	//score
 	_scoreLabel = Label::createWithTTF("Score: 0", "fonts/arial.ttf", 15);
 	_scoreLabel->setAnchorPoint(Point(0.5, 0.5));
-	_scoreLabel->setPosition(Point(_visibleSize.width*0.5, _visibleSize.height - 20 * getScaleY()));
+	_scoreLabel->setPosition(Point(_visibleSize.width*0.5, _healthBar->getPositionY()));
 	_scoreLabel->setTextColor(Color4B::BLACK);
 	addChild(_scoreLabel, UIPos);
 
@@ -139,15 +139,15 @@ void BaseGameLayer::createScoreAndPercentageLabels(){
 void BaseGameLayer::createPauseAndResumeButtons(){
 	//pause button
 	_pauseButton = ui::Button::create("pause0", "pause1", "pause1", ui::Widget::TextureResType::PLIST);
-	_pauseButton->setScale(0.7f);
+	_pauseButton->setScale(0.8f);
 	_pauseButton->addClickEventListener(CC_CALLBACK_0(BaseGameLayer::pauseButtonAction, this));
 	_pauseButton->setAnchorPoint(Point(1, 0.5));
-	_pauseButton->setPosition(Point(_visibleSize.width - 20 * getScaleX(), _visibleSize.height - 20 + getScaleY()));
+	_pauseButton->setPosition(Point(_visibleSize.width - 20 * getScaleX(), _scoreLabel->getPositionY()));
 	addChild(_pauseButton, UIPos);
 
 	//play
 	_playButton = ui::Button::create("play0", "play1", "play1", ui::Widget::TextureResType::PLIST);
-	_playButton->setScale(0.7f);
+	_playButton->setScale(0.8f);
 	_playButton->addClickEventListener(CC_CALLBACK_0(BaseGameLayer::playButtonAction, this));
 	_playButton->setAnchorPoint(Point(1, 0.5));
 	_playButton->setVisible(false);

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="25443seryuxdev.SkyHunter" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.1.0.1" />
+  <Identity Name="25443seryuxdev.SkyHunter" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.1.0.2" />
   <mp:PhoneIdentity PhoneProductId="3428cbb7-adf4-4acc-ab33-242218aead77" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sky Hunter</DisplayName>

@@ -29,7 +29,7 @@ bool Level2::init()
 		return false;
 	}
 
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+
 	initializeVariables();
 	initActors();
 	scheduleActions();
@@ -89,11 +89,14 @@ void Level2::initActors()
 }
 
 void Level2::initializeVariables(){
-
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
 	setTag(2);//level2
 	_scoreToCompleTheLevel = 1500;
 	_bg = new Background("fondo");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
+
+	_mediumAwakeSpeed = 1.5f;
+	_basicAwakeSpeed = 1.0f;
 
 	//flag para saber si estan los enemigos de nivel medio en escena
 	//y parar el scheduler de enemigos básicos
@@ -165,7 +168,7 @@ void Level2::awakeBasicEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.0f);
+	DelayTime *delayAction = DelayTime::create(_basicAwakeSpeed);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeBasicEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
@@ -179,7 +182,7 @@ void Level2::awakeMediumEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.5f);
+	DelayTime *delayAction = DelayTime::create(_mediumAwakeSpeed);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level2::awakeMediumEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);

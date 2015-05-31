@@ -13,14 +13,16 @@ private:
 	void awakeEnemyScheduler();
 	void initActors();
 	void scheduleActions();
-	void initializeVariables();
+	
 
 protected:
+	virtual void initializeVariables();
 	virtual void respawnButtonAction();
 	virtual void pauseButtonAction();
 	virtual void playButtonAction();
 
 public:
+	CC_SYNTHESIZE(float, _awakeSpeed, AwakeSpeed);
     static cocos2d::Scene* createScene();
     virtual bool init();
 	void update(float dt);

@@ -19,6 +19,7 @@ private:
 	std::string  _sptitePart2;
 
 public:
+	void removeFromParent();
 	virtual void setParent(cocos2d::Node* parent,int pos);
 	void update(float dt);
 	~Background();

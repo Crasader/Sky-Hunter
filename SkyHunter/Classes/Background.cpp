@@ -2,7 +2,7 @@
 
 using namespace cocos2d;
 
-Background::Background(std::string background) :_speed(150), _initialiced(false){
+Background::Background(std::string background) :_speed(140), _initialiced(false){
 	_screen = Director::getInstance()->getVisibleSize();
 	_bgPart1 = Sprite::createWithSpriteFrameName(background);
 	_bgPart2 = Sprite::createWithSpriteFrameName(background);
@@ -18,6 +18,11 @@ void Background::setSptite(std::string part1){
 	_parent->addChild(_bgPart1, _pos);
 	_parent->addChild(_bgPart2, _pos);
 
+}
+
+void Background::removeFromParent(){
+	_parent->removeChild(_bgPart1);
+	_parent->removeChild(_bgPart2);
 }
 
 

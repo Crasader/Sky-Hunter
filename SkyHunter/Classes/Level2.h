@@ -26,18 +26,20 @@ private:
 	void awakeMediumEnemyScheduler();
 	void initActors();
 	void scheduleActions();
-	void initializeVariables();
 	void launchHealth();
 	void launchUpgrade();
 	void launchMediumEnemies();
 	void schduleUpgrades();
 
 protected:
+	virtual void initializeVariables();
 	virtual void respawnButtonAction();
 	virtual void pauseButtonAction();
 	virtual void playButtonAction();
 
 public:
+	CC_SYNTHESIZE(float, _basicAwakeSpeed, BasicAwakeSpeed);
+	CC_SYNTHESIZE(float, _mediumAwakeSpeed, MediumAwakeSpeed);
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 	void update(float dt);

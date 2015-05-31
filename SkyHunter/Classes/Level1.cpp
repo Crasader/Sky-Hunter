@@ -33,9 +33,10 @@ bool Level1::init()
 
 void Level1::initializeVariables(){
 	_numEnemies = 20;
-
+	_awakeSpeed = 1.0f;
 	setTag(1);//level1
-
+	//lanza el bucle de sonido
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
 	_scoreToCompleTheLevel = 750;
 
 	_bg = new Background("fondo");
@@ -48,8 +49,7 @@ void Level1::scheduleActions(){
 	//comienza el bucle del juego
 	this->schedule(schedule_selector(Level1::update));
 
-	//lanza el bucle de sonido
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+
 }
 
 void Level1::initActors()
@@ -125,7 +125,7 @@ void Level1::awakeEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.0f);
+	DelayTime *delayAction = DelayTime::create(_awakeSpeed);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level1::awakeEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);

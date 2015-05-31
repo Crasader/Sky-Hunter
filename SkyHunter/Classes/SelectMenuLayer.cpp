@@ -37,6 +37,7 @@ bool SelectMenuLayer::init(){
 	//check available levels
 	for (int i = 0; i < NUM_LEVELS; i++){
 		if (i>GameManager::getInstance()->getNextLevel()) break;
+
 		//enable button
 		buttons.at(i)->setEnabled(true);
 		//show enable image

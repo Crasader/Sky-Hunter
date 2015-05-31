@@ -31,7 +31,7 @@ bool Level3::init()
 		return false;
 	}
 
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+
 	initializeVariables();
 	initActors();
 	scheduleActions();
@@ -97,10 +97,13 @@ void Level3::initActors()
 }
 
 void Level3::initializeVariables(){
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
 	setTag(3);//level3
 	_scoreToCompleTheLevel = 2000;
 	_bg = new Background("fondo");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
+	_mediumAwakeSpeed = 1.5f;
+	_heightAwakeSpeed = 2.0f;
 
 	//flag para saber si estan los enemigos de nivel medio en escena
 	//y parar el scheduler de enemigos básicos
@@ -136,6 +139,7 @@ void Level3::respawnButtonAction()
 	BaseGameLayer::respawnButtonAction();
 	_health->setVisible(false);
 	_upgrade->setVisible(false);
+	_upgrade2->setVisible(false);
 	_heightSchedulerRunning = false;
 
 	stopAllActions();
@@ -152,6 +156,7 @@ void Level3::pauseButtonAction()
 	_player->pause();
 	_health->pause();
 	_upgrade->pause();
+	_upgrade2->pause();
 	for (Sprite* enemy : _enemyPool){
 		enemy->pause();
 	}
@@ -163,6 +168,7 @@ void Level3::playButtonAction()
 	_player->resume();
 	_health->resume();
 	_upgrade->resume();
+	_upgrade2->resume();
 	for (Sprite* enemy : _enemyPool){
 		enemy->resume();
 	}
@@ -175,7 +181,7 @@ void Level3::awakeMediumEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(1.5f);
+	DelayTime *delayAction = DelayTime::create(_mediumAwakeSpeed);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level3::awakeMediumEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
@@ -256,7 +262,7 @@ void Level3::awakeHeightEnemyScheduler()
 {
 	//enemy ratio
 	// set up the time delay
-	DelayTime *delayAction = DelayTime::create(2.0f);
+	DelayTime *delayAction = DelayTime::create(_heightAwakeSpeed);
 	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level3::awakeHeightEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);

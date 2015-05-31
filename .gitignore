@@ -6,6 +6,7 @@ bin/
 obj/
 assets/
 gen/
+AppPackages/
 out/
 AppPackages/
 .classpath

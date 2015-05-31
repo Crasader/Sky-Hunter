@@ -15,24 +15,16 @@ bool Blizzard::init(){
 	for (int i = 0; i < _maxSnowParticles; i++){
 		auto particle = ParticleSystemQuad::create("snow.plist");
 		particle->setScale(0.1f*getScale());
+		_snow.pushBack(particle);
 		particle->stopSystem();
 		particle->setVisible(false);
-		_snow.pushBack(particle);
 		addChild(particle);
 	}
 	scheduleBlizzard();
 	schedule(schedule_selector(Blizzard::update));
 }
 
-void Blizzard::setParent(Node* parent){
-	Node::setParent(parent);
-	/*if (!_initialized){
-		for (int i = 0; i < _maxSnowParticles; i++){
-			_initialized = true;
-			parent->addChild(_snow.at(i));
-		}
-	}*/
-}
+
 
 void Blizzard::update(float dt){
 	for (ParticleSystemQuad* particle : _snow)

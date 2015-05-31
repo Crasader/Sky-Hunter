@@ -15,7 +15,6 @@ private:
 	void positioningParticle();
 public:
 	CC_SYNTHESIZE(float, _speed, Speed);
-	virtual void setParent(Node* parent);
 	virtual bool init();
 	virtual void update(float dt);
 	CREATE_FUNC(Blizzard);
