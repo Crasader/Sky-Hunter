@@ -22,6 +22,7 @@ bool Blizzard::init(){
 	}
 	scheduleBlizzard();
 	schedule(schedule_selector(Blizzard::update));
+	return true;
 }
 
 

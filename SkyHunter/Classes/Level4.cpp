@@ -34,7 +34,7 @@ bool Level4::init()
 }
 
 void Level4::initializeVariables(){
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Lensko.wav", true);
 	_numEnemies = 20;
 	for (int i = 0; i < _cloudsPerRow; i++){
 		_isPositionFree.push_back(false);

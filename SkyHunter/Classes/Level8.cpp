@@ -31,7 +31,7 @@ bool Level8::init()
 void Level8::initializeVariables(){
 	Level2::initializeVariables();
 	CustomAudioManager::getInstance()->stopAll();
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Lensko.wav", true);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Fade.wav", true);
 	setTag(8);//level8
 	_bg->removeFromParent();
 	setMediumAwakeSpeed(1);

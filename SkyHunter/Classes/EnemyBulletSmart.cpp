@@ -23,8 +23,6 @@ bool EnemyBulletSmart::init(){
 void EnemyBulletSmart::update(float dt){
 	if (!this->isVisible()) return;
 	//go down 
-
-	//setPosition(getPositionXForMovement(dt), getPositionY() - _speed*dt);
 	setRotation(getRotation() + 360 / 0.5 * dt);
 	if (getPositionY()+getBoundingBox().size.height*0.5 < 0){
 		setVisible(false);
@@ -39,15 +37,7 @@ void EnemyBulletSmart::update(float dt){
 	}
 }
 
-float EnemyBulletSmart::getPositionXForMovement(float dt){
-	if (getPositionY() < _targetPosition.y || !_enemyTarget->isVisible()){
-		_targetPosition = getPosition();
-		return getPositionX();
-	}
 
-
-
-}
 
 void EnemyBulletSmart::setVisible(bool visible)
 {

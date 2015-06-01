@@ -46,7 +46,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 					../../Classes/SelectMenuLayer.cpp \
 					../../Classes/TouchController.cpp
 
-
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 # _COCOS_HEADER_ANDROID_BEGIN

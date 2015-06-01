@@ -7,7 +7,7 @@ class EnemyBulletSmart : public EnemyBullet
 {
 private:
 	cocos2d::Point _targetPosition;
-	float getPositionXForMovement(float dt);
+
 public:
 	CREATE_FUNC(EnemyBulletSmart);
 	virtual void update(float dt);

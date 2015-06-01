@@ -34,7 +34,7 @@ bool Level7::init()
 void Level7::initializeVariables(){
 	Level1::initializeVariables();
 	CustomAudioManager::getInstance()->stopAll();
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Lensko.wav", true);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Fade.wav", true);
 	setTag(7);//level7
 	_bg->removeFromParent();
 	setAwakeSpeed(0.5f);

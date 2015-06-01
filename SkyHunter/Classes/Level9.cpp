@@ -30,7 +30,7 @@ bool Level9::init()
 void Level9::initializeVariables(){
 	Level3::initializeVariables();
 	CustomAudioManager::getInstance()->stopAll();
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Lensko.wav", true);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Fade.wav", true);
 	setTag(9);//level9
 	_bg->removeFromParent();
 	setMediumAwakeSpeed(1);

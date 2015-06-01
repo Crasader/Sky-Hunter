@@ -11,31 +11,19 @@
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\headers">
-      <UniqueIdentifier>{9db6c018-8bba-4ac7-af34-e69b0b9cdddd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\layers">
-      <UniqueIdentifier>{006cf925-4dd4-4d4d-83a6-9a128c5fec39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\layers\levels">
-      <UniqueIdentifier>{5f368af0-60c8-458e-a0ea-953e5ff315df}</UniqueIdentifier>
+      <UniqueIdentifier>{0fa7b863-6f84-4eb1-8ddb-658a19c263b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\components">
-      <UniqueIdentifier>{d58f120c-759e-4266-ad03-2b8e20688b1d}</UniqueIdentifier>
+      <UniqueIdentifier>{25e5bea0-99fc-48df-b610-ead1d432bbc7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\layers\menus">
-      <UniqueIdentifier>{49eb8522-17a0-42ea-9257-b44e1e64b464}</UniqueIdentifier>
+    <Filter Include="src\scenes">
+      <UniqueIdentifier>{309697b1-f265-4c40-b1d9-2627d39a6a13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\components\bullets">
-      <UniqueIdentifier>{ee394ee0-8a62-4c12-af1d-b96505a6cc34}</UniqueIdentifier>
+    <Filter Include="src\scenes\levels">
+      <UniqueIdentifier>{fc0cb561-1dc5-4161-bc36-9eea6467b9ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\components\upgrades">
-      <UniqueIdentifier>{ca8f756f-9b4d-4243-ba9d-2748ecb22e31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\components\backgrounds">
-      <UniqueIdentifier>{79889e8b-f098-4633-9777-fd386dbd0e5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\components\enemies">
-      <UniqueIdentifier>{388f67e9-7309-4d67-bb73-64f52e66645d}</UniqueIdentifier>
+    <Filter Include="src\scenes\menus">
+      <UniqueIdentifier>{cfd94d4a-2a12-48d6-b4d3-8e52d4b7e9f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,103 +33,103 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BaseGameLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
-      <Filter>src\layers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src\components</Filter>
+    <ClCompile Include="..\Classes\CustomAudioManager.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level1.cpp">
-      <Filter>src\layers\levels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
-      <Filter>src\layers\menus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\OptionsLayer.cpp">
-      <Filter>src\layers\menus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
-      <Filter>src\layers\menus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Level2.cpp">
-      <Filter>src\layers\levels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayerBullet.cpp">
-      <Filter>src\components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayerBulletx2.cpp">
-      <Filter>src\components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayerBulletx3.cpp">
-      <Filter>src\components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EnemyBullet.cpp">
-      <Filter>src\components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EnemyBulletSmart.cpp">
-      <Filter>src\components\bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HealthParticle.cpp">
-      <Filter>src\components\upgrades</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
-      <Filter>src\components\upgrades</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PlayerUpgradeParticle2.cpp">
-      <Filter>src\components\upgrades</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Background.cpp">
-      <Filter>src\components\backgrounds</Filter>
+      <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BackGround3Parts.cpp">
-      <Filter>src\components\backgrounds</Filter>
+      <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BasicEnemy.cpp">
-      <Filter>src\components\enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HeightEnemy.cpp">
-      <Filter>src\components\enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MediumEnemy.cpp">
-      <Filter>src\components\enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Cloud.cpp">
-      <Filter>src\components\enemies</Filter>
+      <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Blizzard.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level3.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\Cloud.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level4.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\EnemyBullet.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level5.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\EnemyBulletSmart.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level6.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\HealthParticle.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level9.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\HeightEnemy.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level7.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Level8.cpp">
-      <Filter>src\layers\levels</Filter>
+    <ClCompile Include="..\Classes\PlayerBullet.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerBulletx2.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerBulletx3.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerUpgradeParticle.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerUpgradeParticle2.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\TouchController.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\CustomAudioManager.cpp">
+    <ClCompile Include="..\Classes\Level1.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level2.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level3.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level4.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level5.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level6.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level7.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level8.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level9.cpp">
+      <Filter>src\scenes\levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SelectMenuLayer.cpp">
+      <Filter>src\scenes\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsLayer.cpp">
+      <Filter>src\scenes\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
+      <Filter>src\scenes\menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseGameLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BaseMenuLayer.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MediumEnemy.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,64 +155,34 @@
     <ClInclude Include="..\Classes\BasicEnemy.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameManager.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainMenuLayer.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\OptionsLayer.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SelectMenuLayer.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\TouchController.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Level1.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayerBullet.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EnemyBullet.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Level2.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HealthParticle.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayerUpgradeParticle.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayerBulletx2.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayerBulletx3.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PlayerUpgradeParticle2.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HeightEnemy.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MediumEnemy.h">
-      <Filter>src\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EnemyBulletSmart.h">
+    <ClInclude Include="..\Classes\Blizzard.h">
       <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Cloud.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Blizzard.h">
+    <ClInclude Include="..\Classes\CustomAudioManager.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBullet.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBulletSmart.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameManager.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HealthParticle.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HeightEnemy.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level1.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level2.h">
       <Filter>src\headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Level3.h">
@@ -248,7 +206,37 @@
     <ClInclude Include="..\Classes\Level9.h">
       <Filter>src\headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CustomAudioManager.h">
+    <ClInclude Include="..\Classes\MainMenuLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MediumEnemy.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionsLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBullet.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBulletx2.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerBulletx3.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerUpgradeParticle.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerUpgradeParticle2.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SelectMenuLayer.h">
+      <Filter>src\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TouchController.h">
       <Filter>src\headers</Filter>
     </ClInclude>
   </ItemGroup>

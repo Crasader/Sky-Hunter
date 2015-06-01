@@ -89,7 +89,7 @@ void Level2::initActors()
 }
 
 void Level2::initializeVariables(){
-	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
+	CustomAudioManager::getInstance()->playBackgroundSound("music/Spectre.wav", true);
 	setTag(2);//level2
 	_scoreToCompleTheLevel = 1500;
 	_bg = new Background("fondo");
