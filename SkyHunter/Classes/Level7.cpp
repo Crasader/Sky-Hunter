@@ -27,7 +27,6 @@ bool Level7::init()
 		return false;
 	}
 
-
 	return true;
 }
 

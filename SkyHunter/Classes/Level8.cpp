@@ -23,8 +23,6 @@ bool Level8::init()
 	{
 		return false;
 	}
-
-
 	return true;
 }
 

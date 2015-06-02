@@ -92,6 +92,7 @@ void Level2::initializeVariables(){
 	CustomAudioManager::getInstance()->playBackgroundSound("music/Spectre.wav", true);
 	setTag(2);//level2
 	_scoreToCompleTheLevel = 1500;
+	
 	_bg = new Background("fondo");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
 

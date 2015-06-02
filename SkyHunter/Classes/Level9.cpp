@@ -33,7 +33,7 @@ void Level9::initializeVariables(){
 	CustomAudioManager::getInstance()->playBackgroundSound("music/Fade.wav", true);
 	setTag(9);//level9
 	_bg->removeFromParent();
-	setMediumAwakeSpeed(1);
+	setMediumAwakeSpeed(1.5);
 	setHeightAwakeSpeed(1.5);
 	_bg = new Background("fondo2");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
