@@ -48,8 +48,6 @@ void Level1::scheduleActions(){
 
 	//comienza el bucle del juego
 	this->schedule(schedule_selector(Level1::update));
-
-
 }
 
 void Level1::initActors()
