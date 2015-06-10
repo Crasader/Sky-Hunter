@@ -143,6 +143,9 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\SplashScreen.scale-240.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\Square150x150Logo.scale-240.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>

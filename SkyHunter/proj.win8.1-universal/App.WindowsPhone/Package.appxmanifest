@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="25443seryuxdev.SkyHunter" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.1.0.2" />
+  <Identity Name="25443seryuxdev.SkyHunter" Publisher="CN=BDE251F3-27BC-483B-BB44-3FC02A03722D" Version="1.1.0.3" />
   <mp:PhoneIdentity PhoneProductId="d10d9848-b255-4783-b01d-ddf256927aac" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Sky Hunter</DisplayName>
@@ -22,6 +22,7 @@
         <m3:InitialRotationPreference>
           <m3:Rotation Preference="portrait" />
         </m3:InitialRotationPreference>
+        <m3:SplashScreen Image="Assets\SplashScreen.png" />
       </m3:VisualElements>
     </Application>
   </Applications>
