@@ -3,7 +3,9 @@
 #include "Blizzard.h"
 
 USING_NS_CC;
-
+using namespace Levels;
+using namespace Actors;
+using namespace Components;
 
 Level6::~Level6(){
 	CC_SAFE_RELEASE(_cloudsScheduler);
@@ -11,17 +13,12 @@ Level6::~Level6(){
 
 Scene* Level6::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level6::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
 bool Level6::init()
 {
 	if (!Level3::init())
@@ -66,14 +63,13 @@ void Level6::initClouds(){
 
 void Level6::cloudScheduler()
 {
-	//cloud ratio
+	//una fila de nubes cada 20s
 	DelayTime *delayAction = DelayTime::create(20.0f);
-	// perform the selector call
+
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level6::cloudPositioner, this));
 	_cloudsScheduler = RepeatForever::create(Sequence::create(callSelectorAction, delayAction, NULL));
 	_cloudsScheduler->retain();
 	_cloudsScheduler->setTag(CLOUDS_TAG);
-	// run the action all the time
 	runAction(_cloudsScheduler);
 
 }

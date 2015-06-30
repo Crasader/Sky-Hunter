@@ -3,8 +3,9 @@
 
 
 USING_NS_CC;
+using namespace Actors;
 
-bool EnemyBulletSmart::init(){
+bool Actors::EnemyBulletSmart::init(){
 	if (!Sprite::init()){
 		return false;
 	}
@@ -20,9 +21,9 @@ bool EnemyBulletSmart::init(){
 
 
 
-void EnemyBulletSmart::update(float dt){
+void Actors::EnemyBulletSmart::update(float dt){
 	if (!this->isVisible()) return;
-	//go down 
+	//para abajo 
 	setRotation(getRotation() + 360 / 0.5 * dt);
 	if (getPositionY()+getBoundingBox().size.height*0.5 < 0){
 		setVisible(false);
@@ -39,7 +40,7 @@ void EnemyBulletSmart::update(float dt){
 
 
 
-void EnemyBulletSmart::setVisible(bool visible)
+void Actors::EnemyBulletSmart::setVisible(bool visible)
 {
 	Sprite::setVisible(visible);
 	if (visible){

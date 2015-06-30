@@ -5,12 +5,13 @@
 
 #include "PlayerBullet.h"
 
+namespace Actors{
+	class PlayerBulletx3 :public PlayerBullet
+	{
+	public:
+		CREATE_FUNC(PlayerBulletx3);
+		virtual bool init();
 
-class PlayerBulletx3 :public PlayerBullet
-{
-public:
-	CREATE_FUNC(PlayerBulletx3);
-	virtual bool init();
-
-};
+	};
+}
 #endif //__PLAYERBULLETx3_H__

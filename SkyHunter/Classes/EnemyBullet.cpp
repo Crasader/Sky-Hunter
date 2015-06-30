@@ -4,14 +4,14 @@
 
 USING_NS_CC;
 
-bool EnemyBullet::init(){
+bool Actors::EnemyBullet::init(){
 	if (!Sprite::init()){
 		return false;
 	}
 	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("disparo_enemigo"));
 	_enemyTarget = nullptr;
 	_speed = 160;
-	//invisible by default
+	//invisible por defecto
 	setVisible(false);
 	schedule(schedule_selector(EnemyBullet::update));
 	return true;
@@ -19,9 +19,9 @@ bool EnemyBullet::init(){
 
 
 
-void EnemyBullet::update(float dt){
+void Actors::EnemyBullet::update(float dt){
 	if (!this->isVisible()) return;
-	//go down 
+	//van hacia abajo
 	setAnchorPoint(Point(0.5, 1));
 	setPosition(getPositionX(), getPositionY() - _speed*dt);
 	if (getPositionY() < 0){

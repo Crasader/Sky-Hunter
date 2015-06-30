@@ -1,6 +1,8 @@
 #include "PlayerUpgradeParticle.h"
 
 USING_NS_CC;
+using namespace Components;
+using namespace Actors;
 
 bool PlayerUpgradeParticle::init()
 {
@@ -23,15 +25,16 @@ bool PlayerUpgradeParticle::init()
 void PlayerUpgradeParticle::update(float dt)
 {
 	if (!isVisible()) return;
-	//go down 
+	//para abajo
 	setAnchorPoint(Point(0.5, 1));
 	setPosition(getPositionX(), getPositionY() - _speed*dt);
 	if (getPositionY() < 0){
 		setVisible(false);
 	}
 	if (_target != nullptr && _target->getBoundingBox().intersectsRect(getBoundingBox())
-		&& isVisible() && _target->isVisible() && _target->getCurrentAnimation() != Player::Animations::EXPLOSION)
+		&& isVisible() && _target->isVisible() && _target->getCurrentAnimation() != Actors::Player::Animations::EXPLOSION)
 	{
+		//colision
 		_target->updateBullets(CC_CALLBACK_0(PlayerUpgradeParticle::createBullet, this));
 		setVisible(false);
 	}

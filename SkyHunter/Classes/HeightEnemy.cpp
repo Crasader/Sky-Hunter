@@ -3,7 +3,7 @@
 
 
 
-HeightEnemy::HeightEnemy()
+Actors::HeightEnemy::HeightEnemy()
 {
 	ENEMY_HEALTH = 3;
 	_health = ENEMY_HEALTH;
@@ -17,8 +17,7 @@ HeightEnemy::HeightEnemy()
 	_shootFrequencySeconds = 1.0f;
 }
 
-bool HeightEnemy::init(){
-	//superclass first
+bool Actors::HeightEnemy::init(){
 	if (!Sprite::init())
 	{
 		return false;
@@ -28,7 +27,7 @@ bool HeightEnemy::init(){
 	createIdleAnimation("jefe", 3);
 	createExplosionAnimation("animacion_jefe_explota", 6);
 
-	//start the initial animation
+	//lanza la animación por defecto
 	runAction(_idleAnimation);
 	scheduleShoot();
 	scheduleUpdate();
@@ -37,7 +36,7 @@ bool HeightEnemy::init(){
 	return true;
 }
 
-void HeightEnemy::createBullets(){
+void Actors::HeightEnemy::createBullets(){
 	for (int i = 0; i < _numBullets; i++){
 		_bulletPool.pushBack(EnemyBulletSmart::create());
 	}

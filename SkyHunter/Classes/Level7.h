@@ -4,17 +4,18 @@
 #include "Level1.h"
 
 
+namespace Levels{
+	class Level7 : public Level1
+	{
 
-class Level7 : public Level1
-{
+	protected:
+		virtual void initializeVariables();
 
-protected:
-	virtual void initializeVariables();
-
-public:
-	static cocos2d::Scene* createScene();
-	virtual bool init();
-	CREATE_FUNC(Level7);
-};
+	public:
+		static cocos2d::Scene* createScene();
+		virtual bool init();
+		CREATE_FUNC(Level7);
+	};
+}
 
 #endif // __LEVEL7_SCENE_H__

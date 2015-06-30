@@ -1,6 +1,7 @@
 #include "Background.h"
 
 using namespace cocos2d;
+using namespace Components;
 
 Background::Background(std::string background) :_speed(140), _initialiced(false){
 	_screen = Director::getInstance()->getVisibleSize();
@@ -27,7 +28,7 @@ void Background::removeFromParent(){
 
 
 void Background::setParent(Node* parent,int pos){
-	//prevent the bq to bee added more than once to the scene
+	//impide que el objeto se insertado en la escena mas de una vez
 	if (!_initialiced){
 		_parent = parent;
 		_pos = pos;

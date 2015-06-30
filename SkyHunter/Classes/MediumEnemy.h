@@ -3,15 +3,14 @@
 
 #include "BasicEnemy.h"
 
+namespace Actors{
+	class MediumEnemy : public BasicEnemy
+	{
 
-class MediumEnemy : public BasicEnemy
-{
-
-private:
-	//virtual void behaviour(float dt);
-public:
-	MediumEnemy();
-	CREATE_FUNC(MediumEnemy);
-	virtual bool init();
-};
+	public:
+		MediumEnemy();
+		CREATE_FUNC(MediumEnemy);
+		virtual bool init();
+	};
+}
 #endif

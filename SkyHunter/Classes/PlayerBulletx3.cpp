@@ -4,7 +4,7 @@
 
 USING_NS_CC;
 
-bool PlayerBulletx3::init(){
+bool Actors::PlayerBulletx3::init(){
 
 	if (!PlayerBullet::init()){
 		return false;
@@ -13,7 +13,7 @@ bool PlayerBulletx3::init(){
 	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("white_laser"));
 	_damage = 3;
 	_speed = 180;
-	//invisible by default
+	//invisible por defecto
 	setVisible(false);
 	schedule(schedule_selector(PlayerBulletx3::update));
 	return true;

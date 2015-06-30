@@ -2,6 +2,7 @@
 
 
 using namespace cocos2d;
+using namespace Components;
 
 BackGround3Parts::BackGround3Parts() :_speed(150), _initialiced(false){
 	_screen = Director::getInstance()->getVisibleSize();
@@ -33,7 +34,7 @@ BackGround3Parts::BackGround3Parts() :_speed(150), _initialiced(false){
 }
 
 void BackGround3Parts::setParent(Node* parent){
-	//prevent the bq to bee added more than once to the scene
+	//impide que el objeto se insertado en la escena mas de una vez
 	if (!_initialiced){
 		parent->addChild(_bgPart1);
 		parent->addChild(_bgPart2);

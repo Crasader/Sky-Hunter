@@ -6,19 +6,19 @@
 
 USING_NS_CC;
 
+using namespace Levels;
+using namespace Actors;
+using namespace Menus;
+
 BaseGameLayer::~BaseGameLayer(){
 	CC_SAFE_DELETE(_bg);
 }
 
 Scene* BaseGameLayer::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = BaseGameLayer::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
@@ -35,14 +35,14 @@ bool BaseGameLayer::init(){
 	setTag(0);
 	GameManager::getInstance()->setPlayerScore(0);
 
-	//todas las pantallass de nuestro juego usaran este sprite sheet
+	//todas las pantallas de nuestro juego usaran este sprite sheet
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Hunter.plist", "Hunter.png");
 	_gameBatchNode = SpriteBatchNode::create("Hunter.png");
 	addChild(_gameBatchNode,ForegroundPos);
 
 
 	//player
-	_player = Player::create();
+	_player = Actors::Player::create();
 	_player->setPosition(_visibleSize.width*0.5, _visibleSize.height*0.3);
 	_gameBatchNode->addChild(_player, ForegroundPos);
 

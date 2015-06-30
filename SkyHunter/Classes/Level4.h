@@ -4,49 +4,50 @@
 #include "BaseGameLayer.h"
 #include "Cloud.h"
 
-class HealthParticle;
-class Blizzard;
+namespace Components{
+	class Blizzard;
+}
 
+namespace Levels{
+	class Level4 : public BaseGameLayer
+	{
 
-class Level4 : public BaseGameLayer
-{
+	private:
+		Components::Blizzard* blizz;
+		int CLOUDS_TAG = 0;
+		cocos2d::Action* _cloudsScheduler;
+		const int _cloudsPerRow = 6;
+		int _numOfClouds;
+		int _cloudIndex;
 
-private:
-	Blizzard* blizz;
-	int CLOUDS_TAG = 0;
-	cocos2d::Action* _cloudsScheduler;
-	const int _cloudsPerRow = 6;
-	int _numOfClouds;
-	int _cloudIndex;
+		cocos2d::Vector<Components::Cloud* > _clouds;
+		std::vector<bool> _isPositionFree;
 
-	cocos2d::Vector<Cloud* > _clouds;
-	std::vector<bool> _isPositionFree;
+		void checkCollisions();
+		void scheduleActions();
 
-	void checkCollisions();
-	void scheduleActions();
+		void initActors();
+		void initClouds();
 
-	void initActors();
-	void initClouds();
+		void cloudScheduler();
+		void cloudPositioner();
 
-	void cloudScheduler();
-	void cloudPositioner();
+		void awakeEnemyScheduler();
+		void awakeEnemy();
 
-	void awakeEnemyScheduler();
-	void awakeEnemy();
+	protected:
+		virtual void initializeVariables();
+		virtual void respawnButtonAction();
+		virtual void pauseButtonAction();
+		virtual void playButtonAction();
 
-protected:
-	virtual void initializeVariables();
-	virtual void respawnButtonAction();
-	virtual void pauseButtonAction();
-	virtual void playButtonAction();
+	public:
+		static cocos2d::Scene* createScene();
+		virtual bool init();
+		void update(float dt);
 
-public:
-	static cocos2d::Scene* createScene();
-	virtual bool init();
-	void update(float dt);
-
-	CREATE_FUNC(Level4);
-};
-
+		CREATE_FUNC(Level4);
+	};
+}
 
 #endif // __LEVEL4_SCENE_H__

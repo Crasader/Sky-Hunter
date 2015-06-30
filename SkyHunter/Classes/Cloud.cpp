@@ -1,6 +1,8 @@
 #include "Cloud.h"
 
 USING_NS_CC;
+using namespace Components;
+using namespace Actors;
 
 bool Cloud::init(){
 	if (!Sprite::init())
@@ -17,7 +19,7 @@ bool Cloud::init(){
 void Cloud::update(float dt){
 	if(!isVisible())return;
 	//baja solo si el jugador esta activo 
-	//si no permatnecen quietas pues no tienen motor.
+	//si no permanecen quietas.
 	if (_target->isVisible()){
 		setAnchorPoint(Point(0.5, 1));
 		setPosition(getPositionX(), getPositionY() - _speed*dt);
@@ -27,7 +29,7 @@ void Cloud::update(float dt){
 	}
 
 	if (getBoundingBox().intersectsRect(_target->getBoundingBox()) &&
-		_target->isVisible() && _target->getCurrentAnimation() != Player::Animations::EXPLOSION){
+		_target->isVisible() && _target->getCurrentAnimation() != Actors::Player::Animations::EXPLOSION){
 		//colision	
 		_target->setHealth(0);
 	}

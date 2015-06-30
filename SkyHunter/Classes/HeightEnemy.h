@@ -5,17 +5,18 @@
 
 #include "BasicEnemy.h"
 
+namespace Actors{
+	class HeightEnemy : public BasicEnemy
+	{
+	protected:
+		virtual void createBullets();
+	public:
+		HeightEnemy();
+		CREATE_FUNC(HeightEnemy);
+		virtual bool init();
 
-class HeightEnemy : public BasicEnemy
-{
-protected:
-	virtual void createBullets();
-public:
-	HeightEnemy();
-	CREATE_FUNC(HeightEnemy);
-	virtual bool init();
 
 
-
-};
+	};
+}
 #endif //__HEIGHTENEMY_H__

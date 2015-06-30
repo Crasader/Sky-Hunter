@@ -4,27 +4,25 @@
 #include "MainMenuLayer.h"
 
 USING_NS_CC;
+using namespace Levels;
+using namespace Actors;
+using namespace Menus;
+
 
 Scene* Level1::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level1::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
 bool Level1::init()
 {
 	if (!BaseGameLayer::init())
 	{
 		return false;
 	}
-
 	initializeVariables();
 	initActors();
 	scheduleActions();
@@ -39,7 +37,7 @@ void Level1::initializeVariables(){
 	CustomAudioManager::getInstance()->playBackgroundSound("music/Cetus.wav", true);
 	_scoreToCompleTheLevel = 750;
 
-	_bg = new Background("fondo");
+	_bg = new Components::Background("fondo");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
 }
 
@@ -53,12 +51,13 @@ void Level1::scheduleActions(){
 void Level1::initActors()
 {
 	for (int i = 0; i < _numEnemies; i++){
-		auto enemy = BasicEnemy::create();
-		//tell the enemies about the player.
+		auto enemy = Actors::BasicEnemy::create();
+		//da informacion a los enemigos acerca del player
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
 	}
+	//da info al player aerca de los enemigos
 	_player->setTargets(_enemyPool);
 
 }
@@ -70,7 +69,7 @@ void Level1::update(float dt)
 {
 	BaseGameLayer::update(dt);
 	_player->update(dt);
-	//check for collision between enemies & player
+	//colisiones entre enemigos y player
 	checkCollisions();
 }
 
@@ -103,15 +102,15 @@ void Level1::playButtonAction()
 void Level1::awakeEnemy()
 {
 	_enemyIndex = _enemyIndex % _numEnemies;
-	//select enemy
+
 	auto enemy = _enemyPool.at(_enemyIndex);
-	//Positioning
-	//the enemy size is 50*50, take care about the anchor point.
+	//posicionamos de forma aleatoria en el eje x un enemigo, teniendo en cuenta
+	//que cada enemigo mide 50*50
 	enemy->setPositionX(RandomHelper::random_int(static_cast<int>(0 + 50 * 0.5),
 		static_cast<int>(_visibleSize.width - 50 * 0.5)));
 	enemy->setPositionY(_visibleSize.height + 50 * 0.5);
-	enemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
-	//awake after positioning
+	enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
+	//reseteamos el estado del enemigo
 	if (!enemy->isVisible()){
 		enemy->setVisible(true);
 	}
@@ -121,13 +120,12 @@ void Level1::awakeEnemy()
 
 void Level1::awakeEnemyScheduler()
 {
-	//enemy ratio
-	// set up the time delay
+	//se generera un enemigo cada _awakeSpeed
 	DelayTime *delayAction = DelayTime::create(_awakeSpeed);
-	// perform the selector call
+	// creamos la acción que despertara a los enemigos
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level1::awakeEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
-	// run the action all the time
+	// repetimos esto hasta el final del juego
 	runAction(RepeatForever::create(awakeEnemySequence));
 }
 
@@ -138,7 +136,7 @@ void Level1::checkCollisions()
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())
 			&& enemy->isVisible() && _player->isVisible()){
-			enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
+			enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::EXPLOSION);
 			_player->setHealth(0);
 		}
 	}

@@ -5,20 +5,19 @@
 #include "Blizzard.h"
 
 USING_NS_CC;
+using namespace Levels;
+using namespace Actors;
+using namespace Components;
+
 
 Scene* Level4::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level4::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
 bool Level4::init()
 {
 	if (!BaseGameLayer::init())
@@ -43,10 +42,10 @@ void Level4::initializeVariables(){
 
 	_scoreToCompleTheLevel = 700;
 
-	_bg = new Background("fondo3");
+	_bg = new Components::Background("fondo3");
 	_bg->setParent(_gameBatchNode, BackgroundPos);
 	_bg->setSpeed(100);
-	blizz = Blizzard::create();
+	blizz = Components::Blizzard::create();
 	addChild(blizz,ForegroundPos);
 	
 }
@@ -65,24 +64,23 @@ void Level4::initClouds(){
 
 void Level4::cloudScheduler()
 {
-	//cloud ratio
+	//una fila de nubes cada 10s
 	DelayTime *delayAction = DelayTime::create(10.0f);
-	// perform the selector call
+	// posiciona la fila de nubes
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level4::cloudPositioner, this));
 	_cloudsScheduler = RepeatForever::create(Sequence::create(callSelectorAction, delayAction, NULL));
 	_cloudsScheduler->setTag(CLOUDS_TAG);
-	// run the action all the time
+
 	runAction(_cloudsScheduler);
 
 }
 void Level4::cloudPositioner()
 {
-
 	float spacingBetweenClouds = (20.0f / _cloudsPerRow) * getScaleX();
 	auto freeIndex = RandomHelper::random_int(0,4);
 	_isPositionFree.at(freeIndex) = true;
 	_isPositionFree.at(freeIndex+1) = true;
-	//cada nube mide 50 + 50
+	//cada nube mide 50 * 50
 	int positionY = _visibleSize.height + 50 * 0.5;
 	//posicion X inicial.
 	float positionX = 50*0.5;
@@ -114,15 +112,13 @@ void Level4::scheduleActions(){
 void Level4::initActors()
 {
 	for (int i = 0; i < _numEnemies; i++){
-		auto enemy = BasicEnemy::create();
-		//tell the enemies about the player.
+		auto enemy = Actors::BasicEnemy::create();
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
 	}
 	_player->setTargets(_enemyPool);
 }
-
 
 
 
@@ -133,7 +129,6 @@ void Level4::update(float dt)
 	if (!_player->isVisible()){
 		stopActionByTag(CLOUDS_TAG);
 	}
-	//check for collision between enemies & player
 	checkCollisions();
 }
 
@@ -183,15 +178,14 @@ void Level4::playButtonAction()
 void Level4::awakeEnemy()
 {
 	_enemyIndex = _enemyIndex % _numEnemies;
-	//select enemy
+
 	auto enemy = _enemyPool.at(_enemyIndex);
-	//Positioning
-	//the enemy size is 50*50, take care about the anchor point.
+
 	enemy->setPositionX(RandomHelper::random_int(static_cast<int>(0 + 50 * 0.5),
 		static_cast<int>(_visibleSize.width - 50 * 0.5)));
 	enemy->setPositionY(_visibleSize.height + 50 * 0.5);
-	enemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
-	//awake after positioning
+	enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
+
 	if (!enemy->isVisible()){
 		enemy->setVisible(true);
 	}
@@ -201,13 +195,12 @@ void Level4::awakeEnemy()
 
 void Level4::awakeEnemyScheduler()
 {
-	//enemy ratio
-	// set up the time delay
+
 	DelayTime *delayAction = DelayTime::create(1.5f);
-	// perform the selector call
+
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level4::awakeEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
-	// run the action all the time
+
 	runAction(RepeatForever::create(awakeEnemySequence));
 }
 
@@ -218,7 +211,7 @@ void Level4::checkCollisions()
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())
 			&& enemy->isVisible() && _player->isVisible()){
-			enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
+			enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::EXPLOSION);
 			_player->setHealth(0);
 		}
 	}

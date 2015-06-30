@@ -2,6 +2,7 @@
 
 
 USING_NS_CC;
+using namespace Actors;
 
 bool TouchController::init(){
 	//super first

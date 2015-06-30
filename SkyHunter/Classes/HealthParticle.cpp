@@ -2,6 +2,8 @@
 #include "Player.h"
 
 USING_NS_CC;
+using namespace Components;
+using namespace Actors;
 
 bool HealthParticle::init()
 {
@@ -24,7 +26,7 @@ bool HealthParticle::init()
 void HealthParticle::update(float dt)
 {
 	if (!isVisible()) return;
-	//go down 
+	//para abajo
 	setAnchorPoint(Point(0.5, 1));
 	setPosition(getPositionX(), getPositionY() - _speed*dt);
 	if (getPositionY() < 0){
@@ -33,6 +35,7 @@ void HealthParticle::update(float dt)
 	if (_target != nullptr && _target->getBoundingBox().intersectsRect(getBoundingBox())
 		&& isVisible() && _target->isVisible() && _target->getCurrentAnimation()!=Player::Animations::EXPLOSION)
 	{
+		//colision
 		_target->setHealth(MAX_HEALTH);
 		setVisible(false);
 	}

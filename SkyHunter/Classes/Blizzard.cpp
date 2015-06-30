@@ -1,6 +1,7 @@
 #include "Blizzard.h"
 
 using namespace cocos2d;
+using namespace Components;
 
 bool Blizzard::init(){
 	if (!Node::init())
@@ -42,12 +43,12 @@ void Blizzard::update(float dt){
 
 void Blizzard::scheduleBlizzard()
 {
-	//snow ratio
+	//velocidad de los copos de nieve
 	DelayTime *delayAction = DelayTime::create(0.1f);
-	// perform the selector call
+	// coloca los copos de forma aletoria
 	CallFunc *callPositioning = CallFunc::create(CC_CALLBACK_0(Blizzard::positioningParticle, this));
 	auto awakeEnemySequence = Sequence::create(callPositioning, delayAction, NULL);
-	// run the action all the time
+
 	runAction(RepeatForever::create(awakeEnemySequence));
 }
 
@@ -57,7 +58,7 @@ void Blizzard::positioningParticle(){
 	auto particle = _snow.at(_snowIndex);
 	
 	auto size = particle->getBoundingBox().size;
-	//Positioning
+	//Posicionado de los copos de nieve
 	particle->setPositionX(RandomHelper::random_int(static_cast<int>(size.width * 0.5),
 		static_cast<int>(_visibleSize.width - size.width * 0.5)));
 	particle->setPositionY(_visibleSize.height + size.height * 0.5);

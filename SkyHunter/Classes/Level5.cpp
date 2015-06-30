@@ -3,6 +3,9 @@
 #include "Blizzard.h"
 
 USING_NS_CC;
+using namespace Levels;
+using namespace Actors;
+using namespace Components;
 
 Level5::~Level5(){
 	CC_SAFE_RELEASE(_cloudsScheduler);
@@ -10,25 +13,18 @@ Level5::~Level5(){
 
 Scene* Level5::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level5::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
 bool Level5::init()
 {
 	if (!Level2::init())
 	{
 		return false;
 	}
-
-
 	cloudScheduler();
 	initClouds();
 	return true;
@@ -66,13 +62,12 @@ void Level5::initClouds(){
 
 void Level5::cloudScheduler()
 {
-	//cloud ratio
+	//una fila de nubes cada 15s
 	DelayTime *delayAction = DelayTime::create(15.0f);
-	// perform the selector call
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level5::cloudPositioner, this));
 	_cloudsScheduler = RepeatForever::create(Sequence::create(callSelectorAction, delayAction, NULL));
 	_cloudsScheduler->setTag(CLOUDS_TAG);
-	// run the action all the time
+
 	_cloudsScheduler->retain();
 	runAction(_cloudsScheduler);
 

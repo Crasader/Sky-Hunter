@@ -3,17 +3,20 @@
 
 #include "cocos2d.h"
 
-class Player;
+	
 
-class EnemyBullet : public cocos2d::Sprite
-{
-public:
-	CC_SYNTHESIZE(float, _speed, Speed);
-	CC_SYNTHESIZE(Player*, _enemyTarget, EnemyTarget);
-	CREATE_FUNC(EnemyBullet);
-	virtual void update(float dt);
-	virtual bool init();
-};
+namespace Actors{
+	class Player;
 
+	class EnemyBullet : public cocos2d::Sprite
+	{
+	public:
+		CC_SYNTHESIZE(float, _speed, Speed);
+		CC_SYNTHESIZE(Player*, _enemyTarget, EnemyTarget);
+		CREATE_FUNC(EnemyBullet);
+		virtual void update(float dt);
+		virtual bool init();
+	};
+}
 #endif //__ENEMYBULLET_H__
 

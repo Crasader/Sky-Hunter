@@ -5,8 +5,10 @@
 
 
 USING_NS_CC;
+using namespace Levels;
 
-Player::Player() :_speed(150),
+
+Actors::Player::Player() :_speed(150),
 _numBullets(30),
 _bulletIndex(0),
 _health(MAX_HEALTH),
@@ -17,8 +19,8 @@ _initialiced(false)
 
 
 
-bool Player::init(){
-	//superclass first
+bool Actors::Player::init(){
+
 	if (!Sprite::init())
 	{
 		return false;
@@ -37,7 +39,7 @@ bool Player::init(){
 	createIdleAnimation();
 	createExplosionAnimation();
 
-	//start the initial animation
+	//lanza la animación por defecto
 	runAction(_idleAnimation);
 
 	_hitEffect = ParticleSystemQuad::create("impact.plist");
@@ -50,7 +52,7 @@ bool Player::init(){
 
 }
 
-void Player::runHitEffect(){
+void Actors::Player::runHitEffect(){
 	_hitEffect->setPositionX(getPositionX());
 	_hitEffect->setPositionY(getPositionY() + getBoundingBox().size.height*0.5);
 	_hitEffect->setVisible(true);
@@ -58,7 +60,7 @@ void Player::runHitEffect(){
 	CustomAudioManager::getInstance()->playEffect("music/hit.wav", false);
 }
 
-void Player::updateBullets(const std::function<PlayerBullet*()>& create)
+void Actors::Player::updateBullets(const std::function<PlayerBullet*()>& create)
 {
 	stopActionByTag(SHOOT_TAG);
 	for (int i = 0; i < _numBullets; i++){
@@ -72,7 +74,7 @@ void Player::updateBullets(const std::function<PlayerBullet*()>& create)
 }
 
 
-void Player::setHealth(int health){
+void Actors::Player::setHealth(int health){
 	_health = health;
 	if (_health <= 0){
 		_health = 0;
@@ -82,7 +84,7 @@ void Player::setHealth(int health){
 	}
 }
 
-void Player::setVisible(bool visible){
+void Actors::Player::setVisible(bool visible){
 	Sprite::setVisible(visible);
 	if (!visible){
 		runAction(_shoot);
@@ -92,14 +94,14 @@ void Player::setVisible(bool visible){
 	}
 }
 
-void Player::pause(){
+void Actors::Player::pause(){
 	Sprite::pause();
 	for (Node* node : _bulletPool){
 		node->pause();
 	}
 }
 
-void Player::resume(){
+void Actors::Player::resume(){
 	Sprite::resume();
 	for (Node* node : _bulletPool){
 		node->resume();
@@ -107,7 +109,7 @@ void Player::resume(){
 }
 
 
-void Player::setTargets(const  cocos2d::Vector<BasicEnemy*>& targets){
+void Actors::Player::setTargets(const  cocos2d::Vector<BasicEnemy*>& targets){
 	_targets = targets;
 	for (int i = 0; i < _numBullets; i++){
 		_bulletPool.at(i)->setPlayerTargets(_targets);
@@ -115,12 +117,12 @@ void Player::setTargets(const  cocos2d::Vector<BasicEnemy*>& targets){
 }
 
 
-void Player::setParent(Node* parent){
+void Actors::Player::setParent(Node* parent){
 	_parent = parent;
-	//prevent the bullet to been added more than once to the scene
+	//impide que las balas se incorporen mas de una vez a la escena
 	if (!_initialiced){
 		for (int i = 0; i < _numBullets; i++){
-			//add bullets to parent, in this case is GameLayer.
+			//incorporan las balas al la escena
 			parent->addChild(_bulletPool.at(i), getLocalZOrder());
 		}
 		parent->getParent()->addChild(_hitEffect,getLocalZOrder());
@@ -130,22 +132,23 @@ void Player::setParent(Node* parent){
 }
 
 
-void Player::scheduleShoot(){
-	// set up the time delay
+void Actors::Player::scheduleShoot(){
+	//establecemos que la nave disparara cada medio segundo
 	DelayTime *delayAction = DelayTime::create(0.5f);
-
-	// perform the selector call
+	// creamos una accion a partir de una funcion
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Player::shoot, this));
+	//creamos una secuencia que primero espera y luego dispara
 	auto shootSequence = Sequence::create(delayAction, callSelectorAction, NULL);
-
+	// envolvemos la secuencia un una accion RepeatForever
 	_shoot = RepeatForever::create(shootSequence);
 	_shoot->setTag(SHOOT_TAG);
+	// le decimos a cocos que no elimine este objeto hasta que lo indiquemos o 
+	//hasta que el objeto player se elimine
 	_shoot->retain();
-	// run the action all the time
 	runAction(_shoot);
 }
 
-void Player::reset(){
+void Actors::Player::reset(){
 
 	if (!isVisible())
 	{
@@ -166,8 +169,8 @@ void Player::reset(){
 
 }
 
-void Player::createIdleAnimation(){
-	//create animation pool
+void Actors::Player::createIdleAnimation(){
+	//creamos un pool de imagenes para la animacion
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
 	std::ostringstream ostr;
@@ -180,26 +183,29 @@ void Player::createIdleAnimation(){
 		animation->addSpriteFrame(frame);
 		name = "";
 	}
-	//set base sprite before run anything
+	//si ninguna animacion esta corriendo el esprite por defecto es definido aqui
 	this->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("player0"));
-	//create the animation with a deley of 0.25 ms between images
+
+
+	//creamos una animacion con un tiempo de espera entre cada frame de 0.25s
 	animation->setDelayPerUnit(0.25f);
 
-	//create the action of animate with the previous animation
+	//creamos la accion de animar el objeto animation
 	auto animate = Animate::create(animation);
 
-	//set the periodicity of reproduction
+	//creamos una accion que repita para siempre la animacion
 	_idleAnimation = RepeatForever::create(animate);
 
-	//put a tag on the animation in order to identify and stop it in the future
+	//le ponemos un tag para poder pararlo en el futuro
 	_idleAnimation->setTag(Player::Animations::IDLE);
 
-	//preserve for future uses
+	// le decimos a cocos que no elimine este objeto hasta que lo indiquemos o 
+	//hasta que el objeto player se elimine
 	_idleAnimation->retain();
 }
 
-void Player::createExplosionAnimation(){
-	//create animation pool
+void Actors::Player::createExplosionAnimation(){
+	//mismo proceso que en createIdleAnimation
 	Animation* animation = animation = Animation::create();
 	std::string name = "";
 	std::ostringstream ostr;
@@ -212,20 +218,13 @@ void Player::createExplosionAnimation(){
 		animation->addSpriteFrame(frame);
 		name = "";
 	}
-
-	//create the animation with a deley of 0.15 ms between images
 	animation->setDelayPerUnit(0.15f);
-
-	//create the action of animate with the previous animation,
-	//the default perodicity for an animate object is 1
 	_explosionAnimation = Animate::create(animation);
-
-	//put a tag on the animation in oreder to identify and stop it in the future
 	_explosionAnimation->setTag(Player::Animations::EXPLOSION);
 	_explosionAnimation->retain();
 }
 
-void Player::setCurrentAnimation(Animations anim){
+void Actors::Player::setCurrentAnimation(Animations anim){
 	if (_currentAnimation == anim) return;
 	_currentAnimation = anim;
 	if (_currentAnimation == IDLE){
@@ -239,7 +238,7 @@ void Player::setCurrentAnimation(Animations anim){
 	}
 }
 
-void Player::update(float dt){
+void Actors::Player::update(float dt){
 	//si la nave es destruida no podra moverse y dejara de verse tras explotar 
 	if (_currentAnimation == EXPLOSION){
 		stopActionByTag(SHOOT_TAG);
@@ -282,7 +281,7 @@ void Player::update(float dt){
 	}
 }
 
-void Player::shoot(){
+void Actors::Player::shoot(){
 	_bulletIndex = _bulletIndex % _numBullets;
 	auto bullet = _bulletPool.at(_bulletIndex);
 	bullet->setAnchorPoint(Point(0.5, 0));

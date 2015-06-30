@@ -4,14 +4,15 @@
 
 #include "PlayerBullet.h"
 
+namespace Actors{
+	class PlayerBulletx2 :public PlayerBullet
+	{
 
-class PlayerBulletx2 :public PlayerBullet
-{
+	public:
 
-public:
+		CREATE_FUNC(PlayerBulletx2);
+		virtual bool init();
 
-	CREATE_FUNC(PlayerBulletx2);
-	virtual bool init();
-
-};
+	};
+}
 #endif //__PLAYERBULLETx2_H__

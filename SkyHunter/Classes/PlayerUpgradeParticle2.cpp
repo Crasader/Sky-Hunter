@@ -2,6 +2,8 @@
 
 
 USING_NS_CC;
+using namespace Components;
+using namespace Actors;
 
 bool PlayerUpgradeParticle2::init()
 {

@@ -3,23 +3,22 @@
 #include "Blizzard.h"
 
 USING_NS_CC;
+using namespace Levels;
+using namespace Actors;
+using namespace Components;
 
 
 
 
 Scene* Level7::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level7::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
+
 bool Level7::init()
 {
 	if (!Level1::init())

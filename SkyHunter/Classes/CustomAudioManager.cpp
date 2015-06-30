@@ -7,6 +7,7 @@
 
 USING_NS_CC;
 using namespace CocosDenshion;
+using namespace Levels;
 
 CustomAudioManager* CustomAudioManager::_instance = nullptr;
 
@@ -24,7 +25,6 @@ CustomAudioManager* CustomAudioManager::getInstance(){
 
 void CustomAudioManager::playEffect(const std::string& filename, bool loop){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	//just for debug use this in win32
 	std::string name = filename.substr(0, filename.find(".")); 
 	experimental::AudioEngine::play2d(name+".mp3", loop, GameManager::getInstance()->getEffectsVolume()*0.01); 
 
@@ -36,7 +36,6 @@ void CustomAudioManager::playEffect(const std::string& filename, bool loop){
 
 void CustomAudioManager::playBackgroundSound(const std::string& filename, bool loop){
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-	//just for debug use this in win32
 	std::string name = filename.substr(0, filename.find(".")); 
 	experimental::AudioEngine::play2d(name+".mp3", loop, GameManager::getInstance()->getEffectsVolume()*0.01); 
 	

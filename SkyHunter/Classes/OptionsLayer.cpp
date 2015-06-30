@@ -4,20 +4,14 @@
 
 USING_NS_CC;
 using namespace ui;
-
+using namespace Menus;
+using namespace Levels;
 
 Scene* OptionsLayer::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-
-	// 'layer' is an autorelease object
 	auto layer = OptionsLayer::create();
-
-	// add layer as a child to scene
 	scene->addChild(layer);
-
-	// return the scene
 	return scene;
 }
 
@@ -29,7 +23,7 @@ bool OptionsLayer::init(){
 	int marginY = _visibleSize.height - 100 * getScaleY();
 
 
-	//Background volumen options Componentes
+	// label que indica la configuracion de sonidos de fondo
 	_backGroundVolumeLabel = Label::createWithTTF("0", "fonts/arial.ttf", 16);
 	_backGroundVolumeLabel->setAnchorPoint(Point(0, 1));
 	_backGroundVolumeLabel->setTextColor(Color4B::BLACK);
@@ -39,7 +33,7 @@ bool OptionsLayer::init(){
 	_backGroundVolumeLabel->setPosition(Point(marginX, marginY));
 	addChild(_backGroundVolumeLabel);
 
-
+	// slider para la configuracion de sonidos de fondo
 	_backGroundVolume = Slider::create();
 	_backGroundVolume->loadBarTexture("Slider_Back", Widget::TextureResType::PLIST);
 	_backGroundVolume->loadSlidBallTextures("SliderNode_Normal", "SliderNode_Press", "SliderNode_Disable", Widget::TextureResType::PLIST);
@@ -51,7 +45,7 @@ bool OptionsLayer::init(){
 	_backGroundVolume->addEventListener(CC_CALLBACK_0(OptionsLayer::actionBackGroundVolumeSlider, this));
 	addChild(_backGroundVolume);
 
-	//Effects volumen options Componentes
+	// label que indica la configuracion de efectos de sonido
 	_effectsVolumeLabel = Label::createWithTTF("0", "fonts/arial.ttf", 16);
 	_ostr << GameManager::getInstance()->getEffectsVolume();
 	_effectsVolumeLabel->setString("Effects volume: " + _ostr.str());
@@ -62,7 +56,7 @@ bool OptionsLayer::init(){
 	_effectsVolumeLabel->setPosition(Point(marginX, marginY));
 	addChild(_effectsVolumeLabel);
 
-
+	// slider la configuracion de efectos de sonido
 	_effectsVolume = Slider::create();
 	_effectsVolume->loadBarTexture("Slider_Back", Widget::TextureResType::PLIST);
 	_effectsVolume->loadSlidBallTextures("SliderNode_Normal", "SliderNode_Press", "SliderNode_Disable", Widget::TextureResType::PLIST);
@@ -74,9 +68,7 @@ bool OptionsLayer::init(){
 	_effectsVolume->addEventListener(CC_CALLBACK_0(OptionsLayer::actionEffectsVolumeSlider, this));
 	addChild(_effectsVolume);
 
-
-
-	//crete back button
+	//crear boton de volver
 	auto backBt = Button::create("back0", "back1", "back1", Widget::TextureResType::PLIST);
 	backBt->setAnchorPoint(Point(0, 0.5));
 	backBt->addClickEventListener(CC_CALLBACK_0(OptionsLayer::actionButtonBack, this));

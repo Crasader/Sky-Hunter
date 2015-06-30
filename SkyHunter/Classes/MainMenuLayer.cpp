@@ -18,16 +18,14 @@
 
 USING_NS_CC;
 using namespace ui;
+using namespace Menus;
+using namespace Levels;
 
 Scene* MainMenuLayer::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = MainMenuLayer::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
@@ -36,8 +34,8 @@ bool MainMenuLayer::init(){
 	if (!BaseMenuLayer::init()){
 		return false;
 	}
-	//init function
-	initFunctions(_functions);
+	std::vector<std::function<void(Ref*)>> functions;
+	initFunctions(functions);
 
 	//lanza automaticamente el siguiente nivel a jugar
 	auto startButton = Button::create("start0", "start1", "start1", Widget::TextureResType::PLIST);
@@ -45,15 +43,15 @@ bool MainMenuLayer::init(){
 	startButton->setPosition(Vec2(_visibleSize.width*0.5, _visibleSize.height - (90 * getScaleY())));
 	if (GameManager::getInstance()->getNextLevel() == NUM_LEVELS)
 	{
-		startButton->addClickEventListener(_functions.at(NUM_LEVELS - 1));
+		startButton->addClickEventListener(functions.at(NUM_LEVELS - 1));
 	}
 	else
 	{
-		startButton->addClickEventListener(_functions.at(GameManager::getInstance()->getNextLevel()));
+		startButton->addClickEventListener(functions.at(GameManager::getInstance()->getNextLevel()));
 	}
 	addChild(startButton);
 
-	//lanza el menu de lseleccion de nivel
+	//lanza el menu de seleccion de nivel
 	auto nextHeight = startButton->getPositionY() - startButton->getBoundingBox().size.height - (30 * getScaleY());
 	auto selectButton = Button::create("select0", "select1", "select1", Widget::TextureResType::PLIST);
 	selectButton->setAnchorPoint(Point(0.5, 1));

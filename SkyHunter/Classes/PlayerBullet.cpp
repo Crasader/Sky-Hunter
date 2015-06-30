@@ -3,8 +3,9 @@
 #include "GameManager.h"
 
 USING_NS_CC;
+using namespace Levels;
 
-bool PlayerBullet::init(){
+bool Actors::PlayerBullet::init(){
 
 	if (!Sprite::init()){
 		return false;
@@ -13,15 +14,15 @@ bool PlayerBullet::init(){
 	setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("disparo_nave"));
 	_damage = 1;
 	_speed = 160;
-	//invisible by default
+	//invisible por defecto
 	setVisible(false);
 	schedule(schedule_selector(PlayerBullet::update));
 	return true;
 }
 
-void PlayerBullet::update(float dt){
+void Actors::PlayerBullet::update(float dt){
 	if (!this->isVisible()) return;
-	//go up 
+	//para arriba
 	setAnchorPoint(Point(0.5, 0));
 	setPosition(getPositionX(), getPositionY() + _speed*dt);
 	if (getPositionY() > Director::getInstance()->getVisibleSize().height){
@@ -43,6 +44,6 @@ void PlayerBullet::update(float dt){
 	}
 }
 
-void PlayerBullet::playShootSound(){
+void Actors::PlayerBullet::playShootSound(){
 	CustomAudioManager::getInstance()->playEffect("music/laser_shoot.wav", false);
 }

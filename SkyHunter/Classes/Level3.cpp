@@ -10,20 +10,18 @@
 
 
 USING_NS_CC;
+using namespace Levels;
+using namespace Components;
+using namespace Actors;
 
 Scene* Level3::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-	// 'layer' is an autorelease object
 	auto layer = Level3::create();
-	// add layer as a child to scene
 	scene->addChild(layer);
-	// return the scene
 	return scene;
 }
 
-// on "init" you need to initialize your instance
 bool Level3::init()
 {
 	if (!BaseGameLayer::init())
@@ -48,7 +46,7 @@ void Level3::scheduleActions(){
 }
 
 void Level3::schduleUpgrades(){
-	//heath & upgrade launchers
+	//lanza upgrades de salud y municion
 	DelayTime *delayOne = DelayTime::create(60);
 	DelayTime *delayTwo = DelayTime::create(30);
 	CallFunc *launhHealth = CallFunc::create(CC_CALLBACK_0(Level3::launchHealth, this));
@@ -73,14 +71,14 @@ void Level3::initActors()
 	
 	//añade los enemigos básicos al array de enemigos
 	for (int i = 0; i < _numEnemies - _numMediumEnemies-_numHeightEnemies; i++){
-		auto enemy = BasicEnemy::create();
+		auto enemy = Actors::BasicEnemy::create();
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
 	}
 	//añade los enemigos de nivel medio al array
 	for (int i = 0; i < _numMediumEnemies; i++){
-		auto enemy = MediumEnemy::create();
+		auto enemy = Actors::MediumEnemy::create();
 		enemy->setTarget(_player);
 		_enemyPool.pushBack(enemy);
 		_gameBatchNode->addChild(enemy, ForegroundPos);
@@ -129,7 +127,7 @@ void Level3::update(float dt)
 {
 	BaseGameLayer::update(dt);
 	_player->update(dt);
-	//check for collision between enemies & player
+	//mira colisiones entre enemigos y el player
 	checkCollisions();
 	launchHeightEnemies();
 }
@@ -179,21 +177,20 @@ void Level3::playButtonAction()
 
 void Level3::awakeMediumEnemyScheduler()
 {
-	//enemy ratio
-	// set up the time delay
+
 	DelayTime *delayAction = DelayTime::create(_mediumAwakeSpeed);
-	// perform the selector call
+
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level3::awakeMediumEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
 	auto action = RepeatForever::create(awakeEnemySequence);
 	action->setTag(MediumScheduler);
-	// run the action all the time
+
 	runAction(action);
 }
 
 void Level3::awakeMediumEnemy()
 {
-	//despierta n enemigo básico que sigue a un enemigo medio.
+	//despierta un enemigo básico que sigue a un enemigo medio.
 	_enemyIndex = _enemyIndex % (_numEnemies - _numMediumEnemies-_numHeightEnemies);
 
 	//basic enemy
@@ -203,7 +200,7 @@ void Level3::awakeMediumEnemy()
 	basicEnemy->setPositionX(RandomHelper::random_int(static_cast<int>(size.width * 0.5),
 		static_cast<int>(_visibleSize.width - size.width * 0.5)));
 	basicEnemy->setPositionY(_visibleSize.height + size.height * 1.5);
-	basicEnemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	basicEnemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
 	//awake
 	if (!basicEnemy->isVisible()){
 		basicEnemy->setVisible(true);
@@ -214,7 +211,7 @@ void Level3::awakeMediumEnemy()
 	//Positioning
 	enemy->setPositionX(basicEnemy->getPositionX());
 	enemy->setPositionY(basicEnemy->getPositionY() - size.height);
-	enemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
 	//awake
 	if (!enemy->isVisible()){
 		enemy->setVisible(true);
@@ -236,7 +233,7 @@ void Level3::awakeHeightEnemy()
 	mediumEnemy->setPositionX(RandomHelper::random_int(static_cast<int>(mediumEnemySize.width * 0.5),
 		static_cast<int>(_visibleSize.width - mediumEnemySize.width * 0.5)));
 	mediumEnemy->setPositionY(_visibleSize.height + mediumEnemySize.height * 1.5);
-	mediumEnemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	mediumEnemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
 	//awake
 	if (!mediumEnemy->isVisible()){
 		mediumEnemy->setVisible(true);
@@ -249,7 +246,7 @@ void Level3::awakeHeightEnemy()
 	heightEnemy->setPositionX(RandomHelper::random_int(static_cast<int>(heightEnemySize.width * 0.5),
 		static_cast<int>(_visibleSize.width - heightEnemySize.width * 0.5)));
 	heightEnemy->setPositionY(mediumEnemy->getPositionY() - mediumEnemySize.height);
-	heightEnemy->setCurrentAnimation(BasicEnemy::Animations::IDLE);
+	heightEnemy->setCurrentAnimation(Actors::BasicEnemy::Animations::IDLE);
 	//awake
 	if (!heightEnemy->isVisible()){
 		heightEnemy->setVisible(true);
@@ -260,15 +257,14 @@ void Level3::awakeHeightEnemy()
 
 void Level3::awakeHeightEnemyScheduler()
 {
-	//enemy ratio
-	// set up the time delay
+
 	DelayTime *delayAction = DelayTime::create(_heightAwakeSpeed);
-	// perform the selector call
+
 	CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level3::awakeHeightEnemy, this));
 	auto awakeEnemySequence = Sequence::create(delayAction, callSelectorAction, NULL);
 	auto action = RepeatForever::create(awakeEnemySequence);
 	action->setTag(HeightScheduler);
-	// run the action all the time
+
 	runAction(action);
 	
 }
@@ -282,7 +278,7 @@ void Level3::checkCollisions()
 		auto enemy = _enemyPool.at(i);
 		if (_player->getBoundingBox().intersectsRect(enemy->getBoundingBox())
 			&& enemy->isVisible() && _player->isVisible()){
-			enemy->setCurrentAnimation(BasicEnemy::Animations::EXPLOSION);
+			enemy->setCurrentAnimation(Actors::BasicEnemy::Animations::EXPLOSION);
 			_player->setHealth(0);
 		}
 	}
@@ -326,13 +322,11 @@ void Level3::launchHeightEnemies(){
 		stopActionByTag(MediumScheduler);
 		stopActionByTag(Upgrade);
 
-		//throw the upgrade
 		DelayTime *delayAction = DelayTime::create(8.0f);
-		// perform the selector call
+
 		CallFunc *callSelectorAction = CallFunc::create(CC_CALLBACK_0(Level3::launchUpgrade2, this));
 		auto launchUpgrade2 = Sequence::create(delayAction, callSelectorAction, NULL);
 
-		// run the action
 		runAction(launchUpgrade2);
 
 		DelayTime *delayOne = DelayTime::create(68);
