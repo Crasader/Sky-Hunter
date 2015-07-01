@@ -17,12 +17,24 @@ namespace Components{
 
 
 	public:
-		virtual void setParent(cocos2d::Node* parent);
-		void update(float dt);
 		BackGround3Parts();
 		~BackGround3Parts();
-
 		CC_SYNTHESIZE(float, _speed, Speed);
+
+		/**
+		@brief inserta el fondo en la escena
+		@param parent nodo padre del fondo
+		@param pos psoicion z de dibujado
+		*/
+		virtual void setParent(cocos2d::Node* parent);
+		/**
+		@brief metodo que se ejecuta en cada frame del juego y que movera a una cierta velocidad el fondo de pantalla
+		@param dt tiempo transcurrido desde la ultima ejecucion
+		*/
+		void update(float dt);
+
+
+		
 	};
 }
 

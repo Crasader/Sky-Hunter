@@ -5,12 +5,12 @@
 #include "HealthParticle.h"
 #include "PlayerUpgradeParticle.h"
 
-using namespace Levels;
-using namespace Actors;
 
 
 USING_NS_CC;
 using namespace Levels;
+using namespace Actors;
+
 
 Scene* Level2::createScene()
 {

@@ -10,8 +10,22 @@ namespace Components{
 	public:
 		CC_SYNTHESIZE(Actors::Player*, _target, Target);
 		CC_SYNTHESIZE(int, _speed, Speed);
+		/**
+		@brief  Metodo llamado por el game loop de cocos en cada frame
+		@param dt tiempo  transcurrido desde la ultima ejecucion
+		*/
 		virtual void update(float dt);
+
+		/**
+		@brief  Metodo sobrecargado de Layer que se ejecuta al llamar al metodo
+		create estatico para inicializar la capa
+		@return true    Inicializacion correcta
+		@return false   Inicializacion fallida
+		*/
 		virtual bool init();
+
+
+		// implementa el metodo  "static create()" 
 		CREATE_FUNC(Cloud);
 	};
 }

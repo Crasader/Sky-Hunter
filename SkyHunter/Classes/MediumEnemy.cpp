@@ -1,8 +1,6 @@
 #include "MediumEnemy.h"
 
 
-
-
 Actors::MediumEnemy::MediumEnemy()
 {
 	ENEMY_HEALTH = 2;

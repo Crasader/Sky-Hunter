@@ -9,6 +9,10 @@
 
 namespace Menus{
 
+
+	/**
+	@brief  Capa que representa el menu de opciones
+	*/
 	class OptionsLayer : public BaseMenuLayer
 	{
 	private:
@@ -17,14 +21,38 @@ namespace Menus{
 		cocos2d::ui::Slider* _backGroundVolume;
 		cocos2d::Label* _backGroundVolumeLabel;
 		cocos2d::Label * _effectsVolumeLabel;
+
+	private:
+		/**
+		@brief  Accion a ejecutar por el boton de volver atras que debe lanzar el menu principal
+		*/
 		void actionButtonBack();
+		/**
+		@brief  Accion a ejecutada cada vez que el valor del slider varia
+		*/
 		void actionBackGroundVolumeSlider();
+
+		/**
+		@brief  Accion a ejecutada cada vez que el valor del slider varia
+		*/
 		void actionEffectsVolumeSlider();
 
 	public:
+
+		/**
+		@brief  Metodo sobrecargado de Layer que se ejecuta al llamar al metodo
+		create estatico para inicializar la capa
+		@return true    Inicializacion correcta
+		@return false   Inicializacion fallida
+		*/
 		virtual bool init();
+
+		/**
+		@brief  crea una escena a partir de esta capa.
+		*/
 		static cocos2d::Scene* createScene();
-		// implement the "static create()" method manually
+
+		// implementa el metodo  "static create()" 
 		CREATE_FUNC(OptionsLayer);
 	};
 }

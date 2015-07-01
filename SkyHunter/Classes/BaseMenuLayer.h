@@ -4,6 +4,10 @@
 #include "BackGround3Parts.h"
 #include "cocos2d.h"
 namespace Menus{
+
+	/**
+	@brief  De esta clase de derivaran el resto de menus.
+	*/
 	class BaseMenuLayer :public cocos2d::Layer
 	{
 	protected:
@@ -15,12 +19,26 @@ namespace Menus{
 		BaseMenuLayer();
 		virtual ~BaseMenuLayer();
 
+		/**
+		@brief  Metodo llamado por el game loop de cocos en cada frame
+		*/
 		virtual void update(float dt);
+
+
+		/**
+		@brief  Metodo sobrecargado de Layer que se ejecuta al llamar al metodo
+		create estatico para inicializar la capa
+		@return true    Inicializacion correcta
+		@return false   Inicializacion fallida
+		*/
 		virtual bool init();
 
+		/**
+		@brief  crea una escena a partir de esta capa.
+		*/
 		static cocos2d::Scene* createScene();
 
-		// implement the "static create()" method manually
+		// implementa el metodo  "static create()" 
 		CREATE_FUNC(BaseMenuLayer);
 	};
 }
